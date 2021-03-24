@@ -15,12 +15,6 @@ figure_t &figure_init(void)
 }
 
 
-size_t get_vrtxs_num(const figure_t &figure)
-{
-    return figure.vertexes.len;
-}
-
-
 err_t read_figure(figure_t &figure, FILE *file)
 {
     figure = figure_init();
@@ -33,8 +27,14 @@ err_t read_figure(figure_t &figure, FILE *file)
     if ((rc = read_vertexes(figure.vertexes, file)))
         return rc;
 
-    if ((rc = read_links(figure.links, get_vrtxs_num(figure), file)))
+    if ((rc = read_links(figure.links, file)))
+    {
         destroy_vrtx_arr(figure.vertexes);
+        return rc;
+    }
+
+    if ((rc = check_links(figure.links, get_vrtxs_num(figure.vertexes))))
+        destroy_figure(figure);
 
     return rc;
 }
