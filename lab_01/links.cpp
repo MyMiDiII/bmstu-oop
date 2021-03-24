@@ -30,19 +30,27 @@ err_t check_link(const link_t &link, const size_t max_vrtx_num)
 }
 
 
-err_t read_link(link_t &link, const size_t max_vrtx_num, FILE *file)
+err_t check_links(const links_arr_t &links, const size_t max_vrtx_num)
 {
-    if (fscanf(file, "%lu%lu", &link.vertex1, &link.vertex2) != 2)
-        return READ_ERR;
+    err_t rc = OK;
 
-    if (check_link(link, max_vrtx_num))
-        return VALUE_ERR;
+    for (size_t i = 0; !rc && i < links.len; i++)
+        rc = check_link(links.data[i], max_vrtx_num);
 
     return OK;
 }
 
 
-err_t read_links(links_arr_t &links, const size_t max_vrtx_num, FILE *file)
+err_t read_link(link_t &link, FILE *file)
+{
+    if (fscanf(file, "%lu%lu", &link.vertex1, &link.vertex2) != 2)
+        return READ_ERR;
+
+    return OK;
+}
+
+
+err_t read_links_len(links_arr_t &links, FILE *file)
 {
     if (fscanf(file, "%lu", &links.len) != 1)
         return READ_ERR;
@@ -50,10 +58,30 @@ err_t read_links(links_arr_t &links, const size_t max_vrtx_num, FILE *file)
     if (!links.len)
         return VALUE_ERR;
 
-    err_t rc = allocate_links_arr(links);
+    return OK;
+}
+
+
+err_t read_links_data(links_arr_t &links, FILE *file)
+{
+    err_t rc = OK;
 
     for (size_t i = 0; !rc && i < links.len; i++)
-        rc = read_link(links.data[i], max_vrtx_num, file);
+        rc = read_link(links.data[i], file);
+
+    return rc;
+}
+
+
+err_t read_links(links_arr_t &links, FILE *file)
+{
+    err_t rc = read_links_len(links, file);
+
+    if (!rc)
+        rc = allocate_links_arr(links);
+
+    if (!rc)
+        rc = read_links_data(links, file);
 
     if (rc)
         destroy_links_arr(links);

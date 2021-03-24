@@ -42,6 +42,8 @@ void vertex_init(vertex_t &vertex);
 
 void vertexes_init(vrtx_arr_t &vertexes);
 
+size_t get_vrtxs_num(const vrtx_arr_t &vertexes);
+
 err_t read_vertex(vertex_t &vertex, FILE *file);
 
 err_t read_vertexes(vrtx_arr_t &vertexes, FILE *file);

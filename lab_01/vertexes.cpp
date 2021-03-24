@@ -22,6 +22,13 @@ void vertexes_init(vrtx_arr_t &vertexes)
     vertexes.len = 0;
 }
 
+
+size_t get_vrtxs_num(const vrtx_arr_t &vertexes)
+{
+    return vertexes.len;
+}
+
+
 err_t allocate_vrtx_arr(vrtx_arr_t &vertexes)
 {
     vertexes.data = (vertex_t *) malloc(sizeof(vertex_t) * vertexes.len);
@@ -42,7 +49,7 @@ err_t read_vertex(vertex_t &vertex, FILE *file)
 }
 
 
-err_t read_vertexes(vrtx_arr_t &vertexes, FILE *file)
+err_t read_vertexes_len(vrtx_arr_t &vertexes, FILE *file)
 {
     if (fscanf(file, "%lu", &vertexes.len) != 1)
         return READ_ERR;
@@ -50,10 +57,30 @@ err_t read_vertexes(vrtx_arr_t &vertexes, FILE *file)
     if (!vertexes.len)
         return VALUE_ERR;
 
-    err_t rc = allocate_vrtx_arr(vertexes);
+    return OK;
+}
+
+
+err_t read_vertexes_data(vrtx_arr_t &vertexes, FILE *file)
+{
+    err_t rc = OK;
 
     for (size_t i = 0; !rc && i < vertexes.len; i++)
         rc = read_vertex(vertexes.data[i], file);
+
+    return rc;
+}
+
+
+err_t read_vertexes(vrtx_arr_t &vertexes, FILE *file)
+{
+    err_t rc = read_vertexes_len(vertexes, file);
+
+    if (!rc)
+        rc = allocate_vrtx_arr(vertexes);
+
+    if (!rc)
+        rc = read_vertexes_data(vertexes, file);
 
     if (rc)
         destroy_vrtx_arr(vertexes);
@@ -73,7 +100,8 @@ void move_vertex(vertex_t &vertex, const move_t &move)
 void scale_vertex(vertex_t &vertex, const vertex_t centre,
                   const scale_t &scale)
 {
-    vertex.x = scale.kx * vertex.x + centre.x * (1 - scale.kx);
+    vertex.x = centre.x + scale.kx *(vertex.x - centre.x);
+           // scale.kx * vertex.x + centre.x * (1 - scale.kx);
     vertex.y = scale.ky * vertex.y + centre.y * (1 - scale.ky);
     vertex.z = scale.kz * vertex.z + centre.z * (1 - scale.kz);
 }
