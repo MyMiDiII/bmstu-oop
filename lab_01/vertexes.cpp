@@ -100,10 +100,9 @@ void move_vertex(vertex_t &vertex, const move_t &move)
 void scale_vertex(vertex_t &vertex, const vertex_t centre,
                   const scale_t &scale)
 {
-    vertex.x = centre.x + scale.kx *(vertex.x - centre.x);
-           // scale.kx * vertex.x + centre.x * (1 - scale.kx);
-    vertex.y = scale.ky * vertex.y + centre.y * (1 - scale.ky);
-    vertex.z = scale.kz * vertex.z + centre.z * (1 - scale.kz);
+    vertex.x = centre.x + scale.kx * (vertex.x - centre.x);
+    vertex.y = centre.y + scale.ky * (vertex.y - centre.y);
+    vertex.z = centre.z + scale.kz * (vertex.z - centre.z);
 }
 
 
