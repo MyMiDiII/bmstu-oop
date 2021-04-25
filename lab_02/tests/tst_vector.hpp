@@ -1,7 +1,9 @@
-#ifndef TST_VECTOR_H
-#define TST_VECTOR_H
+#ifndef TST_VECTOR_HPP
+#define TST_VECTOR_HPP
 
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
 
-#endif // TST_SIZE_H
+#include "tst_constructor.hpp"
+
+#endif // TST_SIZE_HPP
