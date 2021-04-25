@@ -1,4 +1,4 @@
-#include "tst_size.h"
+#include "tst_vector.hpp"
 
 #include <gtest/gtest.h>
 
