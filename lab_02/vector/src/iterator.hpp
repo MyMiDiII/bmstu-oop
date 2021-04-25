@@ -1,3 +1,6 @@
+#ifndef ITERATOR_HPP
+#define ITERATOR_HPP
+
 #include <time.h>
 #include "iterator.h"
 #include "exceptions.h"
@@ -104,3 +107,5 @@ void Iterator<Type>::indexCheck(const uint line)
                                typeid(*this).name(), __FUNCTION__);
     }
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
+
 #include "vector.h"
 
 template <typename Type>
@@ -42,3 +45,5 @@ Vector<Type>::Vector(const initializer_list<Type> &elements)
     for (auto elem : elements)
         *(It++) = elem;
 }
+
+#endif
