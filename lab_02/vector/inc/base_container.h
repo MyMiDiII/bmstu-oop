@@ -15,4 +15,6 @@ protected:
     size_t size = 0;
 };
 
+#include "base_container.hpp"
+
 #endif // BASE_CONTAINER_H
