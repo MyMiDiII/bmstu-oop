@@ -7,13 +7,15 @@ CONFIG += thread
 CONFIG -= qt
 
 HEADERS += \
-        tests/tst_size.h \
         tests/tst_vector.hpp \
-        tst_size.h \
-        vector/base_container.h
+        vector/inc/base_container.h \
+        vector/inc/vector.h
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        vector/src/base_container.cpp \
+        vector/src/vector.cpp
 
 INCLUDEPATH += \
-        tests/
+        tests/ \
+        vector/inc/
