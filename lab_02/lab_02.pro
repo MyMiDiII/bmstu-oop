@@ -11,18 +11,18 @@ HEADERS += \
         tests/tst_vector.hpp \
         vector/inc/base_container.h \
         vector/inc/base_excepton.h \
+        vector/inc/exceptions.h \
         vector/inc/iterator.h \
         vector/inc/vector.h \
-        vector/src/inc/iterator.h
+        vector/src/base_container.hpp \
+        vector/src/base_excepton.hpp \
+        vector/src/iterator.hpp \
+        vector/src/vector.hpp
 
 SOURCES += \
         main.cpp \
-        vector/src/base_container.cpp \
-        vector/src/base_excepton.cpp \
-        vector/src/iterator.cpp \
-        vector/src/src/iterator.cpp \
-        vector/src/vector.cpp
 
 INCLUDEPATH += \
         tests/ \
-        vector/inc/
+        vector/inc/ \
+        vector/src/
