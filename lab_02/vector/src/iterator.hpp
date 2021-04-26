@@ -5,6 +5,8 @@
 #include "iterator.h"
 #include "exceptions.h"
 
+// разобраться с умными указателями
+
 template <typename Type>
 Iterator<Type>::Iterator(const Vector<Type> &vector) noexcept
 {
@@ -28,10 +30,10 @@ const Type &Iterator<Type>::operator*() const
     exprideCheck(__LINE__);
     indexCheck(__LINE__);
 
-    // Возможно, здесь нужна локальная переменная
     return ptr.lock()[index];
 }
 
+// Указатель?
 template <typename Type>
 Type *Iterator<Type>::operator->()
 {
@@ -68,7 +70,9 @@ Iterator<Type> Iterator<Type>::operator++(int) noexcept
 template <typename Type>
 Iterator<Type> Iterator<Type>::operator+(const size_t dif) const
 {
-    // Ошибки?
+    exprideCheck(__LINE__);
+    indexCheck(__LINE__);
+
     Iterator<Type> tmp(*this);
     tmp.index += dif;
     return tmp;
@@ -87,7 +91,7 @@ bool Iterator<Type>::operator!=(const Iterator<Type> &iterator) const
 }
 
 template <typename Type>
-void Iterator<Type>::exprideCheck(const uint line)
+void Iterator<Type>::exprideCheck(const uint line) const
 {
     if (ptr.expired())
     {
@@ -98,8 +102,9 @@ void Iterator<Type>::exprideCheck(const uint line)
 }
 
 template <typename Type>
-void Iterator<Type>::indexCheck(const uint line)
+void Iterator<Type>::indexCheck(const uint line) const
 {
+    // равно?
     if (index >= size)
     {
         time_t curTime = time(NULL);

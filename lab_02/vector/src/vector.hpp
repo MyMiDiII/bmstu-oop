@@ -18,17 +18,16 @@ Iterator<Type> Vector<Type>::end() noexcept
 template <typename Type>
 Vector<Type>::Vector(size_t sizeValue)
 {
-    // обработка ошибки выделения памяти
-    this->data.reset(new Type[sizeValue]);
+    // Если произошла ошибка, размер изменится
     size = sizeValue;
+    allocate(size);
 }
 
 template <typename Type>
 Vector<Type>::Vector(size_t sizeValue, Type filler)
 {
-    // обработка ошибки выделения памяти
-    this->data.reset(new Type[sizeValue]);
     size = sizeValue;
+    allocate(size);
 
     for (Iterator<Type> It = begin(); It != end(); ++It)
         *It = filler;
@@ -38,12 +37,33 @@ template <typename Type>
 Vector<Type>::Vector(const initializer_list<Type> &elements)
 {
     size = elements.size();
-    this->data.reset(new Type[size]);
+    allocate(size);
 
     Iterator<Type> It = begin();
 
     for (auto elem : elements)
         *(It++) = elem;
+}
+
+template <typename Type>
+void Vector<Type>::allocate(size_t sizeValue)
+{
+    try
+    {
+        time_t curTime = time(NULL);
+        uint line = __LINE__;
+        Type * tmp = new Type[sizeValue];
+
+        if (!tmp)
+            throw MemoryException(ctime(&curTime), __FILE__, line,
+                                  typeid(*this).name(), __FUNCTION__);
+
+        data.reset(tmp);
+    }
+    catch (MemoryException &err)
+    {
+        cout << err.what() << endl;
+    }
 }
 
 #endif

@@ -34,8 +34,8 @@ public:
     bool operator!=(const Iterator<Type> &iterator) const;
 
 protected:
-    void exprideCheck(const uint line);
-    void indexCheck(const uint line);
+    void exprideCheck(const uint line) const;
+    void indexCheck(const uint line) const;
 
 private:
     weak_ptr<Type[]> ptr;

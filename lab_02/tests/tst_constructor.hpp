@@ -60,4 +60,5 @@ TEST(contructors, initListChar)
     for (auto elem : a)
         cout << elem << endl;
 }
+
 #endif // TST_CONSTRUCTOR_HPP

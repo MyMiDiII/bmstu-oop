@@ -11,7 +11,7 @@ BaseExcepton::BaseExcepton(
         const str &methodName, const str &info = "Something went wrong!")
 {
     errInfo = "\nTime:   " + time +
-              "\nFile:   " + fileName +
+              "File:   " + fileName +
               "\nLine:   " + to_string(line) +
               "\nClass:  " + className +
               "\nMethod: " + methodName +

@@ -26,4 +26,14 @@ public:
     {};
 };
 
+class MemoryException : public BaseExcepton
+{
+public:
+    MemoryException(const str &time, const str &fileName,
+                     const uint line, const str &className,
+                     const str &methodName,
+                     const str &info = "Memory allocation error!")
+    : BaseExcepton(time, fileName, line, className, methodName, info)
+    {};
+};
 #endif // EXCEPTIONS_H

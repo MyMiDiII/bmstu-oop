@@ -24,6 +24,9 @@ public:
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
 
+protected:
+    void allocate(size_t sizeValue);
+
 private:
     shared_ptr<Type[]> data = nullptr;
 };
