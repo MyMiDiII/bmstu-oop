@@ -6,6 +6,8 @@
 
 #include "tst_constructor.hpp"
 
-#include "tst_comparison_operators.h"
+#include "tst_comparison.hpp"
+
+#include "tst_unary.hpp"
 
 #endif // TST_SIZE_HPP
