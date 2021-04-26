@@ -4,6 +4,8 @@
 #include <exception>
 #include <string>
 
+// Изменить имя (добавит i)
+
 using str = std::string;
 
 class BaseExcepton : public std::exception
