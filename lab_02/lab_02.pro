@@ -10,12 +10,12 @@ HEADERS += \
         tests/tst_constructor.hpp \
         tests/tst_vector.hpp \
         vector/inc/base_container.h \
-        vector/inc/base_excepton.h \
+        vector/inc/base_exception.h \
         vector/inc/exceptions.h \
         vector/inc/iterator.h \
         vector/inc/vector.h \
         vector/src/base_container.hpp \
-        vector/src/base_excepton.hpp \
+        vector/src/base_exception.hpp \
         vector/src/iterator.hpp \
         vector/src/vector.hpp
 

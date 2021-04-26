@@ -1,11 +1,11 @@
 #ifndef BASEEXCEPTION_HPP
 #define BASEEXCEPTION_HPP
 
-#include "base_excepton.h"
+#include "base_exception.h"
 
 using namespace std;
 
-BaseExcepton::BaseExcepton(
+BaseException::BaseException(
         const str &time, const str &fileName,
         const uint line, const str &className,
         const str &methodName, const str &info = "Something went wrong!")
@@ -18,7 +18,7 @@ BaseExcepton::BaseExcepton(
               "\nInfo:   " + info + "\n";
 }
 
-const char *BaseExcepton::what() const noexcept
+const char *BaseException::what() const noexcept
 {
     return errInfo.c_str();
 }
