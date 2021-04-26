@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 
 #include "vector.h"
+#include "exceptions.h"
 
 template <typename Type>
 Iterator<Type> Vector<Type>::begin() noexcept
@@ -18,6 +19,7 @@ Iterator<Type> Vector<Type>::end() noexcept
 template <typename Type>
 Vector<Type>::Vector(size_t sizeValue)
 {
+    // Нужно ли обнулять
     // Если произошла ошибка, размер изменится
     size = sizeValue;
     allocate(size);
@@ -43,6 +45,13 @@ Vector<Type>::Vector(const initializer_list<Type> &elements)
 
     for (auto elem : elements)
         *(It++) = elem;
+}
+
+template <typename Type>
+bool Vector<Type>::operator==(const Vector<Type> &vector) const
+{
+    // нужен константный итератор
+    return 0;
 }
 
 template <typename Type>

@@ -21,6 +21,8 @@ public:
 
     ~Vector() override = default;
 
+    bool operator==(const Vector<Type> &vector) const;
+
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
 

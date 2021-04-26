@@ -7,6 +7,7 @@ CONFIG += thread
 CONFIG -= qt
 
 HEADERS += \
+        tests/tst_comparison_operators.h \
         tests/tst_constructor.hpp \
         tests/tst_vector.hpp \
         vector/inc/base_container.h \

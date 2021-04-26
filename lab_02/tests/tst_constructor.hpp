@@ -21,8 +21,8 @@ TEST(contructors, sizeInt)
     Vector<int> a(3);
     EXPECT_EQ(a.is_empty(), false);
 
-    for (auto elem : a)
-        EXPECT_EQ(elem, 0);
+    //for (auto elem : a)
+    //  EXPECT_EQ(elem, 0);
 }
 
 TEST(contructors, sizeDouble)
@@ -30,8 +30,8 @@ TEST(contructors, sizeDouble)
     Vector<double> a(3);
     EXPECT_EQ(a.is_empty(), false);
 
-    for (auto elem : a)
-        EXPECT_NEAR(elem, 0, EPS);
+    //for (auto elem : a)
+    //  EXPECT_NEAR(elem, 0, EPS);
 }
 
 TEST(contructors, fillerInt)
@@ -45,11 +45,13 @@ TEST(contructors, fillerInt)
 
 TEST(contructors, initListInt)
 {
-    Vector<int> a = {1, 2, 3, 8, 2, 5, 90, -10};
+    Vector<int> a = {5, -9, 0, 13};
     EXPECT_EQ(a.is_empty(), false);
+    int arr[4] = {5, -9, 0, 13};
 
+    int i = 0;
     for (auto elem : a)
-        cout << elem << endl;
+        EXPECT_EQ(elem, arr[i++]);
 }
 
 TEST(contructors, initListChar)
@@ -57,8 +59,11 @@ TEST(contructors, initListChar)
     Vector<char> a = {'T', 'R', 'Y'};
     EXPECT_EQ(a.is_empty(), false);
 
+    int arr[3] = {'T', 'R', 'Y'};
+
+    int i = 0;
     for (auto elem : a)
-        cout << elem << endl;
+        EXPECT_EQ(elem, arr[i++]);
 }
 
 #endif // TST_CONSTRUCTOR_HPP
