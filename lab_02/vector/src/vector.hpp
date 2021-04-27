@@ -1,6 +1,10 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+//debug
+#include <iostream>
+//debug
+
 #include "vector.h"
 #include "exceptions.h"
 
@@ -76,6 +80,28 @@ Vector<Type>::Vector(const initializer_list<Type> &elements)
     for (auto elem : elements)
         *(It++) = elem;
 }
+
+template <typename Type>
+Vector<Type>::Vector(const Vector<Type> &vector)
+{
+    data = shared_ptr<Type[]>(new Type[vector.size]);
+
+    if (!data)
+    {
+        time_t curTime = time(NULL);
+        throw MemoryException(ctime(&curTime), __FILE__,
+                              __LINE__, typeid(*this).name(),
+                              __FUNCTION__);
+    }
+
+    size = vector.size;
+
+    ConstIterator<Type> src = vector.cbegin();
+    Iterator<Type> dst = begin();
+
+    for (; src != vector.cend(); ++src, ++dst)
+        *dst = *src;
+}
 // END constructors
 
 
@@ -124,6 +150,134 @@ OutType Vector<Type>::length() const
         len += *It * *It;
 
     return sqrt(len);
+}
+
+// BEGIN methods and operators
+template <typename Type>
+Type & Vector<Type>::at(const size_t index)
+{
+    // Вынести в метод
+    if (index >= size)
+    {
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    return data[index];
+}
+
+template <typename Type>
+const Type & Vector<Type>::at(const size_t index) const
+{
+    if (index >= size)
+    {
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    return data[index];
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::vecSum(const Vector<Type> &vector) const
+{
+    if (size != vector.size)
+    {
+        // изменить exception
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    // проверить на auto
+    Vector<Type> res(*this);
+    Iterator<Type> resIt = res.begin();
+    ConstIterator<Type> vecIt = vector.cbegin();
+
+    for (; resIt != res.end(); ++resIt)
+        *resIt += *(vecIt++);
+
+    return res;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::eqVecSum(const Vector<Type> &vector)
+{
+    if (size != vector.size)
+    {
+        // изменить exception
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    Iterator<Type> resIt = begin();
+    ConstIterator<Type> vecIt = vector.cbegin();
+
+    for (; resIt != end(); ++resIt)
+        *resIt += *(vecIt++);
+
+    return *this;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::vecDiff(const Vector<Type> &vector) const
+{
+    if (size != vector.size)
+    {
+        // изменить exception
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    Vector<Type> res(*this);
+    Iterator<Type> resIt = res.begin();
+    ConstIterator<Type> vecIt = vector.cbegin();
+
+    for (; resIt != res.end(); ++resIt)
+        *resIt -= *(vecIt++);
+
+    return res;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::eqVecDiff(const Vector<Type> &vector)
+{
+    if (size != vector.size)
+    {
+        // изменить exception
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    Iterator<Type> resIt = begin();
+    ConstIterator<Type> vecIt = vector.cbegin();
+
+    for (; resIt != end(); ++resIt)
+        *resIt -= *(vecIt++);
+
+    return *this;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::neg() const
+{
+    Vector<Type> res(*this);
+
+    for (auto &elem : res)
+        elem = -elem;
+
+    return res;
 }
 
 // BEGIN allocate

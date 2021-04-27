@@ -95,4 +95,4 @@ void ConstIterator<Type>::indexCheck(const uint line) const
     }
 }
 
-#endif
+#endif // CONSTITERATOR_HPP

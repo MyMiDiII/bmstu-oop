@@ -18,6 +18,7 @@ class Vector : public BaseContainer
 public:
     Vector() = default;
     explicit Vector(size_t sizeValue);
+    Vector(const Vector<Type> &vector);
     Vector(size_t sizeValue, Type filler);
     Vector(const initializer_list<Type> &elements);
 
@@ -31,6 +32,19 @@ public:
 
     template <typename OutType>
     OutType length() const;
+
+    Type & at(const size_t index);
+    const Type & at(const size_t index) const;
+
+    Vector<Type> vecSum(const Vector<Type> &vector) const;
+
+    Vector<Type> eqVecSum(const Vector<Type> &vector);
+
+    Vector<Type> vecDiff(const Vector<Type> &vector) const;
+
+    Vector<Type> eqVecDiff(const Vector<Type> &vector);
+
+    Vector<Type> neg() const;
 
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
