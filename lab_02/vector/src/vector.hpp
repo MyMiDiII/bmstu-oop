@@ -5,6 +5,8 @@
 #include <iostream>
 //debug
 
+#include <cmath>
+
 #include "vector.h"
 #include "exceptions.h"
 
@@ -139,11 +141,19 @@ bool Vector<Type>::isNotEqual(const Vector<Type> &vector) const
 }
 // END comparison
 
+
+// BEGIN methods and operators
 template <typename Type>
-template <typename OutType>
-OutType Vector<Type>::length() const
+double Vector<Type>::length() const
 {
-    // ошибка пустого вектора
+    if (!size)
+    {
+        // другая ошибка
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
 
     Type len = 0;
     for (ConstIterator<Type> It = cbegin(); It != cend(); ++It)
@@ -152,7 +162,6 @@ OutType Vector<Type>::length() const
     return sqrt(len);
 }
 
-// BEGIN methods and operators
 template <typename Type>
 Type & Vector<Type>::at(const size_t index)
 {
@@ -302,6 +311,120 @@ Vector<Type> Vector<Type>::eqByNumProd(const Type &num)
 
     return *this;
 }
+
+template <typename Type>
+Type Vector<Type>::scalarProd(const Vector<Type> &vector) const
+{
+    if (size != vector.size)
+    {
+        // изменить exception
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    ConstIterator<Type> it1 = cbegin();
+    ConstIterator<Type> it2 = vector.cbegin();
+
+    Type sum = 0;
+    for (; it1 != end(); ++it1, ++it2)
+        sum += *it1 * *it2;
+
+    return sum;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::vectorProd(const Vector<Type> &vector) const
+{
+    if (size != 3 || vector.size != 3)
+    {
+        // изменить exception
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    Vector<Type> res(size);
+
+    res.at(0) = at(1) * vector.at(2) - at(2) * vector.at(1);
+    res.at(1) = at(2) * vector.at(0) - at(0) * vector.at(2);
+    res.at(2) = at(0) * vector.at(1) - at(1) * vector.at(0);
+
+    return res;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::eqVectorProd(const Vector<Type> &vector)
+{
+    if (size != 3 || vector.size != 3)
+    {
+        // изменить exception
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    Vector<Type> tmp(*this);
+
+    at(0) = tmp.at(1) * vector.at(2) - tmp.at(2) * vector.at(1);
+    at(1) = tmp.at(2) * vector.at(0) - tmp.at(0) * vector.at(2);
+    at(2) = tmp.at(0) * vector.at(1) - tmp.at(1) * vector.at(0);
+
+    return *this;
+}
+
+template <typename Type>
+double Vector<Type>::angle(const Vector<Type> &vector) const
+{
+    double res = 0;
+
+    if (!(abs(length()) < EPS || abs(vector.length()) < EPS))
+        res = acos(scalarProd(vector) / (length() * vector.length()));
+
+    return res;
+}
+
+template <typename Type>
+bool Vector<Type>::isCollinear(const Vector<Type> &vector) const
+{
+    if (size != vector.size)
+    {
+        // изменить
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    double ang = angle(vector);
+    return abs(ang) < EPS || abs(ang - M_PI) < EPS;
+}
+
+template <typename Type>
+bool Vector<Type>::isOrthoganal(const Vector<Type> &vector) const
+{
+    if (size != vector.size)
+    {
+        // изменить
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  __LINE__, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+
+    return abs(angle(vector) - M_PI / 2) < EPS;
+}
+
+
+template <typename Type>
+bool Vector<Type>::isZero() const
+{
+    return abs(length()) < EPS;
+}
+
 
 // BEGIN allocate
 template <typename Type>

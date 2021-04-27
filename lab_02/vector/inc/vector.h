@@ -30,8 +30,7 @@ public:
     bool operator!=(const Vector<Type> &vector) const;
     bool isNotEqual(const Vector<Type> &vector) const;
 
-    template <typename OutType>
-    OutType length() const;
+    double length() const;
 
     Type & at(const size_t index);
     const Type & at(const size_t index) const;
@@ -49,6 +48,20 @@ public:
     Vector<Type> byNumProd(const Type &num) const;
 
     Vector<Type> eqByNumProd(const Type &num);
+
+    Type scalarProd(const Vector<Type> &vector) const;
+
+    Vector<Type> vectorProd(const Vector<Type> &vector) const;
+
+    Vector<Type> eqVectorProd(const Vector<Type> &vector);
+
+    double angle(const Vector<Type> &vector) const;
+
+    bool isCollinear(const Vector<Type> &vector) const;
+
+    bool isOrthoganal(const Vector<Type> &vector) const;
+
+    bool isZero() const;
 
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
