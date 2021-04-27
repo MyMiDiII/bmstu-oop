@@ -46,6 +46,10 @@ public:
 
     Vector<Type> neg() const;
 
+    Vector<Type> byNumProd(const Type &num) const;
+
+    Vector<Type> eqByNumProd(const Type &num);
+
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
     ConstIterator<Type> begin() const noexcept;

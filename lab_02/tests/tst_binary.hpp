@@ -111,4 +111,37 @@ TEST(binary, badEqVecDiff)
     EXPECT_ANY_THROW(a.eqVecDiff(b));
 }
 
+TEST(binary, byNumProd)
+{
+    Vector<double> a = {5.1, -6, 0};
+    Vector<double> res(a.byNumProd(-4));
+
+    double tmp[3] = {-20.4, 24, 0};
+    double tmpA[3] = {5.1, -6, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_NEAR(elem, tmpA[i++], EPS);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
+TEST(binary, eqByNumProd)
+{
+    Vector<double> a = {5.1, -6, 0};
+    Vector<double> res(a.eqByNumProd(-4));
+
+    double tmp[3] = {-20.4, 24, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
 #endif // TST_BINARY_HPP

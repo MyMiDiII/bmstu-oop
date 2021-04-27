@@ -280,6 +280,29 @@ Vector<Type> Vector<Type>::neg() const
     return res;
 }
 
+template <typename Type>
+Vector<Type> Vector<Type>::byNumProd(const Type &num) const
+{
+    Vector<Type> res(*this);
+    Iterator<Type> resIt = res.begin();
+
+    for (; resIt != res.end(); ++resIt)
+        *resIt *= num;
+
+    return res;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::eqByNumProd(const Type &num)
+{
+    Iterator<Type> resIt = begin();
+
+    for (; resIt != end(); ++resIt)
+        *resIt *= num;
+
+    return *this;
+}
+
 // BEGIN allocate
 template <typename Type>
 void Vector<Type>::allocate(size_t sizeValue)
