@@ -1,16 +1,13 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-//debug
-#include <iostream>
-//debug
-
 #include <cmath>
+#include <limits>
 
 #include "vector.h"
 #include "exceptions.h"
 
-#define EPS 1e-6
+#define EPS __DBL_EPSILON__
 
 // BEGIN iterators
 template <typename Type>
@@ -109,12 +106,12 @@ bool Vector<Type>::isEqual(const Vector<Type> &vector) const
     ConstIterator<Type> first = cbegin();
     ConstIterator<Type> second = vector.cbegin();
 
-    bool areEqual = (size == vector.size);
+    bool areEqual = (size && size == vector.size);
     for (; areEqual && (first != cend()) && (second != vector.cend());
          ++first, ++second)
         areEqual = (*first == *second);
 
-    return areEqual;
+    return areEqual || !size;
 }
 
 template <typename Type>
@@ -135,14 +132,7 @@ bool Vector<Type>::isNotEqual(const Vector<Type> &vector) const
 template <typename Type>
 double Vector<Type>::length() const
 {
-    if (!size)
-    {
-        // другая ошибка
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    zeroSizeCheck(__LINE__);
 
     Type len = 0;
     for (ConstIterator<Type> It = cbegin(); It != cend(); ++It)
@@ -154,15 +144,7 @@ double Vector<Type>::length() const
 template <typename Type>
 Type & Vector<Type>::at(const size_t index)
 {
-    // Вынести в метод
-    if (index >= size)
-    {
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
-
+    indexCheck(index, __LINE__);
     return data[index];
 }
 
@@ -175,14 +157,7 @@ Type & Vector<Type>::operator[](const size_t index)
 template <typename Type>
 const Type & Vector<Type>::at(const size_t index) const
 {
-    if (index >= size)
-    {
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
-
+    indexCheck(index, __LINE__);
     return data[index];
 }
 
@@ -195,16 +170,8 @@ const Type & Vector<Type>::operator[](const size_t index) const
 template <typename Type>
 Vector<Type> Vector<Type>::vecSum(const Vector<Type> &vector) const
 {
-    if (size != vector.size)
-    {
-        // изменить exception
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    sizesCheck(vector, __LINE__);
 
-    // проверить на auto
     Vector<Type> res(*this);
     Iterator<Type> resIt = res.begin();
     ConstIterator<Type> vecIt = vector.cbegin();
@@ -224,14 +191,7 @@ Vector<Type> Vector<Type>::operator+(const Vector<Type> &vector) const
 template <typename Type>
 Vector<Type> Vector<Type>::eqVecSum(const Vector<Type> &vector)
 {
-    if (size != vector.size)
-    {
-        // изменить exception
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    sizesCheck(vector, __LINE__);
 
     Iterator<Type> resIt = begin();
     ConstIterator<Type> vecIt = vector.cbegin();
@@ -251,14 +211,7 @@ Vector<Type> Vector<Type>::operator+=(const Vector<Type> &vector)
 template <typename Type>
 Vector<Type> Vector<Type>::vecDiff(const Vector<Type> &vector) const
 {
-    if (size != vector.size)
-    {
-        // изменить exception
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    sizesCheck(vector, __LINE__);
 
     Vector<Type> res(*this);
     Iterator<Type> resIt = res.begin();
@@ -279,14 +232,7 @@ Vector<Type> Vector<Type>::operator-(const Vector<Type> &vector) const
 template <typename Type>
 Vector<Type> Vector<Type>::eqVecDiff(const Vector<Type> &vector)
 {
-    if (size != vector.size)
-    {
-        // изменить exception
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    sizesCheck(vector, __LINE__);
 
     Iterator<Type> resIt = begin();
     ConstIterator<Type> vecIt = vector.cbegin();
@@ -358,14 +304,7 @@ Vector<Type> Vector<Type>::operator*=(const Type &num)
 template <typename Type>
 Type Vector<Type>::scalarProd(const Vector<Type> &vector) const
 {
-    if (size != vector.size)
-    {
-        // изменить exception
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    sizesCheck(vector, __LINE__);
 
     ConstIterator<Type> it1 = cbegin();
     ConstIterator<Type> it2 = vector.cbegin();
@@ -386,14 +325,7 @@ Type Vector<Type>::operator&(const Vector<Type> &vector) const
 template <typename Type>
 Vector<Type> Vector<Type>::vectorProd(const Vector<Type> &vector) const
 {
-    if (size != 3 || vector.size != 3)
-    {
-        // изменить exception
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    vectorProdSizesCheck(vector, __LINE__);
 
     Vector<Type> res(size);
 
@@ -413,14 +345,7 @@ Vector<Type> Vector<Type>::operator^(const Vector<Type> &vector) const
 template <typename Type>
 Vector<Type> Vector<Type>::eqVectorProd(const Vector<Type> &vector)
 {
-    if (size != 3 || vector.size != 3)
-    {
-        // изменить exception
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    vectorProdSizesCheck(vector, __LINE__);
 
     Vector<Type> tmp(*this);
 
@@ -451,14 +376,7 @@ double Vector<Type>::angle(const Vector<Type> &vector) const
 template <typename Type>
 bool Vector<Type>::isCollinear(const Vector<Type> &vector) const
 {
-    if (size != vector.size)
-    {
-        // изменить
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    sizesCheck(vector, __LINE__);
 
     double ang = angle(vector);
     return abs(ang) < EPS || abs(ang - M_PI) < EPS;
@@ -467,18 +385,10 @@ bool Vector<Type>::isCollinear(const Vector<Type> &vector) const
 template <typename Type>
 bool Vector<Type>::isOrthoganal(const Vector<Type> &vector) const
 {
-    if (size != vector.size)
-    {
-        // изменить
-        time_t curTime = time(NULL);
-        throw OutOfRangeException(ctime(&curTime), __FILE__,
-                                  __LINE__, typeid(*this).name(),
-                                  __FUNCTION__);
-    }
+    sizesCheck(vector, __LINE__);
 
     return abs(angle(vector) - M_PI / 2) < EPS;
 }
-
 
 template <typename Type>
 bool Vector<Type>::isZero() const
@@ -505,5 +415,58 @@ void Vector<Type>::allocate(size_t sizeValue)
     }
 }
 // END allocate
+
+
+// BEGIN checks
+template <typename Type>
+void Vector<Type>::zeroSizeCheck(const uint line) const
+{
+    if (isEmpty())
+    {
+        time_t curTime = time(NULL);
+        throw EmptyVectorException(ctime(&curTime), __FILE__,
+                                  line, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+}
+
+template <typename Type>
+void Vector<Type>::indexCheck(const size_t index, const uint line) const
+{
+    if (index >= size)
+    {
+        time_t curTime = time(NULL);
+        throw OutOfRangeException(ctime(&curTime), __FILE__,
+                                  line, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+}
+
+template <typename Type>
+void Vector<Type>::sizesCheck(const Vector<Type> &vector,
+                              const uint line) const
+{
+    if (size != vector.size)
+    {
+        time_t curTime = time(NULL);
+        throw NotEqualSizesException(ctime(&curTime), __FILE__,
+                                  line, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+}
+
+template <typename Type>
+void Vector<Type>::vectorProdSizesCheck(const Vector<Type> &vector,
+                              const uint line) const
+{
+    if (size != 3 || vector.size != 3)
+    {
+        time_t curTime = time(NULL);
+        throw Not3DException(ctime(&curTime), __FILE__,
+                                  line, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+}
+
 
 #endif

@@ -13,6 +13,14 @@ TEST(comparison_operators, equal)
     EXPECT_EQ((a == b), true);
 }
 
+TEST(comparison_operators, emptyEqual)
+{
+    Vector<int> a(0);
+    Vector<int> b(0);
+
+    EXPECT_EQ((a == b), true);
+}
+
 TEST(comparison_operators, notEqual)
 {
     Vector<int> a = {-5, 6, 0};

@@ -21,6 +21,7 @@ public:
     Vector(const Vector<Type> &vector);
     Vector(size_t sizeValue, Type filler);
     Vector(const initializer_list<Type> &elements);
+    // конструктор переноса
 
     ~Vector() override = default;
 
@@ -89,6 +90,10 @@ public:
 
 protected:
     void allocate(size_t sizeValue);
+    void zeroSizeCheck(const uint line) const;
+    void indexCheck(const size_t index, const uint line) const;
+    void sizesCheck(const Vector<Type> &vector, const uint line) const;
+    void vectorProdSizesCheck(const Vector<Type> &vector, const uint line) const;
 
 private:
     shared_ptr<Type[]> data = nullptr;

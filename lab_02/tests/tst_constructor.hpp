@@ -6,20 +6,18 @@
 
 #include "vector.h"
 
-#define EPS 1e-6
-
 using namespace std;
 
 TEST(contructors, defaultInt)
 {
     Vector<int> a;
-    EXPECT_EQ(a.is_empty(), true);
+    EXPECT_EQ(a.isEmpty(), true);
 }
 
 TEST(contructors, sizeInt)
 {
     Vector<int> a(3);
-    EXPECT_EQ(a.is_empty(), false);
+    EXPECT_EQ(a.isEmpty(), false);
 
     //for (auto elem : a)
     //  EXPECT_EQ(elem, 0);
@@ -28,7 +26,7 @@ TEST(contructors, sizeInt)
 TEST(contructors, sizeDouble)
 {
     Vector<double> a(3);
-    EXPECT_EQ(a.is_empty(), false);
+    EXPECT_EQ(a.isEmpty(), false);
 
     //for (auto elem : a)
     //  EXPECT_NEAR(elem, 0, EPS);
@@ -37,7 +35,7 @@ TEST(contructors, sizeDouble)
 TEST(contructors, fillerInt)
 {
     Vector<int> a(3, -1);
-    EXPECT_EQ(a.is_empty(), false);
+    EXPECT_EQ(a.isEmpty(), false);
 
     for (auto elem : a)
         EXPECT_EQ(elem, -1);
@@ -46,7 +44,7 @@ TEST(contructors, fillerInt)
 TEST(contructors, initListInt)
 {
     Vector<int> a = {5, -9, 0, 13};
-    EXPECT_EQ(a.is_empty(), false);
+    EXPECT_EQ(a.isEmpty(), false);
     int arr[4] = {5, -9, 0, 13};
 
     int i = 0;
@@ -57,7 +55,7 @@ TEST(contructors, initListInt)
 TEST(contructors, initListChar)
 {
     Vector<char> a = {'T', 'R', 'Y'};
-    EXPECT_EQ(a.is_empty(), false);
+    EXPECT_EQ(a.isEmpty(), false);
 
     int arr[3] = {'T', 'R', 'Y'};
 

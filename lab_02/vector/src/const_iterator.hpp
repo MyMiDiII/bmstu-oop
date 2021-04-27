@@ -6,6 +6,7 @@
 #include "exceptions.h"
 
 // разобраться с умными указателями
+// реализовать больше операторов?
 
 template <typename Type>
 ConstIterator<Type>::ConstIterator(const Vector<Type> &vector) noexcept
@@ -86,7 +87,6 @@ void ConstIterator<Type>::exprideCheck(const uint line) const
 template <typename Type>
 void ConstIterator<Type>::indexCheck(const uint line) const
 {
-    // равно?
     if (index >= size)
     {
         time_t curTime = time(NULL);

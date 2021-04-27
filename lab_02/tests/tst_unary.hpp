@@ -90,7 +90,7 @@ TEST(unary, generalAngle)
     Vector<int> i = {1, 2, -2, 0};
     Vector<int> j = {0, 3, 0, -4};
 
-    EXPECT_NEAR(i.angle(j), 1.15927948, EPS);
+    EXPECT_NEAR(i.angle(j), acos(0.4), EPS);
 }
 
 TEST(unary, isZeroInt)

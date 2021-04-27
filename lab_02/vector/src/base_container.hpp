@@ -5,12 +5,12 @@
 
 #include "base_container.h"
 
-bool BaseContainer::is_empty() const
+bool BaseContainer::isEmpty() const
 {
     return !bool(size);
 }
 
-size_t BaseContainer::get_size() const
+size_t BaseContainer::getSize() const
 {
     return size;
 }
