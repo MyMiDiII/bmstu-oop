@@ -109,6 +109,12 @@ Vector<Type>::Vector(const Vector<Type> &vector)
 template <typename Type>
 bool Vector<Type>::operator==(const Vector<Type> &vector) const
 {
+    return isEqual(vector);
+}
+
+template <typename Type>
+bool Vector<Type>::isEqual(const Vector<Type> &vector) const
+{
     ConstIterator<Type> first = cbegin();
     ConstIterator<Type> second = vector.cbegin();
 
@@ -121,21 +127,15 @@ bool Vector<Type>::operator==(const Vector<Type> &vector) const
 }
 
 template <typename Type>
-bool Vector<Type>::isEqual(const Vector<Type> &vector) const
-{
-    return *this == vector;
-}
-
-template <typename Type>
 bool Vector<Type>::operator!=(const Vector<Type> &vector) const
 {
-    return !(*this == vector);
+    return isNotEqual(vector);
 }
 
 template <typename Type>
 bool Vector<Type>::isNotEqual(const Vector<Type> &vector) const
 {
-    return *this != vector;
+    return !(*this == vector);
 }
 // END comparison
 
