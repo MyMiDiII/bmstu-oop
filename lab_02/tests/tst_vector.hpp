@@ -10,4 +10,6 @@
 
 #include "tst_unary.hpp"
 
+#include "tst_binary.hpp"
+
 #endif // TST_SIZE_HPP
