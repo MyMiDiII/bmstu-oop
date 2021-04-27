@@ -45,23 +45,53 @@ public:
     Vector<Type> vecSum(const Vector<Type> &vector) const;
     Vector<Type> operator+(const Vector<Type> &vector) const;
 
+    Vector<Type> byNumSum(const Type &num) const;
+    Vector<Type> operator+(const Type &num) const;
+
     Vector<Type> eqVecSum(const Vector<Type> &vector);
     Vector<Type> operator+=(const Vector<Type> &vector);
+
+    Vector<Type> eqByNumSum(const Type &num);
+    Vector<Type> operator+=(const Type &num);
 
     Vector<Type> vecDiff(const Vector<Type> &vector) const;
     Vector<Type> operator-(const Vector<Type> &vector) const;
 
+    Vector<Type> byNumDiff(const Type &num) const;
+    Vector<Type> operator-(const Type &num) const;
+
     Vector<Type> eqVecDiff(const Vector<Type> &vector);
     Vector<Type> operator-=(const Vector<Type> &vector);
 
-    Vector<Type> neg() const;
-    Vector<Type> operator-() const;
+    Vector<Type> eqByNumDiff(const Type &num);
+    Vector<Type> operator-=(const Type &num);
+
+    Vector<Type> vecProd(const Vector<Type> &vector) const;
+    Vector<Type> operator*(const Vector<Type> &vector) const;
 
     Vector<Type> byNumProd(const Type &num) const;
     Vector<Type> operator*(const Type &num) const;
 
+    Vector<Type> eqVecProd(const Vector<Type> &vector);
+    Vector<Type> operator*=(const Vector<Type> &vector);
+
     Vector<Type> eqByNumProd(const Type &num);
     Vector<Type> operator*=(const Type &num);
+
+    Vector<Type> vecQuot(const Vector<Type> &vector) const;
+    Vector<Type> operator/(const Vector<Type> &vector) const;
+
+    Vector<Type> byNumQuot(const Type &num) const;
+    Vector<Type> operator/(const Type &num) const;
+
+    Vector<Type> eqVecQuot(const Vector<Type> &vector);
+    Vector<Type> operator/=(const Vector<Type> &vector);
+
+    Vector<Type> eqByNumQuot(const Type &num);
+    Vector<Type> operator/=(const Type &num);
+
+    Vector<Type> neg() const;
+    Vector<Type> operator-() const;
 
     Type scalarProd(const Vector<Type> &vector) const;
     Type operator&(const Vector<Type> &vector) const;

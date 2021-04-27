@@ -24,6 +24,44 @@ TEST(binary, vecSum)
         EXPECT_EQ(elem, tmp[i++]);
 }
 
+TEST(binary, byNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a.byNumSum(k));
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-90, 10, 16};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opByNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a + k);
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-90, 10, 16};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
 TEST(binary, eqVecSum)
 {
     Vector<int> a = {-100, 0, 6};
@@ -32,6 +70,42 @@ TEST(binary, eqVecSum)
     Vector<int> res(a.eqVecSum(b));
 
     int tmp[3] = {100, 4, 1};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, eqByNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a.eqByNumSum(k));
+
+    int tmp[3] = {-90, 10, 16};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opEqByNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a += k);
+
+    int tmp[3] = {-90, 10, 16};
 
     int i = 0;
     for (auto elem : a)
@@ -103,12 +177,161 @@ TEST(binary, badVecDiff)
     EXPECT_ANY_THROW(a.vecDiff(b));
 }
 
+TEST(binary, byNumDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a.byNumDiff(k));
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-110, -10, -4};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opByNumDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a - k);
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-110, -10, -4};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+
 TEST(binary, badEqVecDiff)
 {
     Vector<int> a = {-100, 0, 6};
     Vector<int> b = {200, 4};
 
     EXPECT_ANY_THROW(a.eqVecDiff(b));
+}
+
+TEST(binary, eqByNumDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a.eqByNumDiff(k));
+
+    int tmp[3] = {-110, -10, -4};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opEqByNumDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a -= k);
+
+    int tmp[3] = {-110, -10, -4};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, vecProd)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a.vecProd(b));
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-20000, 0, -30};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, eqVecProd)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a.eqVecProd(b));
+
+    int tmp[3] = {-20000, 0, -30};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opVecProd)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a * b);
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-20000, 0, -30};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opEqVecProd)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a *= b);
+
+    int tmp[3] = {-20000, 0, -30};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
 }
 
 TEST(binary, byNumProd)
@@ -202,6 +425,137 @@ TEST(binary, badVectorProd)
     EXPECT_ANY_THROW(c.vectorProd(a));
     EXPECT_ANY_THROW(a.eqVectorProd(c));
     EXPECT_ANY_THROW(c.eqVectorProd(a));
+}
+
+TEST(binary, vecQuot)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {-100, 1, 6};
+
+    Vector<int> res(a.vecQuot(b));
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {1, 0, 1};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, eqVecQuot)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {-100, 1, 6};
+
+    Vector<int> res(a.eqVecQuot(b));
+
+    int tmp[3] = {1, 0, 1};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+/*
+TEST(binary, badVecQuot)
+{
+    Vector<int> a = {-100};
+    Vector<int> b = {0};
+
+    EXPECT_ANY_THROW(a.vecQuot(b));
+}
+*/
+
+TEST(binary, byNumQuot)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a.byNumQuot(k));
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-10, 0, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opByNumQuot)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a / k);
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-10, 0, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+/*
+TEST(binary, badEqVecQuot)
+{
+    Vector<int> a = {-100};
+    Vector<int> b = {0};
+
+    EXPECT_ANY_THROW(a.eqVecQuot(b));
+}
+*/
+
+TEST(binary, eqByNumQuot)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a.eqByNumQuot(k));
+
+    int tmp[3] = {-10, 0, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opEqByNumQuot)
+{
+    Vector<int> a = {-100, 0, 6};
+    int k = 10;
+
+    Vector<int> res(a /= k);
+
+    int tmp[3] = {-10, 0, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
 }
 
 TEST(binary, opVecSum)
