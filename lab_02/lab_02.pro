@@ -7,6 +7,7 @@ CONFIG += thread
 CONFIG -= qt
 
 HEADERS += \
+        tests/tst_binary.hpp \
         tests/tst_comparison.hpp \
         tests/tst_constructor.hpp \
         tests/tst_unary.hpp \
