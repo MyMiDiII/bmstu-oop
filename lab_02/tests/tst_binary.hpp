@@ -204,6 +204,205 @@ TEST(binary, badVectorProd)
     EXPECT_ANY_THROW(c.eqVectorProd(a));
 }
 
+TEST(binary, opVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a + b);
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {100, 4, 1};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opEqVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a += b);
+
+    int tmp[3] = {100, 4, 1};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opBadVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4};
+
+    EXPECT_ANY_THROW(a + b);
+}
+
+TEST(binary, opBadEqVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4};
+
+    EXPECT_ANY_THROW(a += b);
+}
+
+TEST(binary, opVecDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a - b);
+
+    int tmp_a[3] = {-100, 0, 6};
+    int tmp[3] = {-300, -4, 11};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opEqVecDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4, -5};
+
+    Vector<int> res(a -= b);
+
+    int tmp[3] = {-300, -4, 11};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opBadVecDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4};
+
+    EXPECT_ANY_THROW(a - b);
+}
+
+TEST(binary, opBadEqVecDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<int> b = {200, 4};
+
+    EXPECT_ANY_THROW(a -= b);
+}
+
+TEST(binary, opByNumProd)
+{
+    Vector<double> a = {5.1, -6, 0};
+    Vector<double> res(a * -4);
+
+    double tmp[3] = {-20.4, 24, 0};
+    double tmpA[3] = {5.1, -6, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_NEAR(elem, tmpA[i++], EPS);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
+TEST(binary, opEqByNumProd)
+{
+    Vector<double> a = {5.1, -6, 0};
+    Vector<double> res(a *= -4);
+
+    double tmp[3] = {-20.4, 24, 0};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
+TEST(binary, opScalarProd)
+{
+    Vector<int> a = {3, 0, -7, 5, -1};
+    Vector<int> b = {-3, 0, -7, 1, 8};
+
+    EXPECT_EQ(a & b, 37);
+}
+
+TEST(binary, opVectorProd)
+{
+    Vector<int> a = {-3, 2, -1};
+    Vector<int> b = {1, 0, 2};
+    Vector<int> res(a ^ b);
+
+    int tmp[3] = {4, 5, -2};
+    int tmpA[3] = {-3, 2, -1};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmpA[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opEqVectorProd)
+{
+    Vector<int> a = {-3, 2, -1};
+    Vector<int> b = {1, 0, 2};
+    Vector<int> res(a ^= b);
+
+    int tmp[3] = {4, 5, -2};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, opBadVectorProd)
+{
+    Vector<int> a = {-3, 2, -1, 4};
+    Vector<int> b = {1, 0, 2};
+    Vector<int> c = {1, 0};
+
+    EXPECT_ANY_THROW(a ^ b);
+    EXPECT_ANY_THROW(b ^ a);
+    EXPECT_ANY_THROW(a ^= b);
+    EXPECT_ANY_THROW(b ^= a);
+
+    EXPECT_ANY_THROW(a ^ c);
+    EXPECT_ANY_THROW(c ^ a);
+    EXPECT_ANY_THROW(a ^= c);
+    EXPECT_ANY_THROW(c ^= a);
+}
+
 TEST(binary, collinear)
 {
     Vector<int> a = {1, 2, 3};

@@ -178,6 +178,12 @@ Type & Vector<Type>::at(const size_t index)
 }
 
 template <typename Type>
+Type & Vector<Type>::operator[](const size_t index)
+{
+    return at(index);
+}
+
+template <typename Type>
 const Type & Vector<Type>::at(const size_t index) const
 {
     if (index >= size)
@@ -189,6 +195,12 @@ const Type & Vector<Type>::at(const size_t index) const
     }
 
     return data[index];
+}
+
+template <typename Type>
+const Type & Vector<Type>::operator[](const size_t index) const
+{
+    return at(index);
 }
 
 template <typename Type>
@@ -215,6 +227,12 @@ Vector<Type> Vector<Type>::vecSum(const Vector<Type> &vector) const
 }
 
 template <typename Type>
+Vector<Type> Vector<Type>::operator+(const Vector<Type> &vector) const
+{
+    return vecSum(vector);
+}
+
+template <typename Type>
 Vector<Type> Vector<Type>::eqVecSum(const Vector<Type> &vector)
 {
     if (size != vector.size)
@@ -233,6 +251,12 @@ Vector<Type> Vector<Type>::eqVecSum(const Vector<Type> &vector)
         *resIt += *(vecIt++);
 
     return *this;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::operator+=(const Vector<Type> &vector)
+{
+    return eqVecSum(vector);
 }
 
 template <typename Type>
@@ -258,6 +282,12 @@ Vector<Type> Vector<Type>::vecDiff(const Vector<Type> &vector) const
 }
 
 template <typename Type>
+Vector<Type> Vector<Type>::operator-(const Vector<Type> &vector) const
+{
+    return vecDiff(vector);
+}
+
+template <typename Type>
 Vector<Type> Vector<Type>::eqVecDiff(const Vector<Type> &vector)
 {
     if (size != vector.size)
@@ -279,6 +309,12 @@ Vector<Type> Vector<Type>::eqVecDiff(const Vector<Type> &vector)
 }
 
 template <typename Type>
+Vector<Type> Vector<Type>::operator-=(const Vector<Type> &vector)
+{
+    return eqVecDiff(vector);
+}
+
+template <typename Type>
 Vector<Type> Vector<Type>::neg() const
 {
     Vector<Type> res(*this);
@@ -287,6 +323,12 @@ Vector<Type> Vector<Type>::neg() const
         elem = -elem;
 
     return res;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::operator-() const
+{
+    return neg();
 }
 
 template <typename Type>
@@ -302,6 +344,12 @@ Vector<Type> Vector<Type>::byNumProd(const Type &num) const
 }
 
 template <typename Type>
+Vector<Type> Vector<Type>::operator*(const Type &num) const
+{
+    return byNumProd(num);
+}
+
+template <typename Type>
 Vector<Type> Vector<Type>::eqByNumProd(const Type &num)
 {
     Iterator<Type> resIt = begin();
@@ -310,6 +358,12 @@ Vector<Type> Vector<Type>::eqByNumProd(const Type &num)
         *resIt *= num;
 
     return *this;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::operator*=(const Type &num)
+{
+    return eqByNumProd(num);
 }
 
 template <typename Type>
@@ -335,6 +389,12 @@ Type Vector<Type>::scalarProd(const Vector<Type> &vector) const
 }
 
 template <typename Type>
+Type Vector<Type>::operator&(const Vector<Type> &vector) const
+{
+    return scalarProd(vector);
+}
+
+template <typename Type>
 Vector<Type> Vector<Type>::vectorProd(const Vector<Type> &vector) const
 {
     if (size != 3 || vector.size != 3)
@@ -356,6 +416,12 @@ Vector<Type> Vector<Type>::vectorProd(const Vector<Type> &vector) const
 }
 
 template <typename Type>
+Vector<Type> Vector<Type>::operator^(const Vector<Type> &vector) const
+{
+    return vectorProd(vector);
+}
+
+template <typename Type>
 Vector<Type> Vector<Type>::eqVectorProd(const Vector<Type> &vector)
 {
     if (size != 3 || vector.size != 3)
@@ -374,6 +440,12 @@ Vector<Type> Vector<Type>::eqVectorProd(const Vector<Type> &vector)
     at(2) = tmp.at(0) * vector.at(1) - tmp.at(1) * vector.at(0);
 
     return *this;
+}
+
+template <typename Type>
+Vector<Type> Vector<Type>::operator^=(const Vector<Type> &vector)
+{
+    return eqVectorProd(vector);
 }
 
 template <typename Type>

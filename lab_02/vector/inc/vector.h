@@ -24,6 +24,9 @@ public:
 
     ~Vector() override = default;
 
+    // Vector<Type> &operator=(const Vector<Type> &vector);
+    // Vector<Type> &operator=(Vector<Type> &&vector);
+
     bool operator==(const Vector<Type> &vector) const;
     bool isEqual(const Vector<Type> &vector) const;
 
@@ -33,27 +36,40 @@ public:
     double length() const;
 
     Type & at(const size_t index);
+    Type & operator[](const size_t index);
+
     const Type & at(const size_t index) const;
+    const Type & operator[](const size_t index) const;
 
     Vector<Type> vecSum(const Vector<Type> &vector) const;
+    Vector<Type> operator+(const Vector<Type> &vector) const;
 
     Vector<Type> eqVecSum(const Vector<Type> &vector);
+    Vector<Type> operator+=(const Vector<Type> &vector);
 
     Vector<Type> vecDiff(const Vector<Type> &vector) const;
+    Vector<Type> operator-(const Vector<Type> &vector) const;
 
     Vector<Type> eqVecDiff(const Vector<Type> &vector);
+    Vector<Type> operator-=(const Vector<Type> &vector);
 
     Vector<Type> neg() const;
+    Vector<Type> operator-() const;
 
     Vector<Type> byNumProd(const Type &num) const;
+    Vector<Type> operator*(const Type &num) const;
 
     Vector<Type> eqByNumProd(const Type &num);
+    Vector<Type> operator*=(const Type &num);
 
     Type scalarProd(const Vector<Type> &vector) const;
+    Type operator&(const Vector<Type> &vector) const;
 
     Vector<Type> vectorProd(const Vector<Type> &vector) const;
+    Vector<Type> operator^(const Vector<Type> &vector) const;
 
     Vector<Type> eqVectorProd(const Vector<Type> &vector);
+    Vector<Type> operator^=(const Vector<Type> &vector);
 
     double angle(const Vector<Type> &vector) const;
 
@@ -67,6 +83,7 @@ public:
     Iterator<Type> end() noexcept;
     ConstIterator<Type> begin() const noexcept;
     ConstIterator<Type> end() const noexcept;
+
     ConstIterator<Type> cbegin() const noexcept;
     ConstIterator<Type> cend() const noexcept;
 
