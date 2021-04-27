@@ -55,17 +55,15 @@ ConstIterator<Type> Vector<Type>::cend() const noexcept
 template <typename Type>
 Vector<Type>::Vector(size_t sizeValue)
 {
-    // Нужно ли обнулять
-    // Если произошла ошибка, размер изменится
+    allocate(sizeValue);
     size = sizeValue;
-    allocate(size);
 }
 
 template <typename Type>
 Vector<Type>::Vector(size_t sizeValue, Type filler)
 {
+    allocate(sizeValue);
     size = sizeValue;
-    allocate(size);
 
     for (Iterator<Type> It = begin(); It != end(); ++It)
         *It = filler;
@@ -74,8 +72,8 @@ Vector<Type>::Vector(size_t sizeValue, Type filler)
 template <typename Type>
 Vector<Type>::Vector(const initializer_list<Type> &elements)
 {
+    allocate(elements.size());
     size = elements.size();
-    allocate(size);
 
     Iterator<Type> It = begin();
 
@@ -86,16 +84,7 @@ Vector<Type>::Vector(const initializer_list<Type> &elements)
 template <typename Type>
 Vector<Type>::Vector(const Vector<Type> &vector)
 {
-    data = shared_ptr<Type[]>(new Type[vector.size]);
-
-    if (!data)
-    {
-        time_t curTime = time(NULL);
-        throw MemoryException(ctime(&curTime), __FILE__,
-                              __LINE__, typeid(*this).name(),
-                              __FUNCTION__);
-    }
-
+    allocate(vector.size);
     size = vector.size;
 
     ConstIterator<Type> src = vector.cbegin();
@@ -120,7 +109,7 @@ bool Vector<Type>::isEqual(const Vector<Type> &vector) const
     ConstIterator<Type> first = cbegin();
     ConstIterator<Type> second = vector.cbegin();
 
-    bool areEqual = true;
+    bool areEqual = (size == vector.size);
     for (; areEqual && (first != cend()) && (second != vector.cend());
          ++first, ++second)
         areEqual = (*first == *second);
@@ -502,21 +491,17 @@ bool Vector<Type>::isZero() const
 template <typename Type>
 void Vector<Type>::allocate(size_t sizeValue)
 {
+    time_t curTime = time(NULL);
+    uint line;
     try
     {
-        time_t curTime = time(NULL);
-        uint line = __LINE__;
-        Type * tmp = new Type[sizeValue];
-
-        if (!tmp)
-            throw MemoryException(ctime(&curTime), __FILE__, line,
-                                  typeid(*this).name(), __FUNCTION__);
-
-        data.reset(tmp);
+        line = __LINE__;
+        data.reset(new Type[sizeValue]);
     }
-    catch (MemoryException &err)
+    catch (bad_alloc &err)
     {
-        cout << err.what() << endl;
+        throw MemoryException(ctime(&curTime), __FILE__, line,
+                              typeid(*this).name(), __FUNCTION__);
     }
 }
 // END allocate

@@ -13,9 +13,17 @@ TEST(comparison_operators, equal)
     EXPECT_EQ((a == b), true);
 }
 
-TEST(comparison_operators, not_equal)
+TEST(comparison_operators, notEqual)
 {
     Vector<int> a = {-5, 6, 0};
+    Vector<int> b = {12, 3, 5};
+
+    EXPECT_EQ((a == b), false);
+}
+
+TEST(comparison_operators, notEqualBySizes)
+{
+    Vector<int> a = {12, 3, 5, 4};
     Vector<int> b = {12, 3, 5};
 
     EXPECT_EQ((a == b), false);
@@ -29,9 +37,17 @@ TEST(comparison_operators, nequal)
     EXPECT_EQ((a != b), false);
 }
 
-TEST(comparison_operators, not_nequal)
+TEST(comparison_operators, notNEqual)
 {
     Vector<int> a = {-5, 6, 0};
+    Vector<int> b = {12, 3, 5};
+
+    EXPECT_EQ((a != b), true);
+}
+
+TEST(comparison_operators, notNEqualBySizes)
+{
+    Vector<int> a = {12, 3, 5, 4};
     Vector<int> b = {12, 3, 5};
 
     EXPECT_EQ((a != b), true);
