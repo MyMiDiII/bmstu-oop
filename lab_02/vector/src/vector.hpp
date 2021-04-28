@@ -67,6 +67,18 @@ Vector<Type>::Vector(size_t sizeValue, Type filler)
 }
 
 template <typename Type>
+Vector<Type>::Vector(size_t sizeValue, const Type *arr)
+{
+    allocate(sizeValue);
+    size = sizeValue;
+
+    size_t i = 0;
+    for (Iterator<Type> It = begin(); It != end(); ++It, ++i)
+        *It = arr[i];
+}
+
+
+template <typename Type>
 Vector<Type>::Vector(const initializer_list<Type> &elements)
 {
     allocate(elements.size());
@@ -96,10 +108,76 @@ Vector<Type>::Vector(Vector<Type> &&vector)
 {
     size = vector.size;
     data = vector.data;
-    vector.data = nullptr;
+    vector.data.reset();
+}
+
+template <typename Type>
+Vector<Type>::Vector(Iterator<Type> begin, Iterator<Type> end)
+{
+    size_t len = 0;
+    for (auto it = begin; it != end; ++it, ++len);
+
+    allocate(len);
+    size = len;
+
+    len = 0;
+    for(auto it = begin; it != end; ++it, ++len)
+        data[len] = *it;
+}
+
+template <typename Type>
+Vector<Type>::Vector(ConstIterator<Type> begin, ConstIterator<Type> end)
+{
+    size_t len = 0;
+    for (auto it = begin; it != end; ++it, ++len);
+
+    allocate(len);
+    size = len;
+
+    len = 0;
+    for(auto it = begin; it != end; ++it, ++len)
+        data[len] = *it;
 }
 // END constructors
 
+// BEGIN assignment
+template <typename Type>
+Vector<Type> &Vector<Type>::operator=(const initializer_list<Type> &elements)
+{
+   allocate(elements.size());
+   size = elements.size();
+
+   Iterator<Type> it = begin();
+   for (auto &cur : elements)
+       *(it++) = cur;
+
+   return *this;
+}
+
+template <typename Type>
+Vector<Type> &Vector<Type>::operator=(const Vector<Type> &vector)
+{
+   allocate(vector.size);
+   size = vector.sizes;
+
+   Iterator<Type> it = begin();
+   for (auto &cur : vector)
+       *(it++) = cur;
+
+   return *this;
+}
+
+template <typename Type>
+Vector<Type> &Vector<Type>::operator=(Vector<Type> &&vector) noexcept
+{
+    allocate(vector.size);
+    size = vector.size;
+    data = vector.data;
+    vector.data.reset();
+
+    return *this;
+}
+// END assignment
 
 // BEGIN comparison
 template <typename Type>
@@ -686,5 +764,6 @@ void Vector<Type>::divisionByZeroCheck(const Type &num,
                                   __FUNCTION__);
     }
 }
+// END checks
 
 #endif

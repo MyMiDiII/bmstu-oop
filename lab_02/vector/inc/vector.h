@@ -20,14 +20,17 @@ public:
     explicit Vector(size_t sizeValue);
     explicit Vector(const Vector<Type> &vector);
     Vector(size_t sizeValue, Type filler);
+    Vector(size_t sizeValue, const Type *arr);
     Vector(const initializer_list<Type> &elements);
     Vector(Vector<Type> &&vector);
-    // конструктор переноса
+    Vector(Iterator<Type> begin, Iterator<Type> end);
+    Vector(ConstIterator<Type> begin, ConstIterator<Type> end);
 
     ~Vector() override = default;
 
-    // Vector<Type> &operator=(const Vector<Type> &vector);
-    // Vector<Type> &operator=(Vector<Type> &&vector);
+    Vector<Type> &operator=(const initializer_list<Type> &elements);
+    Vector<Type> &operator=(const Vector<Type> &vector);
+    Vector<Type> &operator=(Vector<Type> &&vector) noexcept;
 
     bool operator==(const Vector<Type> &vector) const;
     bool isEqual(const Vector<Type> &vector) const;
@@ -37,11 +40,11 @@ public:
 
     double length() const;
 
-    Type & at(const size_t index);
-    Type & operator[](const size_t index);
+    Type &at(const size_t index);
+    Type &operator[](const size_t index);
 
-    const Type & at(const size_t index) const;
-    const Type & operator[](const size_t index) const;
+    const Type &at(const size_t index) const;
+    const Type &operator[](const size_t index) const;
 
     Vector<Type> vecSum(const Vector<Type> &vector) const;
     Vector<Type> operator+(const Vector<Type> &vector) const;

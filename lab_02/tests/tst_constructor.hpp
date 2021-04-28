@@ -18,18 +18,12 @@ TEST(contructors, sizeInt)
 {
     Vector<int> a(3);
     EXPECT_EQ(a.isEmpty(), false);
-
-    //for (auto elem : a)
-    //  EXPECT_EQ(elem, 0);
 }
 
 TEST(contructors, sizeDouble)
 {
     Vector<double> a(3);
     EXPECT_EQ(a.isEmpty(), false);
-
-    //for (auto elem : a)
-    //  EXPECT_NEAR(elem, 0, EPS);
 }
 
 TEST(contructors, fillerInt)
