@@ -90,6 +90,14 @@ Vector<Type>::Vector(const Vector<Type> &vector)
     for (; src != vector.cend(); ++src, ++dst)
         *dst = *src;
 }
+
+template <typename Type>
+Vector<Type>::Vector(Vector<Type> &&vector)
+{
+    size = vector.size;
+    data = vector.data;
+    vector.data = nullptr;
+}
 // END constructors
 
 
@@ -207,7 +215,7 @@ Vector<Type> Vector<Type>::operator+(const Type &num) const
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqVecSum(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::eqVecSum(const Vector<Type> &vector)
 {
     sizesCheck(vector, __LINE__);
 
@@ -221,13 +229,13 @@ Vector<Type> Vector<Type>::eqVecSum(const Vector<Type> &vector)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator+=(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::operator+=(const Vector<Type> &vector)
 {
     return eqVecSum(vector);
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqByNumSum(const Type &num)
+Vector<Type> &Vector<Type>::eqByNumSum(const Type &num)
 {
     Iterator<Type> resIt = begin();
 
@@ -238,7 +246,7 @@ Vector<Type> Vector<Type>::eqByNumSum(const Type &num)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator+=(const Type &num)
+Vector<Type> &Vector<Type>::operator+=(const Type &num)
 {
     return eqByNumSum(num);
 }
@@ -283,7 +291,7 @@ Vector<Type> Vector<Type>::operator-(const Type &num) const
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqVecDiff(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::eqVecDiff(const Vector<Type> &vector)
 {
     sizesCheck(vector, __LINE__);
 
@@ -297,13 +305,13 @@ Vector<Type> Vector<Type>::eqVecDiff(const Vector<Type> &vector)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator-=(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::operator-=(const Vector<Type> &vector)
 {
     return eqVecDiff(vector);
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqByNumDiff(const Type &num)
+Vector<Type> &Vector<Type>::eqByNumDiff(const Type &num)
 {
     Iterator<Type> resIt = begin();
 
@@ -314,7 +322,7 @@ Vector<Type> Vector<Type>::eqByNumDiff(const Type &num)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator-=(const Type &num)
+Vector<Type> &Vector<Type>::operator-=(const Type &num)
 {
     return eqByNumDiff(num);
 }
@@ -377,7 +385,7 @@ Vector<Type> Vector<Type>::operator*(const Type &num) const
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqVecProd(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::eqVecProd(const Vector<Type> &vector)
 {
     sizesCheck(vector, __LINE__);
 
@@ -391,13 +399,13 @@ Vector<Type> Vector<Type>::eqVecProd(const Vector<Type> &vector)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator*=(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::operator*=(const Vector<Type> &vector)
 {
     return eqVecProd(vector);
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqByNumProd(const Type &num)
+Vector<Type> &Vector<Type>::eqByNumProd(const Type &num)
 {
     Iterator<Type> resIt = begin();
 
@@ -408,7 +416,7 @@ Vector<Type> Vector<Type>::eqByNumProd(const Type &num)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator*=(const Type &num)
+Vector<Type> &Vector<Type>::operator*=(const Type &num)
 {
     return eqByNumProd(num);
 }
@@ -458,7 +466,7 @@ Vector<Type> Vector<Type>::operator/(const Type &num) const
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqVecQuot(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::eqVecQuot(const Vector<Type> &vector)
 {
     sizesCheck(vector, __LINE__);
 
@@ -475,13 +483,13 @@ Vector<Type> Vector<Type>::eqVecQuot(const Vector<Type> &vector)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator/=(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::operator/=(const Vector<Type> &vector)
 {
     return eqVecQuot(vector);
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqByNumQuot(const Type &num)
+Vector<Type> &Vector<Type>::eqByNumQuot(const Type &num)
 {
     divisionByZeroCheck(num, __LINE__);
 
@@ -494,7 +502,7 @@ Vector<Type> Vector<Type>::eqByNumQuot(const Type &num)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator/=(const Type &num)
+Vector<Type> &Vector<Type>::operator/=(const Type &num)
 {
     return eqByNumQuot(num);
 }
@@ -541,7 +549,7 @@ Vector<Type> Vector<Type>::operator^(const Vector<Type> &vector) const
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::eqVectorProd(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::eqVectorProd(const Vector<Type> &vector)
 {
     vectorProdSizesCheck(vector, __LINE__);
 
@@ -555,7 +563,7 @@ Vector<Type> Vector<Type>::eqVectorProd(const Vector<Type> &vector)
 }
 
 template <typename Type>
-Vector<Type> Vector<Type>::operator^=(const Vector<Type> &vector)
+Vector<Type> &Vector<Type>::operator^=(const Vector<Type> &vector)
 {
     return eqVectorProd(vector);
 }

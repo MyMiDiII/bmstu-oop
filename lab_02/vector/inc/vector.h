@@ -18,9 +18,10 @@ class Vector : public BaseContainer
 public:
     Vector() = default;
     explicit Vector(size_t sizeValue);
-    Vector(const Vector<Type> &vector);
+    explicit Vector(const Vector<Type> &vector);
     Vector(size_t sizeValue, Type filler);
     Vector(const initializer_list<Type> &elements);
+    Vector(Vector<Type> &&vector);
     // конструктор переноса
 
     ~Vector() override = default;
@@ -48,11 +49,11 @@ public:
     Vector<Type> byNumSum(const Type &num) const;
     Vector<Type> operator+(const Type &num) const;
 
-    Vector<Type> eqVecSum(const Vector<Type> &vector);
-    Vector<Type> operator+=(const Vector<Type> &vector);
+    Vector<Type> &eqVecSum(const Vector<Type> &vector);
+    Vector<Type> &operator+=(const Vector<Type> &vector);
 
-    Vector<Type> eqByNumSum(const Type &num);
-    Vector<Type> operator+=(const Type &num);
+    Vector<Type> &eqByNumSum(const Type &num);
+    Vector<Type> &operator+=(const Type &num);
 
     Vector<Type> vecDiff(const Vector<Type> &vector) const;
     Vector<Type> operator-(const Vector<Type> &vector) const;
@@ -60,11 +61,11 @@ public:
     Vector<Type> byNumDiff(const Type &num) const;
     Vector<Type> operator-(const Type &num) const;
 
-    Vector<Type> eqVecDiff(const Vector<Type> &vector);
-    Vector<Type> operator-=(const Vector<Type> &vector);
+    Vector<Type> &eqVecDiff(const Vector<Type> &vector);
+    Vector<Type> &operator-=(const Vector<Type> &vector);
 
-    Vector<Type> eqByNumDiff(const Type &num);
-    Vector<Type> operator-=(const Type &num);
+    Vector<Type> &eqByNumDiff(const Type &num);
+    Vector<Type> &operator-=(const Type &num);
 
     Vector<Type> vecProd(const Vector<Type> &vector) const;
     Vector<Type> operator*(const Vector<Type> &vector) const;
@@ -72,11 +73,11 @@ public:
     Vector<Type> byNumProd(const Type &num) const;
     Vector<Type> operator*(const Type &num) const;
 
-    Vector<Type> eqVecProd(const Vector<Type> &vector);
-    Vector<Type> operator*=(const Vector<Type> &vector);
+    Vector<Type> &eqVecProd(const Vector<Type> &vector);
+    Vector<Type> &operator*=(const Vector<Type> &vector);
 
-    Vector<Type> eqByNumProd(const Type &num);
-    Vector<Type> operator*=(const Type &num);
+    Vector<Type> &eqByNumProd(const Type &num);
+    Vector<Type> &operator*=(const Type &num);
 
     Vector<Type> vecQuot(const Vector<Type> &vector) const;
     Vector<Type> operator/(const Vector<Type> &vector) const;
@@ -84,11 +85,11 @@ public:
     Vector<Type> byNumQuot(const Type &num) const;
     Vector<Type> operator/(const Type &num) const;
 
-    Vector<Type> eqVecQuot(const Vector<Type> &vector);
-    Vector<Type> operator/=(const Vector<Type> &vector);
+    Vector<Type> &eqVecQuot(const Vector<Type> &vector);
+    Vector<Type> &operator/=(const Vector<Type> &vector);
 
-    Vector<Type> eqByNumQuot(const Type &num);
-    Vector<Type> operator/=(const Type &num);
+    Vector<Type> &eqByNumQuot(const Type &num);
+    Vector<Type> &operator/=(const Type &num);
 
     Vector<Type> neg() const;
     Vector<Type> operator-() const;
@@ -99,8 +100,8 @@ public:
     Vector<Type> vectorProd(const Vector<Type> &vector) const;
     Vector<Type> operator^(const Vector<Type> &vector) const;
 
-    Vector<Type> eqVectorProd(const Vector<Type> &vector);
-    Vector<Type> operator^=(const Vector<Type> &vector);
+    Vector<Type> &eqVectorProd(const Vector<Type> &vector);
+    Vector<Type> &operator^=(const Vector<Type> &vector);
 
     double angle(const Vector<Type> &vector) const;
 
