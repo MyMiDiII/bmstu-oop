@@ -423,8 +423,10 @@ Vector<Type> Vector<Type>::vecQuot(const Vector<Type> &vector) const
     ConstIterator<Type> vecIt = vector.cbegin();
 
     for (; resIt != res.end(); ++resIt)
-        // проверка нуля
+    {
+        divisionByZeroCheck(*vecIt, __LINE__);
         *resIt /= *(vecIt++);
+    }
 
     return res;
 }
@@ -438,7 +440,8 @@ Vector<Type> Vector<Type>::operator/(const Vector<Type> &vector) const
 template <typename Type>
 Vector<Type> Vector<Type>::byNumQuot(const Type &num) const
 {
-    //проверка нуля
+    divisionByZeroCheck(num, __LINE__);
+
     Vector<Type> res(*this);
     Iterator<Type> resIt = res.begin();
 
@@ -463,8 +466,10 @@ Vector<Type> Vector<Type>::eqVecQuot(const Vector<Type> &vector)
     ConstIterator<Type> vecIt = vector.cbegin();
 
     for (; resIt != end(); ++resIt)
-        // проверка нуля
+    {
+        divisionByZeroCheck(*vecIt, __LINE__);
         *resIt /= *(vecIt++);
+    }
 
     return *this;
 }
@@ -478,6 +483,8 @@ Vector<Type> Vector<Type>::operator/=(const Vector<Type> &vector)
 template <typename Type>
 Vector<Type> Vector<Type>::eqByNumQuot(const Type &num)
 {
+    divisionByZeroCheck(num, __LINE__);
+
     Iterator<Type> resIt = begin();
 
     for (; resIt != end(); ++resIt)
@@ -659,5 +666,17 @@ void Vector<Type>::vectorProdSizesCheck(const Vector<Type> &vector,
     }
 }
 
+template <typename Type>
+void Vector<Type>::divisionByZeroCheck(const Type &num,
+                              const uint line) const
+{
+    if (abs(num) < EPS)
+    {
+        time_t curTime = time(NULL);
+        throw DivisionByZeroException(ctime(&curTime), __FILE__,
+                                  line, typeid(*this).name(),
+                                  __FUNCTION__);
+    }
+}
 
 #endif

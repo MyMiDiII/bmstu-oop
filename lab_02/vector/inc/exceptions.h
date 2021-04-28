@@ -69,4 +69,15 @@ public:
     : BaseException(time, fileName, line, className, methodName, info)
     {};
 };
+
+class DivisionByZeroException: public BaseException
+{
+public:
+    DivisionByZeroException(const str &time, const str &fileName,
+             const uint line, const str &className,
+             const str &methodName,
+             const str &info = "Division by zero!")
+    : BaseException(time, fileName, line, className, methodName, info)
+    {};
+};
 #endif // EXCEPTIONS_H

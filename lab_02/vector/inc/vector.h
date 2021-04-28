@@ -124,6 +124,7 @@ protected:
     void indexCheck(const size_t index, const uint line) const;
     void sizesCheck(const Vector<Type> &vector, const uint line) const;
     void vectorProdSizesCheck(const Vector<Type> &vector, const uint line) const;
+    void divisionByZeroCheck(const Type &num, const uint line) const;
 
 private:
     shared_ptr<Type[]> data = nullptr;

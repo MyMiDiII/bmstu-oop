@@ -464,7 +464,6 @@ TEST(binary, eqVecQuot)
         EXPECT_EQ(elem, tmp[i++]);
 }
 
-/*
 TEST(binary, badVecQuot)
 {
     Vector<int> a = {-100};
@@ -472,7 +471,6 @@ TEST(binary, badVecQuot)
 
     EXPECT_ANY_THROW(a.vecQuot(b));
 }
-*/
 
 TEST(binary, byNumQuot)
 {
@@ -512,7 +510,6 @@ TEST(binary, opByNumQuot)
         EXPECT_EQ(elem, tmp[i++]);
 }
 
-/*
 TEST(binary, badEqVecQuot)
 {
     Vector<int> a = {-100};
@@ -520,7 +517,6 @@ TEST(binary, badEqVecQuot)
 
     EXPECT_ANY_THROW(a.eqVecQuot(b));
 }
-*/
 
 TEST(binary, eqByNumQuot)
 {
