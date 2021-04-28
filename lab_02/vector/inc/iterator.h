@@ -8,32 +8,49 @@ using namespace std;
 template <typename Type> class Vector;
 
 template <typename Type>
-class Iterator : public iterator<input_iterator_tag, Type>
+class Iterator : public iterator<random_access_iterator_tag, Type>
 {
     friend class Vector<Type>;
 
 public:
     Iterator(const Vector<Type> &vector) noexcept;
-    Iterator(const Iterator<Type> &iterator) noexcept = default;
+    Iterator(const Iterator<Type> &iterator) noexcept;
 
-    // перепроверить конструкторы !!!
     ~Iterator() = default;
 
-    Type & operator*();
-    Type * operator->();
+    Iterator<Type> &operator=(const Iterator<Type> &it) noexcept;
 
+    operator bool() const;
+
+    Type & operator*();
     const Type & operator*() const;
+
+    Type * operator->();
     const Type * operator->() const;
 
     Iterator<Type> operator+(const size_t dif) const;
+    Iterator<Type> &operator+=(const size_t dif);
 
-    Iterator<Type> & operator++() noexcept;
-    Iterator<Type> operator++(int) noexcept;
+    Iterator<Type> &operator++();
+    Iterator<Type> operator++(int);
+
+    Iterator<Type> operator-(const size_t dif) const;
+    Iterator<Type> &operator-=(const size_t dif);
+
+    Iterator<Type> &operator--();
+    Iterator<Type> operator--(int);
 
     bool operator==(const Iterator<Type> &iterator) const;
     bool operator!=(const Iterator<Type> &iterator) const;
 
+    bool operator>(const Iterator<Type> &iterator) const;
+    bool operator>=(const Iterator<Type> &iterator) const;
+
+    bool operator<(const Iterator<Type> &iterator) const;
+    bool operator<=(const Iterator<Type> &iterator) const;
+
 protected:
+    Type *getCurPtr() const;
     void exprideCheck(const uint line) const;
     void indexCheck(const uint line) const;
 
