@@ -12,4 +12,6 @@
 
 #include "tst_binary.hpp"
 
+#include "tst_assignment.hpp"
+
 #endif // TST_SIZE_HPP

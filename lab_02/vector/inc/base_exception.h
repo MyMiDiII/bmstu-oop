@@ -18,6 +18,4 @@ protected:
     str errInfo;
 };
 
-#include "base_exception.hpp"
-
 #endif // BASEEXCEPTON_H

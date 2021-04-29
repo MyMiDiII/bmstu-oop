@@ -15,4 +15,6 @@ size_t BaseContainer::getSize() const
     return size;
 }
 
+BaseContainer::~BaseContainer() = default;
+
 #endif

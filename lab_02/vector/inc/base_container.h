@@ -8,12 +8,10 @@ class BaseContainer
 public:
     virtual bool isEmpty() const;
     virtual size_t getSize() const;
-    virtual ~BaseContainer() = default;
+    virtual ~BaseContainer() = 0;
 
 protected:
     size_t size = 0;
 };
-
-#include "base_container.hpp"
 
 #endif // BASE_CONTAINER_H

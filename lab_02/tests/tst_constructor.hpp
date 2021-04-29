@@ -28,7 +28,9 @@ TEST(contructors, sizeDouble)
 
 TEST(contructors, fillerInt)
 {
-    Vector<int> a(3, -1);
+    size_t size = 3;
+    int filler = -1;
+    Vector<int> a(size, filler);
     EXPECT_EQ(a.isEmpty(), false);
 
     for (auto elem : a)
@@ -37,7 +39,7 @@ TEST(contructors, fillerInt)
 
 TEST(contructors, initListInt)
 {
-    Vector<int> a = {5, -9, 0, 13};
+    Vector<int> a{5, -9, 0, 13};
     EXPECT_EQ(a.isEmpty(), false);
     int arr[4] = {5, -9, 0, 13};
 
@@ -48,7 +50,7 @@ TEST(contructors, initListInt)
 
 TEST(contructors, initListChar)
 {
-    Vector<char> a = {'T', 'R', 'Y'};
+    Vector<char> a{'T', 'R', 'Y'};
     EXPECT_EQ(a.isEmpty(), false);
 
     int arr[3] = {'T', 'R', 'Y'};

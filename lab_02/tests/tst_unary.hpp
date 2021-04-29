@@ -51,14 +51,14 @@ TEST(unary, length)
 {
     Vector<int> a = {1, -2, 2};
 
-    EXPECT_NEAR(a.length(), 3, EPS);
+    EXPECT_NEAR(a.length<double>(), 3, EPS);
 }
 
 TEST(unary, badLength)
 {
     Vector<int> a(0);
 
-    EXPECT_ANY_THROW(a.length());
+    EXPECT_ANY_THROW(a.length<float>());
 }
 
 TEST(unary, zeroAngle)

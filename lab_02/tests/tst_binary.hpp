@@ -803,4 +803,156 @@ TEST(binary, zeroOrthogonal)
     EXPECT_EQ(b.isCollinear(a), true);
 }
 
+TEST(decltypetst, difVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<double> b = {0.5, -0.5, 0.};
+
+    auto res(a.vecSum(b));
+    cout << typeid(res).name() << endl;
+
+    int tmp_a[3] = {-100, 0, 6};
+    double tmp[3] = {-99.5, -0.5, 6.};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
+TEST(decltypetst, difOpVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<double> b = {0.5, -0.5, 0.};
+
+    auto res(a + b);
+    cout << typeid(res).name() << endl;
+
+    int tmp_a[3] = {-100, 0, 6};
+    double tmp[3] = {-99.5, -0.5, 6.};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
+TEST(decltypetst, difByNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    double k = 10;
+
+    auto res(a.byNumSum(k));
+    cout << typeid(res).name() << endl;
+
+    int tmp_a[3] = {-100, 0, 6};
+    double tmp[3] = {-90, 10, 16};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
+TEST(decltypetst, difOpByNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    double k = 10;
+
+    auto res(a + k);
+    cout << typeid(res).name() << endl;
+
+    int tmp_a[3] = {-100, 0, 6};
+    double tmp[3] = {-90, 10, 16};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp_a[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_NEAR(elem, tmp[i++], EPS);
+}
+
+TEST(decltypetst, difEqVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<double> b = {0.5, -0.5, 1.5};
+
+    auto res(a.eqVecSum(b));
+
+    int tmp[3] = {-99, 0, 7};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(decltypetst, difOpEqVecSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<double> b = {0.5, -0.5, 1.5};
+
+    auto res(a += b);
+
+    int tmp[3] = {-99, 0, 7};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(decltypetst, difEqByNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    double k = 0.5;
+
+    auto res(a.eqByNumSum(k));
+
+    int tmp[3] = {-99, 0, 6};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(decltypetst, difOpEqByNumSum)
+{
+    Vector<int> a = {-100, 0, 6};
+    double k = 0.5;
+
+    auto res(a += k);
+
+    int tmp[3] = {-99, 0, 6};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
 #endif // TST_BINARY_HPP

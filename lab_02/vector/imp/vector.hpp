@@ -1,6 +1,10 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+// debug
+#include <iostream>
+// debug
+
 #include <cmath>
 #include <limits>
 
@@ -25,7 +29,7 @@ Iterator<Type> Vector<Type>::end() noexcept
 template <typename Type>
 ConstIterator<Type> Vector<Type>::begin() const noexcept
 {
-    return Iterator<Type>(*this);
+    return ConstIterator<Type>(*this);
 }
 
 template <typename Type>
@@ -57,7 +61,7 @@ Vector<Type>::Vector(size_t sizeValue)
 }
 
 template <typename Type>
-Vector<Type>::Vector(size_t sizeValue, Type filler)
+Vector<Type>::Vector(size_t sizeValue, const Type &filler)
 {
     allocate(sizeValue);
     size = sizeValue;
@@ -79,7 +83,7 @@ Vector<Type>::Vector(size_t sizeValue, const Type *arr)
 
 
 template <typename Type>
-Vector<Type>::Vector(const initializer_list<Type> &elements)
+Vector<Type>::Vector(initializer_list<Type> elements)
 {
     allocate(elements.size());
     size = elements.size();
@@ -104,7 +108,7 @@ Vector<Type>::Vector(const Vector<Type> &vector)
 }
 
 template <typename Type>
-Vector<Type>::Vector(Vector<Type> &&vector)
+Vector<Type>::Vector(Vector<Type> &&vector) noexcept
 {
     size = vector.size;
     data = vector.data;
@@ -112,21 +116,8 @@ Vector<Type>::Vector(Vector<Type> &&vector)
 }
 
 template <typename Type>
-Vector<Type>::Vector(Iterator<Type> begin, Iterator<Type> end)
-{
-    size_t len = 0;
-    for (auto it = begin; it != end; ++it, ++len);
-
-    allocate(len);
-    size = len;
-
-    len = 0;
-    for(auto it = begin; it != end; ++it, ++len)
-        data[len] = *it;
-}
-
-template <typename Type>
-Vector<Type>::Vector(ConstIterator<Type> begin, ConstIterator<Type> end)
+template <typename ItType>
+Vector<Type>::Vector(ItType begin, ItType end)
 {
     size_t len = 0;
     for (auto it = begin; it != end; ++it, ++len);
@@ -142,7 +133,7 @@ Vector<Type>::Vector(ConstIterator<Type> begin, ConstIterator<Type> end)
 
 // BEGIN assignment
 template <typename Type>
-Vector<Type> &Vector<Type>::operator=(const initializer_list<Type> &elements)
+Vector<Type> &Vector<Type>::operator=(initializer_list<Type> elements)
 {
    allocate(elements.size());
    size = elements.size();
@@ -158,7 +149,7 @@ template <typename Type>
 Vector<Type> &Vector<Type>::operator=(const Vector<Type> &vector)
 {
    allocate(vector.size);
-   size = vector.sizes;
+   size = vector.size;
 
    Iterator<Type> it = begin();
    for (auto &cur : vector)
@@ -216,7 +207,8 @@ bool Vector<Type>::isNotEqual(const Vector<Type> &vector) const
 
 // BEGIN methods and operators
 template <typename Type>
-double Vector<Type>::length() const
+template <typename OutType>
+OutType Vector<Type>::length() const
 {
     zeroSizeCheck(__LINE__);
 
@@ -275,6 +267,30 @@ Vector<Type> Vector<Type>::operator+(const Vector<Type> &vector) const
 }
 
 template <typename Type>
+template <typename Type2>
+decltype(auto) Vector<Type>::vecSum(const Vector<Type2> &vector) const
+{
+    sizesCheck(vector, __LINE__);
+    // проверка нулевых
+
+    Vector<decltype(at(0) + vector.at(0))> res(size);
+    ConstIterator<Type2> vecIt = vector.cbegin();
+
+    size_t i = 0;
+    for (; vecIt != vector.cend(); ++vecIt, ++i)
+        res.at(i) = at(i) + *vecIt;
+
+    return res;
+}
+
+template <typename Type>
+template <typename Type2>
+decltype(auto) Vector<Type>::operator+(const Vector<Type2> &vector) const
+{
+    return vecSum(vector);
+}
+
+template <typename Type>
 Vector<Type> Vector<Type>::byNumSum(const Type &num) const
 {
     Vector<Type> res(*this);
@@ -288,6 +304,26 @@ Vector<Type> Vector<Type>::byNumSum(const Type &num) const
 
 template <typename Type>
 Vector<Type> Vector<Type>::operator+(const Type &num) const
+{
+    return byNumSum(num);
+}
+
+template <typename Type>
+template <typename Type2>
+decltype(auto) Vector<Type>::byNumSum(const Type2 &num) const
+{
+    Vector<decltype(at(0) + num)> res(size);
+    ConstIterator<Type> It = cbegin();
+
+    for (size_t i = 0; It != cend(); ++It, ++i)
+        res.at(i) = *It + num;
+
+    return res;
+}
+
+template <typename Type>
+template <typename Type2>
+decltype(auto) Vector<Type>::operator+(const Type2 &num) const
 {
     return byNumSum(num);
 }
@@ -313,6 +349,28 @@ Vector<Type> &Vector<Type>::operator+=(const Vector<Type> &vector)
 }
 
 template <typename Type>
+template <typename Type2>
+Vector<Type> &Vector<Type>::eqVecSum(const Vector<Type2> &vector)
+{
+    sizesCheck(vector, __LINE__);
+
+    Iterator<Type> resIt = begin();
+    ConstIterator<Type2> vecIt = vector.cbegin();
+
+    for (; resIt != end(); ++resIt)
+        *resIt += *(vecIt++);
+
+    return *this;
+}
+
+template <typename Type>
+template <typename Type2>
+Vector<Type> &Vector<Type>::operator+=(const Vector<Type2> &vector)
+{
+    return eqVecSum(vector);
+}
+
+template <typename Type>
 Vector<Type> &Vector<Type>::eqByNumSum(const Type &num)
 {
     Iterator<Type> resIt = begin();
@@ -325,6 +383,25 @@ Vector<Type> &Vector<Type>::eqByNumSum(const Type &num)
 
 template <typename Type>
 Vector<Type> &Vector<Type>::operator+=(const Type &num)
+{
+    return eqByNumSum(num);
+}
+
+template <typename Type>
+template <typename Type2>
+Vector<Type> &Vector<Type>::eqByNumSum(const Type2 &num)
+{
+    Iterator<Type> resIt = begin();
+
+    for (; resIt != end(); ++resIt)
+        *resIt += num;
+
+    return *this;
+}
+
+template <typename Type>
+template <typename Type2>
+Vector<Type> &Vector<Type>::operator+=(const Type2 &num)
 {
     return eqByNumSum(num);
 }
@@ -651,8 +728,8 @@ double Vector<Type>::angle(const Vector<Type> &vector) const
 {
     double res = 0;
 
-    if (!(abs(length()) < EPS || abs(vector.length()) < EPS))
-        res = acos(scalarProd(vector) / (length() * vector.length()));
+    if (!(abs(length<double>()) < EPS || abs(vector.length<double>()) < EPS))
+        res = acos(scalarProd(vector) / (length<double>() * vector.length<double>()));
 
     return res;
 }
@@ -667,7 +744,7 @@ bool Vector<Type>::isCollinear(const Vector<Type> &vector) const
 }
 
 template <typename Type>
-bool Vector<Type>::isOrthoganal(const Vector<Type> &vector) const
+bool Vector<Type>::isOrthogonal(const Vector<Type> &vector) const
 {
     sizesCheck(vector, __LINE__);
 
@@ -677,7 +754,7 @@ bool Vector<Type>::isOrthoganal(const Vector<Type> &vector) const
 template <typename Type>
 bool Vector<Type>::isZero() const
 {
-    return abs(length()) < EPS;
+    return abs(length<double>()) < EPS;
 }
 
 
@@ -717,7 +794,7 @@ void Vector<Type>::zeroSizeCheck(const uint line) const
 template <typename Type>
 void Vector<Type>::indexCheck(const size_t index, const uint line) const
 {
-    if (index >= size)
+    if (index >= getSize())
     {
         time_t curTime = time(NULL);
         throw OutOfRangeException(ctime(&curTime), __FILE__,
@@ -727,10 +804,11 @@ void Vector<Type>::indexCheck(const size_t index, const uint line) const
 }
 
 template <typename Type>
-void Vector<Type>::sizesCheck(const Vector<Type> &vector,
+template <typename Type2>
+void Vector<Type>::sizesCheck(const Vector<Type2> &vector,
                               const uint line) const
 {
-    if (size != vector.size)
+    if (getSize() != vector.getSize())
     {
         time_t curTime = time(NULL);
         throw NotEqualSizesException(ctime(&curTime), __FILE__,
@@ -740,10 +818,11 @@ void Vector<Type>::sizesCheck(const Vector<Type> &vector,
 }
 
 template <typename Type>
-void Vector<Type>::vectorProdSizesCheck(const Vector<Type> &vector,
+template <typename Type2>
+void Vector<Type>::vectorProdSizesCheck(const Vector<Type2> &vector,
                               const uint line) const
 {
-    if (size != 3 || vector.size != 3)
+    if (getSize() != 3 || vector.getSize() != 3)
     {
         time_t curTime = time(NULL);
         throw Not3DException(ctime(&curTime), __FILE__,
@@ -753,7 +832,8 @@ void Vector<Type>::vectorProdSizesCheck(const Vector<Type> &vector,
 }
 
 template <typename Type>
-void Vector<Type>::divisionByZeroCheck(const Type &num,
+template <typename Type2>
+void Vector<Type>::divisionByZeroCheck(const Type2 &num,
                               const uint line) const
 {
     if (abs(num) < EPS)
