@@ -213,7 +213,8 @@ OutType Vector<Type>::length() const
     zeroSizeCheck(__LINE__);
 
     Type len = 0;
-    for (ConstIterator<Type> It = cbegin(); It != cend(); ++It)
+    ConstIterator<Type> It = cbegin();
+    for (; It != cend(); ++It)
         len += *It * *It;
 
     return sqrt(len);
@@ -229,16 +230,9 @@ Vector<OutType> Vector<Type>::getUnit() const
     OutType len = length<OutType>();
     Iterator<OutType> resIt = res.begin();
 
-    ConstIterator<Type> srcIt = begin();
+    ConstIterator<Type> srcIt = cbegin();
     for (; srcIt; ++srcIt, ++resIt)
-    {
         *resIt = *srcIt / len;
-        cout << *resIt << endl;
-    }
-
-    for (auto elem : res)
-    {
-    }
 
     return res;
 }

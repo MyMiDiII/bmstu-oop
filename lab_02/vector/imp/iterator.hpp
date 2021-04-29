@@ -1,6 +1,10 @@
 #ifndef ITERATOR_HPP
 #define ITERATOR_HPP
 
+//debug
+#include <iostream>
+using namespace std;
+
 #include <time.h>
 #include "iterator.h"
 #include "exceptions.h"
@@ -34,7 +38,7 @@ Iterator<Type>::operator bool() const
 {
     exprideCheck(__LINE__);
 
-    return (!size && index < size);
+    return size && index < size;
 }
 
 template <typename Type>
