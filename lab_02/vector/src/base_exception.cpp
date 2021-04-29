@@ -1,6 +1,3 @@
-#ifndef BASEEXCEPTION_HPP
-#define BASEEXCEPTION_HPP
-
 #include "base_exception.h"
 
 using namespace std;
@@ -22,5 +19,3 @@ const char *BaseException::what() const noexcept
 {
     return errInfo.c_str();
 }
-
-#endif

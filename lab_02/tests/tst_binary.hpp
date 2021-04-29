@@ -783,7 +783,7 @@ TEST(binary, orthogonal)
     Vector<int> a = {1, 0, 0};
     Vector<int> b = {0, 0, 1};
 
-    EXPECT_EQ(a.isOrthoganal(b), true);
+    EXPECT_EQ(a.isOrthogonal(b), true);
 }
 
 TEST(binary, notOrthogonal)
@@ -791,7 +791,7 @@ TEST(binary, notOrthogonal)
     Vector<int> a = {1, 2, 3};
     Vector<int> b = {-1, -1, -1};
 
-    EXPECT_EQ(a.isOrthoganal(b), false);
+    EXPECT_EQ(a.isOrthogonal(b), false);
 }
 
 TEST(binary, zeroOrthogonal)
@@ -809,7 +809,6 @@ TEST(decltypetst, difVecSum)
     Vector<double> b = {0.5, -0.5, 0.};
 
     auto res(a.vecSum(b));
-    cout << typeid(res).name() << endl;
 
     int tmp_a[3] = {-100, 0, 6};
     double tmp[3] = {-99.5, -0.5, 6.};
@@ -829,7 +828,6 @@ TEST(decltypetst, difOpVecSum)
     Vector<double> b = {0.5, -0.5, 0.};
 
     auto res(a + b);
-    cout << typeid(res).name() << endl;
 
     int tmp_a[3] = {-100, 0, 6};
     double tmp[3] = {-99.5, -0.5, 6.};
@@ -953,6 +951,150 @@ TEST(decltypetst, difOpEqByNumSum)
     i = 0;
     for (auto elem : res)
         EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(decltypetst, difVecDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<double> b = {0.5, -0.5, 1.5};
+
+    auto res(a - b);
+
+    int tmpA[3] = {-100, 0, 6};
+    double tmp[3] = {-100.5, 0.5, 4.5};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmpA[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(decltypetst, difByNumDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    double k = 0.5;
+
+    auto res(a - k);
+
+    int tmpA[3] = {-100, 0, 6};
+    double tmp[3] = {-100.5, -0.5, 5.5};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmpA[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(decltypetst, difEqVecDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    Vector<double> b = {0.5, -0.5, 1.5};
+
+    auto res(a -= b);
+
+    int tmp[3] = {-100, 0, 4};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(decltypetst, difEqByNumDiff)
+{
+    Vector<int> a = {-100, 0, 6};
+    double k = 0.5;
+
+    auto res(a -= k);
+
+    int tmp[3] = {-100, 0, 5};
+
+    int i = 0;
+    for (auto elem : a)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, difScalarProd)
+{
+    Vector<int> a = {3, 0, -7, 5, -1};
+    Vector<double> b = {-3, 0, -7, 1, 8};
+
+    EXPECT_NEAR(a & b, 37.0, EPS);
+}
+
+TEST(binary, difVectorProd)
+{
+    Vector<int> a = {-3, 2, -1};
+    Vector<double> b = {1.5, 0, -2.4};
+    auto res(b ^ a);
+
+    double tmp[3] = {4.8, 8.7, 3};
+
+    size_t i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, difEqVectorProd)
+{
+    Vector<int> a = {-3, 2, -1};
+    Vector<double> b = {1.5, 0, -2.4};
+    auto res(b ^= a);
+
+    double tmp[3] = {4.8, 8.7, 3};
+
+    int i = 0;
+    for (auto elem : b)
+        EXPECT_EQ(elem, tmp[i++]);
+
+    i = 0;
+    for (auto elem : res)
+        EXPECT_EQ(elem, tmp[i++]);
+}
+
+TEST(binary, difCollinear)
+{
+    Vector<int> a = {1, 2, 3};
+    Vector<double> b = {-1, -2, -3};
+
+    EXPECT_EQ(a.isCollinear(b), true);
+}
+
+TEST(binary, difNotCollinear)
+{
+    Vector<double> a = {1, 2, 3};
+    Vector<int> b = {-1, -1, -1};
+
+    EXPECT_EQ(a.isCollinear(b), false);
+}
+
+TEST(binary, difOrthogonal)
+{
+    Vector<int> a = {1, 0, 0};
+    Vector<double> b = {0, 0, 1};
+
+    EXPECT_EQ(a.isOrthogonal(b), true);
+}
+
+TEST(binary, difNotOrthogonal)
+{
+    Vector<double> a = {1, 2, 3};
+    Vector<int> b = {-1, -1, -1};
+
+    EXPECT_EQ(a.isOrthogonal(b), false);
 }
 
 #endif // TST_BINARY_HPP

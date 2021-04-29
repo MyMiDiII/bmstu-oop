@@ -1,6 +1,3 @@
-#ifndef BASECONTAINER_HPP
-#define BASECONTAINER_HPP
-
 #include <iostream>
 
 #include "base_container.h"
@@ -16,5 +13,3 @@ size_t BaseContainer::getSize() const
 }
 
 BaseContainer::~BaseContainer() = default;
-
-#endif

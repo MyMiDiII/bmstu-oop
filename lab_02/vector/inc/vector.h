@@ -32,20 +32,26 @@ public:
     Vector<Type> &operator=(const Vector<Type> &vector);
     Vector<Type> &operator=(Vector<Type> &&vector) noexcept;
 
+
     bool operator==(const Vector<Type> &vector) const;
     bool isEqual(const Vector<Type> &vector) const;
 
     bool operator!=(const Vector<Type> &vector) const;
     bool isNotEqual(const Vector<Type> &vector) const;
 
+
     template <typename OutType>
     OutType length() const;
+
+    template <typename OutType>
+    Vector<OutType> getUnit() const;
 
     Type &at(const size_t index);
     Type &operator[](const size_t index);
 
     const Type &at(const size_t index) const;
     const Type &operator[](const size_t index) const;
+
 
     Vector<Type> vecSum(const Vector<Type> &vector) const;
     Vector<Type> operator+(const Vector<Type> &vector) const;
@@ -79,6 +85,7 @@ public:
     template <typename Type2>
     Vector<Type> &operator+=(const Type2 &num);
 
+
     Vector<Type> vecDiff(const Vector<Type> &vector) const;
     Vector<Type> operator-(const Vector<Type> &vector) const;
 
@@ -110,6 +117,7 @@ public:
     Vector<Type> &eqByNumDiff(const Type2 &num);
     template <typename Type2>
     Vector<Type> &operator-=(const Type2 &num);
+
 
     Vector<Type> vecProd(const Vector<Type> &vector) const;
     Vector<Type> operator*(const Vector<Type> &vector) const;
@@ -143,6 +151,7 @@ public:
     template <typename Type2>
     Vector<Type> &operator*=(const Type2 &num);
 
+
     Vector<Type> vecQuot(const Vector<Type> &vector) const;
     Vector<Type> operator/(const Vector<Type> &vector) const;
 
@@ -175,8 +184,10 @@ public:
     template <typename Type2>
     Vector<Type> &operator/=(const Type2 &num);
 
+
     Vector<Type> neg() const;
     Vector<Type> operator-() const;
+
 
     Type scalarProd(const Vector<Type> &vector) const;
     Type operator&(const Vector<Type> &vector) const;
@@ -185,6 +196,7 @@ public:
     decltype(auto) scalarProd(const Vector<Type2> &vector) const;
     template <typename Type2>
     decltype(auto) operator&(const Vector<Type2> &vector) const;
+
 
     Vector<Type> vectorProd(const Vector<Type> &vector) const;
     Vector<Type> operator^(const Vector<Type> &vector) const;
@@ -202,17 +214,18 @@ public:
     template <typename Type2>
     Vector<Type> &operator^=(const Vector<Type2> &vector);
 
+
     double angle(const Vector<Type> &vector) const;
     template <typename Type2>
-    decltype(auto) angle(const Vector<Type2> &vector) const;
+    double angle(const Vector<Type2> &vector) const;
 
     bool isCollinear(const Vector<Type> &vector) const;
     template <typename Type2>
-    decltype(auto) isCollinear(const Vector<Type2> &vector) const;
+    bool isCollinear(const Vector<Type2> &vector) const;
 
     bool isOrthogonal(const Vector<Type> &vector) const;
     template <typename Type2>
-    decltype(auto) isOrthogonal(const Vector<Type2> &vector) const;
+    bool isOrthogonal(const Vector<Type2> &vector) const;
 
     bool isZero() const;
 

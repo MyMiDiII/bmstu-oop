@@ -93,6 +93,38 @@ TEST(unary, generalAngle)
     EXPECT_NEAR(i.angle(j), acos(0.4), EPS);
 }
 
+TEST(unary, difZeroAngle)
+{
+    Vector<int> i = {1, 0, 0};
+    Vector<double> a = {2, 0, 0};
+
+    EXPECT_NEAR(i.angle(a), 0, EPS);
+}
+
+TEST(unary, difPiDiv2Angle)
+{
+    Vector<int> i = {1, 0, 0};
+    Vector<double> j = {0, 1, 0};
+
+    EXPECT_NEAR(i.angle(j), M_PI / 2, EPS);
+}
+
+TEST(unary, difPiAngle)
+{
+    Vector<int> i = {1, 0, 0};
+    Vector<double> j = {-1, 0, 0};
+
+    EXPECT_NEAR(j.angle(i), M_PI, EPS);
+}
+
+TEST(unary, difGeneralAngle)
+{
+    Vector<int> i = {1, 2, -2, 0};
+    Vector<double> j = {0, 3, 0, -4};
+
+    EXPECT_NEAR(j.angle(i), acos(0.4), EPS);
+}
+
 TEST(unary, isZeroInt)
 {
     Vector<int> i = {0, 0, 0};
@@ -112,6 +144,21 @@ TEST(unary, isNotZero)
     Vector<double> i = {1};
 
     EXPECT_EQ(i.isZero(), false);
+}
+
+TEST(unary, getUnit)
+{
+    Vector<double> i = {1, 2, 2};
+    Vector<double> j = i.getUnit<double>();
+
+    double res[3] = {(double) 1 / 3, (double) 2 /3, (double) 2 / 3};
+
+    size_t k = 0;
+    for (auto elem : j)
+    {
+        cout << elem << endl;
+        EXPECT_NEAR(elem, res[k++], EPS);
+    }
 }
 
 #endif // TST_UNARY_HPP
