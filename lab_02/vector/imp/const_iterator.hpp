@@ -1,9 +1,6 @@
 #ifndef CONSTITERATOR_HPP
 #define CONSTITERATOR_HPP
 
-#include <iostream>
-using namespace std;
-
 #include <time.h>
 #include "const_iterator.h"
 #include "exceptions.h"

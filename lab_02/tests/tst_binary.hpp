@@ -847,7 +847,6 @@ TEST(decltypetst, difByNumSum)
     double k = 10;
 
     auto res(a.byNumSum(k));
-    cout << typeid(res).name() << endl;
 
     int tmp_a[3] = {-100, 0, 6};
     double tmp[3] = {-90, 10, 16};
@@ -867,7 +866,6 @@ TEST(decltypetst, difOpByNumSum)
     double k = 10;
 
     auto res(a + k);
-    cout << typeid(res).name() << endl;
 
     int tmp_a[3] = {-100, 0, 6};
     double tmp[3] = {-90, 10, 16};

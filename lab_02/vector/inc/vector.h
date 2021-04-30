@@ -229,6 +229,7 @@ public:
 
     bool isZero() const;
 
+
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
     ConstIterator<Type> begin() const noexcept;

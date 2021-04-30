@@ -1,10 +1,6 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-// debug
-#include <iostream>
-// debug
-
 #include <cmath>
 #include <limits>
 
@@ -66,7 +62,7 @@ Vector<Type>::Vector(size_t sizeValue, const Type &filler)
     allocate(sizeValue);
     size = sizeValue;
 
-    for (Iterator<Type> It = begin(); It != end(); ++It)
+    for (Iterator<Type> It = begin(); It; ++It)
         *It = filler;
 }
 
@@ -77,7 +73,7 @@ Vector<Type>::Vector(size_t sizeValue, const Type *arr)
     size = sizeValue;
 
     size_t i = 0;
-    for (Iterator<Type> It = begin(); It != end(); ++It, ++i)
+    for (Iterator<Type> It = begin(); It; ++It, ++i)
         *It = arr[i];
 }
 
@@ -103,7 +99,7 @@ Vector<Type>::Vector(const Vector<Type> &vector)
     ConstIterator<Type> src = vector.cbegin();
     Iterator<Type> dst = begin();
 
-    for (; src != vector.cend(); ++src, ++dst)
+    for (; src; ++src, ++dst)
         *dst = *src;
 }
 
@@ -161,7 +157,6 @@ Vector<Type> &Vector<Type>::operator=(const Vector<Type> &vector)
 template <typename Type>
 Vector<Type> &Vector<Type>::operator=(Vector<Type> &&vector) noexcept
 {
-    allocate(vector.size);
     size = vector.size;
     data = vector.data;
     vector.data.reset();
@@ -214,7 +209,7 @@ OutType Vector<Type>::length() const
 
     Type len = 0;
     ConstIterator<Type> It = cbegin();
-    for (; It != cend(); ++It)
+    for (; It; ++It)
         len += *It * *It;
 
     return sqrt(len);
@@ -272,7 +267,7 @@ Vector<Type> Vector<Type>::vecSum(const Vector<Type> &vector) const
     Iterator<Type> resIt = res.begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt += *(vecIt++);
 
     return res;
@@ -294,7 +289,7 @@ decltype(auto) Vector<Type>::vecSum(const Vector<Type2> &vector) const
     ConstIterator<Type2> vecIt = vector.cbegin();
 
     size_t i = 0;
-    for (; vecIt != vector.cend(); ++vecIt, ++i)
+    for (; vecIt; ++vecIt, ++i)
         res.at(i) = at(i) + *vecIt;
 
     return res;
@@ -313,7 +308,7 @@ Vector<Type> Vector<Type>::byNumSum(const Type &num) const
     Vector<Type> res(*this);
     Iterator<Type> resIt = res.begin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt += num;
 
     return res;
@@ -330,9 +325,9 @@ template <typename Type2>
 decltype(auto) Vector<Type>::byNumSum(const Type2 &num) const
 {
     Vector<decltype(at(0) + num)> res(size);
-    ConstIterator<Type> It = cbegin();
 
-    for (size_t i = 0; It != cend(); ++It, ++i)
+    size_t i = 0;
+    for (ConstIterator<Type> It = cbegin(); It; ++It, ++i)
         res.at(i) = *It + num;
 
     return res;
@@ -353,7 +348,7 @@ Vector<Type> &Vector<Type>::eqVecSum(const Vector<Type> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt += *(vecIt++);
 
     return *this;
@@ -374,7 +369,7 @@ Vector<Type> &Vector<Type>::eqVecSum(const Vector<Type2> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type2> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt += *(vecIt++);
 
     return *this;
@@ -392,7 +387,7 @@ Vector<Type> &Vector<Type>::eqByNumSum(const Type &num)
 {
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt += num;
 
     return *this;
@@ -410,7 +405,7 @@ Vector<Type> &Vector<Type>::eqByNumSum(const Type2 &num)
 {
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt += num;
 
     return *this;
@@ -432,7 +427,7 @@ Vector<Type> Vector<Type>::vecDiff(const Vector<Type> &vector) const
     Iterator<Type> resIt = res.begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt -= *(vecIt++);
 
     return res;
@@ -454,7 +449,7 @@ decltype(auto) Vector<Type>::vecDiff(const Vector<Type2> &vector) const
     ConstIterator<Type2> vecIt = vector.cbegin();
 
     size_t i = 0;
-    for (; vecIt != vector.cend(); ++vecIt, ++i)
+    for (; vecIt; ++vecIt, ++i)
         res.at(i) = at(i) - *vecIt;
 
     return res;
@@ -473,7 +468,7 @@ Vector<Type> Vector<Type>::byNumDiff(const Type &num) const
     Vector<Type> res(*this);
     Iterator<Type> resIt = res.begin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt -= num;
 
     return res;
@@ -492,7 +487,7 @@ decltype(auto) Vector<Type>::byNumDiff(const Type2 &num) const
     Vector<decltype(at(0) - num)> res(size);
     ConstIterator<Type> It = cbegin();
 
-    for (size_t i = 0; It != cend(); ++It, ++i)
+    for (size_t i = 0; It; ++It, ++i)
         res.at(i) = *It - num;
 
     return res;
@@ -513,7 +508,7 @@ Vector<Type> &Vector<Type>::eqVecDiff(const Vector<Type> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt -= *(vecIt++);
 
     return *this;
@@ -534,7 +529,7 @@ Vector<Type> &Vector<Type>::eqVecDiff(const Vector<Type2> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type2> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt -= *(vecIt++);
 
     return *this;
@@ -553,7 +548,7 @@ Vector<Type> &Vector<Type>::eqByNumDiff(const Type &num)
 {
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt -= num;
 
     return *this;
@@ -571,7 +566,7 @@ Vector<Type> &Vector<Type>::eqByNumDiff(const Type2 &num)
 {
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt -= num;
 
     return *this;
@@ -611,7 +606,7 @@ Vector<Type> Vector<Type>::vecProd(const Vector<Type> &vector) const
     Iterator<Type> resIt = res.begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt *= *(vecIt++);
 
     return res;
@@ -633,7 +628,7 @@ decltype(auto) Vector<Type>::vecProd(const Vector<Type2> &vector) const
     ConstIterator<Type2> vecIt = vector.cbegin();
 
     size_t i = 0;
-    for (; vecIt != vector.cend(); ++vecIt, ++i)
+    for (; vecIt; ++vecIt, ++i)
         res.at(i) = at(i) * *vecIt;
 
     return res;
@@ -653,7 +648,7 @@ Vector<Type> Vector<Type>::byNumProd(const Type &num) const
     Vector<Type> res(*this);
     Iterator<Type> resIt = res.begin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt *= num;
 
     return res;
@@ -672,7 +667,7 @@ decltype(auto) Vector<Type>::byNumProd(const Type2 &num) const
     Vector<decltype(at(0) - num)> res(size);
     ConstIterator<Type> It = cbegin();
 
-    for (size_t i = 0; It != cend(); ++It, ++i)
+    for (size_t i = 0; It; ++It, ++i)
         res.at(i) = *It * num;
 
     return res;
@@ -693,7 +688,7 @@ Vector<Type> &Vector<Type>::eqVecProd(const Vector<Type> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt *= *(vecIt++);
 
     return *this;
@@ -714,7 +709,7 @@ Vector<Type> &Vector<Type>::eqVecProd(const Vector<Type2> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type2> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt *= *(vecIt++);
 
     return *this;
@@ -732,7 +727,7 @@ Vector<Type> &Vector<Type>::eqByNumProd(const Type &num)
 {
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt *= num;
 
     return *this;
@@ -750,7 +745,7 @@ Vector<Type> &Vector<Type>::eqByNumProd(const Type2 &num)
 {
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt *= num;
 
     return *this;
@@ -772,7 +767,7 @@ Vector<Type> Vector<Type>::vecQuot(const Vector<Type> &vector) const
     Iterator<Type> resIt = res.begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
     {
         divisionByZeroCheck(*vecIt, __LINE__);
         *resIt /= *(vecIt++);
@@ -797,7 +792,7 @@ decltype(auto) Vector<Type>::vecQuot(const Vector<Type2> &vector) const
     ConstIterator<Type2> vecIt = vector.cbegin();
 
     size_t i = 0;
-    for (; vecIt != vector.cend(); ++vecIt, ++i)
+    for (; vecIt; ++vecIt, ++i)
     {
         divisionByZeroCheck(*vecIt, __LINE__);
         res.at(i) = at(i) / *vecIt;
@@ -821,7 +816,7 @@ Vector<Type> Vector<Type>::byNumQuot(const Type &num) const
     Vector<Type> res(*this);
     Iterator<Type> resIt = res.begin();
 
-    for (; resIt != res.end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt /= num;
 
     return res;
@@ -842,7 +837,7 @@ decltype(auto) Vector<Type>::byNumQuot(const Type2 &num) const
     Vector<decltype(at(0) - num)> res(size);
     ConstIterator<Type> It = cbegin();
 
-    for (size_t i = 0; It != cend(); ++It, ++i)
+    for (size_t i = 0; It; ++It, ++i)
         res.at(i) = *It / num;
 
     return res;
@@ -863,7 +858,7 @@ Vector<Type> &Vector<Type>::eqVecQuot(const Vector<Type> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
     {
         divisionByZeroCheck(*vecIt, __LINE__);
         *resIt /= *(vecIt++);
@@ -887,7 +882,7 @@ Vector<Type> &Vector<Type>::eqVecQuot(const Vector<Type2> &vector)
     Iterator<Type> resIt = begin();
     ConstIterator<Type2> vecIt = vector.cbegin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
     {
         divisionByZeroCheck(*vecIt, __LINE__);
         *resIt /= *(vecIt++);
@@ -910,7 +905,7 @@ Vector<Type> &Vector<Type>::eqByNumQuot(const Type &num)
 
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt /= num;
 
     return *this;
@@ -930,7 +925,7 @@ Vector<Type> &Vector<Type>::eqByNumQuot(const Type2 &num)
 
     Iterator<Type> resIt = begin();
 
-    for (; resIt != end(); ++resIt)
+    for (; resIt; ++resIt)
         *resIt /= num;
 
     return *this;
@@ -952,7 +947,7 @@ Type Vector<Type>::scalarProd(const Vector<Type> &vector) const
     ConstIterator<Type> it2 = vector.cbegin();
 
     Type sum = 0;
-    for (; it1 != end(); ++it1, ++it2)
+    for (; it1; ++it1, ++it2)
         sum += *it1 * *it2;
 
     return sum;
@@ -974,7 +969,7 @@ decltype(auto) Vector<Type>::scalarProd(const Vector<Type2> &vector) const
     ConstIterator<Type2> it2 = vector.cbegin();
 
     decltype(*it1 * *it2) sum = 0;
-    for (; it1 != end(); ++it1, ++it2)
+    for (; it1; ++it1, ++it2)
         sum += *it1 * *it2;
 
     return sum;

@@ -1,10 +1,6 @@
 #ifndef ITERATOR_HPP
 #define ITERATOR_HPP
 
-//debug
-#include <iostream>
-using namespace std;
-
 #include <time.h>
 #include "iterator.h"
 #include "exceptions.h"

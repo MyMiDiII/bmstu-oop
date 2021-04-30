@@ -155,10 +155,7 @@ TEST(unary, getUnit)
 
     size_t k = 0;
     for (auto elem : j)
-    {
-        cout << elem << endl;
         EXPECT_NEAR(elem, res[k++], EPS);
-    }
 }
 
 #endif // TST_UNARY_HPP
