@@ -6,58 +6,68 @@ Cabin::Cabin(QObject *parent) : QObject(parent)
     _curFloor = 1;
     _needFloor = 1;
     _dir = STOP;
+    _newTarget = false;
+    _moveTimer.setSingleShot(true);
 
-    // связи
+    QObject::connect(&_door, SIGNAL(isClosed()), this, SLOT(chooseState()));
+    QObject::connect(&_moveTimer, SIGNAL(timeout()), this, SLOT(moving()));
+    QObject::connect(this, SIGNAL(stop(bool,size_t)), this, SLOT(stopped(bool,size_t)));
+    QObject::connect(this, SIGNAL(move()), this, SLOT(moving()));
+    QObject::connect(this, SIGNAL(openDoor()), &_door, SLOT(opening()));
 }
 
 void Cabin::takeTarget(const size_t floor)
 {
-    _state = GET;
+    _newTarget = true;
     _needFloor = floor;
+    _dir = _curFloor < _needFloor ? UP : (_curFloor == _needFloor ? STOP : DOWN);
 
-    if (_curFloor == _needFloor)
+    if (_state == FREE)
     {
-        emit passFloor(_curFloor, _dir);
+        _state = WAIT;
+        emit move();
+    }
+}
+
+void Cabin::chooseState()
+{
+    if (_newTarget)
+    {
+        _state = WAIT;
+        emit move();
     }
     else
     {
-        _dir = _curFloor < _needFloor ? UP : DOWN;
-        emit move();
+        _state = FREE;
     }
-
 }
+
 
 void Cabin::moving()
 {
-    if (MOVING == _state || GET == _state)
-    {
+    if (WAIT == _state)
         _state = MOVING;
-        moveTimer.start(1);
+    else if (MOVING == _state)
+        _curFloor += _dir;
 
-        QDegug() << "Этаж: " << _curFloor;
-        emit passFloor(_curFloor, _dir);
-
-        if (_curFloor != _needFloor)
-        {
-            _dir = _curFloor < _needFloor ? UP : DOWN;
-            _curFloor = _curFloor + _dir;
-            // ??? emit move();
-        }
+    if (_curFloor == _needFloor)
+        emit passFloor(_curFloor);
+    else
+    {
+        qDebug() << "Этаж: " << _curFloor;
+        _moveTimer.start(MOVECABINTIME);
     }
 }
 
 void Cabin::stopped(bool isLast, size_t newFloor)
 {
     if (isLast)
-    {
-        _state = FREE;
-    }
+        _newTarget = false;
     else
-    {
-        _state = GET;
-        _needFloor = newFloor;
-    }
+        _newTarget = true;
 
-    moveTimer.stop();
+    _needFloor = newFloor;
+    _dir = _curFloor < _needFloor ? UP : (_curFloor == _needFloor ? STOP : DOWN);
+    _state = WAIT;
     emit openDoor();
 }

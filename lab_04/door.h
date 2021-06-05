@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QTimer>
 
+#include "config.h"
+
 class Door : public QObject
 {
     Q_OBJECT;
@@ -28,10 +30,7 @@ public slots:
     void opened();
 
 signals:
-    void startClosingTimer();
     void isClosed();
-    void startOpeningTimer();
-    void isOpened();
 
 private:
     doorStatus _state;

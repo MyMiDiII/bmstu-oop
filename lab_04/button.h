@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QPushButton>
+#include <QDebug>
 
 class Button : public QPushButton
 {

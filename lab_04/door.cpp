@@ -1,22 +1,17 @@
 #include "door.h"
 
-// !!!!!!!!!!!!!!!!!!!!!
-// !!!  openedTimer  !!!
-// !!!!!!!!!!!!!!!!!!!!!
-
 Door::Door(QObject *parent) : QObject(parent)
 {
-    _state = OPENED;
+    _state = CLOSED;
+    qDebug() << "Дверь закрыта!";
 
     _openingTimer.setSingleShot(true);
     _closingTimer.setSingleShot(true);
     _openedTimer.setSingleShot(true);
 
-    _openingTimer.setInterval(1);
-    _closingTimer.setInterval(1);
-    _openedTimer.setInterval(1);
-
-    // связь сигналов
+    QObject::connect(&_openingTimer, SIGNAL(timeout()), this, SLOT(opened()));
+    QObject::connect(&_openedTimer, SIGNAL(timeout()), this, SLOT(closing()));
+    QObject::connect(&_closingTimer, SIGNAL(timeout()), this, SLOT(closed()));
 }
 
 void Door::closing()
@@ -26,7 +21,7 @@ void Door::closing()
         qDebug() << "Двери закрываются!";
         _state = CLOSING;
 
-        emit startClosingTimer();
+        _closingTimer.start(MOVINGDOORTIME);
     }
 }
 
@@ -44,12 +39,22 @@ void Door::closed()
 
 void Door::opening()
 {
-    if (CLOSED == _state)
+    if (CLOSED == _state || CLOSING == _state)
     {
         qDebug() << "Двери открываются!";
-        _state = OPENING;
 
-        emit startOpeningTimer();
+        if (CLOSED == _state)
+        {
+            _state = OPENING;
+            _openingTimer.start(MOVINGDOORTIME);
+        }
+        else
+        {
+            _state = OPENING;
+            auto elapsedTime = _closingTimer.remainingTime();
+            _closingTimer.stop();
+            _openingTimer.start(MOVINGDOORTIME - elapsedTime);
+        }
     }
 }
 
@@ -60,6 +65,6 @@ void Door::opened()
         qDebug() << "Двери открыты!";
         _state = OPENED;
 
-        emit isOpened();
+        _openedTimer.start(OPENEDTIME);
     }
 }

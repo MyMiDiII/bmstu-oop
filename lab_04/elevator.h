@@ -8,7 +8,8 @@
 
 class Elevator : public QObject
 {
-    Q_OBJECT
+    Q_OBJECT;
+
 public:
     explicit Elevator(QObject *parent = nullptr);
     ~Elevator() = default;

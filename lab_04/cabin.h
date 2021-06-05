@@ -2,6 +2,7 @@
 #define CABIN_H
 
 #include <QObject>
+#include <QDebug>
 #include "config.h"
 
 #include "door.h"
@@ -13,7 +14,7 @@ class Cabin : public QObject
     enum cabinStatus
     {
         FREE,
-        GET,
+        WAIT,
         MOVING
     };
 
@@ -25,19 +26,22 @@ public slots:
     void takeTarget(const size_t floor);
     void moving();
     void stopped(bool isLast, size_t newFloor = 1);
+    void chooseState();
 
 signals:
     void move();
-    void passFloor(const size_t floor, direction dir);
+    void passFloor(size_t floor);
     void openDoor();
+    void stop(bool isLast = true, size_t newFloor = 1);
 
 private:
     cabinStatus _state;
     Door _door;
     size_t _curFloor;
     size_t _needFloor;
+    bool _newTarget;
     direction _dir;
-    QTimer moveTimer;
+    QTimer _moveTimer;
 };
 
 #endif // CABIN_H
