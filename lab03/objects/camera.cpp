@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 17.05.2021.
-//
-
 #include "camera.h"
 
 void Viewer::move_x(const double &dx)

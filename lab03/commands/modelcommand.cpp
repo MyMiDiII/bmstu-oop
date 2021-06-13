@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
-
 #include "modelcommand.h"
 #include "loadmanagercreator.h"
 #include "modelloadmoderatorcreator.h"
@@ -9,11 +5,11 @@
 //#include "../../inc/managers/transform/transform_manager_creator.h"
 
 
-MoveModelCommand::MoveModelCommand(const double &dx, const double &dy, const double &dz, const std::size_t model_num) :
+MoveModelCMD::MoveModelCMD(const double &dx, const double &dy, const double &dz, const std::size_t model_num) :
     _dx(dx), _dy(dy), _dz(dz), _model_num(model_num) { }
 
 
-void MoveModelCommand::exec()
+void MoveModelCMD::exec()
 {
     Dot move(_dx, _dy, _dz);
     Dot scale(1, 1, 1);
@@ -23,10 +19,10 @@ void MoveModelCommand::exec()
     //CreatorTransformManager().create_manager()->transform_object(model, move, scale, spin);
 }
 
-ScaleModelCommand::ScaleModelCommand(const double &kx, const double &ky, const double &kz, const std::size_t model_num) :
+ScaleModelCMD::ScaleModelCMD(const double &kx, const double &ky, const double &kz, const std::size_t model_num) :
     _kx(kx), _ky(ky), _kz(kz), _model_num(model_num) { }
 
-void ScaleModelCommand::exec()
+void ScaleModelCMD::exec()
 {
     Dot move(0, 0, 0);
     Dot scale(_kx, _ky, _kz);
@@ -37,10 +33,10 @@ void ScaleModelCommand::exec()
 }
 
 
-SpinModelCommand::SpinModelCommand(const double &ox, const double &oy, const double &oz, const std::size_t model_num) :
+SpinModelCMD::SpinModelCMD(const double &ox, const double &oy, const double &oz, const std::size_t model_num) :
         _ox(ox), _oy(oy), _oz(oz), _model_num(model_num) { }
 
-void SpinModelCommand::exec()
+void SpinModelCMD::exec()
 {
     Dot move(0, 0, 0);
     Dot scale(1, 1, 1);
@@ -51,43 +47,42 @@ void SpinModelCommand::exec()
 }
 
 
-TransformModelCommand::TransformModelCommand(const Dot &move, const Dot &scale, const Dot &spin, const std::size_t model_num) :
+TransformModelCMD::TransformModelCMD(const Dot &move, const Dot &scale, const Dot &spin, const std::size_t model_num) :
     _move(move), _scale(scale), _spin(spin), _model_num(model_num) { }
 
-void TransformModelCommand::exec()
+void TransformModelCMD::exec()
 {
     std::shared_ptr<Object> model = CreatorSceneManager().create_manager()->get_scene()->get_models().at(_model_num);
     //CreatorTransformManager().create_manager()->transform_object(model, _move, _scale, _spin);
 }
 
-AddModelCommand::AddModelCommand(std::shared_ptr<Object> model) : _model(model) { }
+AddModelCMD::AddModelCMD(std::shared_ptr<Object> model) : _model(model) { }
 
-void AddModelCommand::exec()
+void AddModelCMD::exec()
 {
     CreatorSceneManager().create_manager()->get_scene()->add_model(_model);
 }
 
 
-RemoveModelCommand::RemoveModelCommand(const std::size_t model_num) : _model_num(model_num) { }
+RemoveModelCMD::RemoveModelCMD(const std::size_t model_num) : _model_num(model_num) { }
 
-void RemoveModelCommand::exec()
+void RemoveModelCMD::exec()
 {
     CreatorSceneManager().create_manager()->get_scene()->remove_model(_model_num);
 }
 
 
-CountModelCommand::CountModelCommand(const std::shared_ptr<std::size_t> &count) : _count(count) { }
+CountModelCMD::CountModelCMD(const std::shared_ptr<std::size_t> &count) : _count(count) { }
 
-void CountModelCommand::exec()
+void CountModelCMD::exec()
 {
     (*_count) = CreatorSceneManager().create_manager()->get_scene()->get_models().size();
 }
 
-#include <iostream>
 
-LoadModelCommand::LoadModelCommand(std::string file_name) : _file_name(file_name) { }
+LoadModelCMD::LoadModelCMD(std::string file_name) : _file_name(file_name) { }
 
-void LoadModelCommand::exec()
+void LoadModelCMD::exec()
 {
     auto moderator = LoadModelModeratorCreator().create_moderator();
     auto manager = CreatorLoadManager().create_manager(moderator);
@@ -97,8 +92,8 @@ void LoadModelCommand::exec()
 }
 
 
-ExportModelCommand::ExportModelCommand(std::string file_name) : _file_name(file_name) { }
+ExportModelCMD::ExportModelCMD(std::string file_name) : _file_name(file_name) { }
 
-void ExportModelCommand::exec() { }
+void ExportModelCMD::exec() { }
 
 

@@ -23,8 +23,6 @@ public:
 
     ~Model() override = default;
 
-    //std::shared_ptr<ModelStructure> get_modelStructure() const;
-
     void transform(const Dot &move, const Dot &scale, const Dot &spin) override;
 
     void accept(std::shared_ptr<Visitor> visitor) override;

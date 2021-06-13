@@ -19,11 +19,9 @@ public:
 
     ~DrawManager() = default;
 
-    // Setters
     void set_viewer(std::shared_ptr<Viewer> viewer);
     void set_drawer(std::shared_ptr<AbstractDrawer> drawer);
 
-    // Actions
     void visit(const Model &model) override;
     void visit(const Viewer &viewer) override {};
     void visit(const Composite &composite) override {};

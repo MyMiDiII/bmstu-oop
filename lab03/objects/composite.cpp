@@ -1,6 +1,5 @@
 #include "composite.h"
 
-
 Composite::Composite(std::shared_ptr<Object> &element)
 {
     _elements.push_back(element);

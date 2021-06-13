@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
-
 #ifndef LOAD_MODEL_MODERATOR_H
 #define LOAD_MODEL_MODERATOR_H
 

@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 20.05.2021.
-//
-
 #include "loadmanagercreator.h"
 
 void CreatorLoadManager::create_instance()

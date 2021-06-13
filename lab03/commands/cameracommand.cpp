@@ -1,16 +1,13 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
-
 #include "cameracommand.h"
 #include "camera.h"
 #include "scenemanagercreator.h"
 //#include "../../inc/managers/transform/transform_manager_creator.h"
 
-AddViewerCommand::AddViewerCommand(const double x, const double y, const double z) : _x(x), _y(y), _z(z) {}
+AddCameraCMD::AddCameraCMD(const double x, const double y, const double z) :
+    _x(x), _y(y), _z(z) {}
 
 
-void AddViewerCommand::exec()
+void AddCameraCMD::exec()
 {
     Dot viewer_place(_x, _y, _z);
 
@@ -24,18 +21,20 @@ void AddViewerCommand::exec()
 };
 
 
-RemoveViewerCommand::RemoveViewerCommand(const size_t &viewer_num) : _viewer_num(viewer_num) { }
+RemoveCameraCMD::RemoveCameraCMD(const size_t &viewer_num) :
+    _viewer_num(viewer_num) {}
 
 
-void RemoveViewerCommand::exec()
+void RemoveCameraCMD::exec()
 {
     CreatorSceneManager().create_manager()->get_scene()->remove_viewer(_viewer_num);
 }
 
 
-MoveViewerCommand::MoveViewerCommand(const size_t &viewer_num, const double &dx, const double &dy) : _dx(dx), _dy(dy), _viewer_num(viewer_num) { }
+MoveCameraCMD::MoveCameraCMD(const size_t &viewer_num, const double &dx, const double &dy) :
+    _dx(dx), _dy(dy), _viewer_num(viewer_num) {}
 
-void MoveViewerCommand::exec()
+void MoveCameraCMD::exec()
 {
     Dot move(_dx, _dy, 0);
 
@@ -45,22 +44,19 @@ void MoveViewerCommand::exec()
 }
 
 
-SetViewerCommand::SetViewerCommand(const size_t &viewer_num) : _viewer_num(viewer_num) { }
+SetCameraCMD::SetCameraCMD(const size_t &viewer_num) : _viewer_num(viewer_num) {}
 
 
-void SetViewerCommand::exec()
+void SetCameraCMD::exec()
 {
     CreatorSceneManager().create_manager()->set_viewer(_viewer_num);
 }
 
 
-CountViewerCommand::CountViewerCommand(const std::shared_ptr<size_t> &count) : _count(count) { }
+CountCameraCMD::CountCameraCMD(const std::shared_ptr<size_t> &count) : _count(count) {}
 
 
-void CountViewerCommand::exec()
+void CountCameraCMD::exec()
 {
     (*_count) = CreatorSceneManager().create_manager()->get_scene()->get_viewers().size();
 }
-
-
-

@@ -1,5 +1,5 @@
-#ifndef DRAWER_QT_FACTORY_H
-#define DRAWER_QT_FACTORY_H
+#ifndef QTFACTORY_H
+#define QTFACTORY_H
 
 #include "drawerfactory.h"
 #include "qtdrawer.h"
@@ -16,4 +16,4 @@ private:
     QGraphicsScene *_scene;
 };
 
-#endif //DRAWER_QT_FACTORY_H
+#endif //QTFACTORY_H

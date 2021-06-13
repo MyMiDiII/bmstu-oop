@@ -2,7 +2,6 @@
 
 #include "scene.h"
 
-
 std::vector<std::shared_ptr<Object>> Scene::get_models() {
     return _models->get_objects();
 }

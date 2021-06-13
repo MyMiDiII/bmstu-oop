@@ -1,5 +1,5 @@
-#ifndef DRAWER_QT_H
-#define DRAWER_QT_H
+#ifndef QTDRAWER_H
+#define QTDRAWER_QT_H
 
 #include <QGraphicsScene>
 #include "basedrawer.h"
@@ -19,4 +19,4 @@ private:
     QGraphicsScene *_scene;
 };
 
-#endif //DRAWER_QT_H
+#endif //QTDRAWER_H

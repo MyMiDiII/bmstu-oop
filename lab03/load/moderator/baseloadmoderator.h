@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 19.05.2021.
-//
-
 #ifndef ABSTRACT_LOAD_MODERATOR_H
 #define ABSTRACT_LOAD_MODERATOR_H
 

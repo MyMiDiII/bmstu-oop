@@ -9,7 +9,6 @@ ModelStructure::ModelStructure(std::vector<Dot> &dots, std::vector<Link> &links,
 
 const std::vector<Dot> &ModelStructure::get_dots() const
 {
-//    std::cout << "Sizing = " << _dots.size() << std::endl;
     return _dots;
 }
 

@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
-
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
 
@@ -16,7 +12,7 @@ public:
 
     const char *what() const noexcept override
     {
-        return "Something has happened";
+        return "Something went wrong!";
     }
 
     const std::string &get_info() const noexcept
@@ -36,7 +32,7 @@ public:
 
     const char *what() const noexcept override
     {
-        return "Viewer isn't added";
+        return "Camera isn't added";
     }
 };
 
@@ -48,7 +44,7 @@ public:
 
     const char *what() const noexcept override
     {
-        return "Load mistake : doesn't exist or problem occurred";
+        return "Load error";
     }
 };
 

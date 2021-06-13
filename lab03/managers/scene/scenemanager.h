@@ -14,7 +14,6 @@ public:
 
     ~SceneManager() = default;
 
-    // Getters & setters
     std::shared_ptr<Scene> get_scene() const;
     std::shared_ptr<Viewer> get_viewer() const;
 

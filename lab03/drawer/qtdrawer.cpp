@@ -1,6 +1,5 @@
 #include "qtdrawer.h"
 
-
 DrawerQt::DrawerQt(QGraphicsScene *scene)
 {
     _scene = scene;

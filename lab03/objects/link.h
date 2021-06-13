@@ -12,7 +12,6 @@ public:
 
     ~Link() = default;
 
-    // Getter & setter
     std::size_t get_dot1_index() const;
     std::size_t get_dot2_index() const;
 

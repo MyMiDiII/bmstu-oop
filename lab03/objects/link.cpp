@@ -1,6 +1,5 @@
 #include "link.h"
 
-
 Link::Link(const std::size_t &dot1, const std::size_t &dot2)
 {
     set_dot1_index(dot1);

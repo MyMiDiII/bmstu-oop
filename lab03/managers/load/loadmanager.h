@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 19.05.2021.
-//
-
 #ifndef LOAD_MANAGER_H
 #define LOAD_MANAGER_H
 

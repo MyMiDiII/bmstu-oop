@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 19.05.2021.
-//
-
 #include "loadmanager.h"
 //#include "../../../inc/managers/load/load_scene_moderator_creator.h"
 #include "modelloadmoderator.h"

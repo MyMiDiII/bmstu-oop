@@ -32,8 +32,8 @@ void DrawManager::visit(const Model &model)
 
     for (auto link : links)
     {
-        _drawer->draw_line(get_dot_proection(dots.at(link.get_dot1_index())).with_center(center),
-                           get_dot_proection(dots.at(link.get_dot2_index())).with_center(center));
+        _drawer->draw_line(get_dot_proection(dots.at(link.get_dot1_index() - 1)).with_center(center),
+                           get_dot_proection(dots.at(link.get_dot2_index() - 1)).with_center(center));
     }
 
 }

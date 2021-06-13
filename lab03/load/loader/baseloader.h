@@ -1,9 +1,5 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
-
-#ifndef BASE_LOADER_H
-#define BASE_LOADER_H
+#ifndef BASELOADER_H
+#define BASELOADER_H
 
 #include <string>
 #include <fstream>

@@ -1,19 +1,17 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
+#ifndef CAMERACOMMAND_H
+#define CAMERACOMMAND_H
 
-#ifndef VIEWER_COMMAND_H
-#define VIEWER_COMMAND_H
-
-#include "basecommand.h"
 #include <memory>
 #include <cstddef>
 
+#include "basecommand.h"
 
-class AddViewerCommand : public ViewerBaseCommand
+class CameraCMD : public BaseCommand { };
+
+class AddCameraCMD : public CameraCMD
 {
 public:
-    AddViewerCommand(const double x, const double y, const double z);
+    AddCameraCMD(const double x, const double y, const double z);
 
     virtual void exec() override;
 
@@ -22,10 +20,10 @@ private:
 };
 
 
-class RemoveViewerCommand : public ViewerBaseCommand
+class RemoveCameraCMD : public CameraCMD
 {
 public:
-    RemoveViewerCommand(const std::size_t &viewer_num);
+    RemoveCameraCMD(const std::size_t &viewer_num);
 
     virtual void exec() override;
 
@@ -34,10 +32,10 @@ private:
 };
 
 
-class MoveViewerCommand : public ViewerBaseCommand
+class MoveCameraCMD : public CameraCMD
 {
 public:
-    MoveViewerCommand(const std::size_t &viewer_num, const double &dx, const double &dy);
+    MoveCameraCMD(const std::size_t &viewer_num, const double &dx, const double &dy);
 
     virtual void exec() override;
 
@@ -47,10 +45,10 @@ private:
 };
 
 
-class SetViewerCommand : public ViewerBaseCommand
+class SetCameraCMD : public CameraCMD
 {
 public:
-    SetViewerCommand(const std::size_t &viewer_num);
+    SetCameraCMD(const std::size_t &viewer_num);
 
     virtual void exec() override;
 
@@ -59,10 +57,10 @@ private:
 };
 
 
-class CountViewerCommand : public ViewerBaseCommand
+class CountCameraCMD : public CameraCMD
 {
 public:
-    CountViewerCommand(const std::shared_ptr<size_t> &count);
+    CountCameraCMD(const std::shared_ptr<size_t> &count);
 
     virtual void exec() override;
 
@@ -70,4 +68,4 @@ private:
     std::shared_ptr<size_t> _count;
 };
 
-#endif //VIEWER_COMMAND_H
+#endif //CAMERACOMMAND_H

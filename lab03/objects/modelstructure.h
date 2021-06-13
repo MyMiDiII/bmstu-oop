@@ -15,12 +15,10 @@ public:
 
     ~ModelStructure() = default;
 
-    // Getters
     const std::vector<Dot> &get_dots() const;
     const std::vector<Link> &get_links() const;
     const Dot &get_center() const;
 
-    // Actions
     void add_dot(const Dot &dot);
     void add_link(const Link &link);
 

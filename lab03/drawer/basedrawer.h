@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_DRAWER_H
-#define ABSTRACT_DRAWER_H
+#ifndef BASEDRAWER_H
+#define BASEDRAWER_H
 
 #include "vertex.h"
 
@@ -14,4 +14,4 @@ public:
     virtual void clear_scene() = 0;
 };
 
-#endif //ABSTRACT_DRAWER_H
+#endif //BASEDRAWER_H

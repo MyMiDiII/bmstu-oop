@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
-
 #include "scenecommand.h"
 #include "drawmanagercreator.h"
 #include "loadmanagercreator.h"
@@ -9,10 +5,10 @@
 //#include "../../inc/managers/load/load_scene_moderator_creator.h"
 
 
-DrawSceneCommand::DrawSceneCommand(std::shared_ptr<AbstractDrawer> drawer) : _drawer(drawer) { }
+DrawSceneCMD::DrawSceneCMD(std::shared_ptr<AbstractDrawer> drawer) : _drawer(drawer) { }
 
 
-void DrawSceneCommand::exec()
+void DrawSceneCMD::exec()
 {
     auto draw_manager = CreatorDrawManager().create_manager();
     auto scene_manager = CreatorSceneManager().create_manager();
@@ -25,9 +21,9 @@ void DrawSceneCommand::exec()
 }
 
 
-LoadSceneCommand::LoadSceneCommand(std::string file_name) : _file_name(file_name) { }
+LoadSceneCMD::LoadSceneCMD(std::string file_name) : _file_name(file_name) { }
 
-void LoadSceneCommand::exec()
+void LoadSceneCMD::exec()
 {
     /*
     auto moderator = LoadSceneModeratorCreator().create_moderator();
@@ -37,10 +33,3 @@ void LoadSceneCommand::exec()
     CreatorSceneManager().create_manager()->set_scene(scene);
     */
 }
-
-
-ExportSceneCommand::ExportSceneCommand(std::string file_name) { }
-
-void ExportSceneCommand::exec() { }
-
-

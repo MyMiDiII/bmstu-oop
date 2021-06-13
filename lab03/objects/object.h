@@ -1,7 +1,3 @@
-//
-// Created by amunra23 on 17.05.2021.
-//
-
 #ifndef OBJECT_H
 #define OBJECT_H
 

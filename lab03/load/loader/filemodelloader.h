@@ -1,9 +1,5 @@
-//
-// Created by amunra23 on 22.05.2021.
-//
-
-#ifndef MODEL_LOADER_FILE_H
-#define MODEL_LOADER_FILE_H
+#ifndef FILEMODELLOADER_H
+#define FILEMODELLOADER_H
 
 #include "basemodelloader.h"
 
@@ -24,4 +20,4 @@ protected:
     std::shared_ptr<std::ifstream> _file;
 };
 
-#endif //MODEL_LOADER_FILE_H
+#endif //FILEMODELLOADER_H

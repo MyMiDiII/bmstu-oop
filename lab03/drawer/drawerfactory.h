@@ -1,5 +1,5 @@
-#ifndef DRAWER_FACTORY_H
-#define DRAWER_FACTORY_H
+#ifndef DRAWERFACTORY_H
+#define DRAWERFACTORY_H
 
 #include <memory>
 #include "basedrawer.h"
@@ -10,4 +10,4 @@ public:
     virtual std::unique_ptr<AbstractDrawer> graphic_create() = 0;
 };
 
-#endif //DRAWER_FACTORY_H
+#endif //DRAWERFACTORY_H

@@ -31,9 +31,15 @@ public:
 private slots:
     void on_addCameraBtn_clicked();
 
+    void on_loadModelBtn_clicked();
+
+    void on_deleteModelBtn_clicked();
+
 protected:
     void setup_scene();
     void update_scene();
+    void check_cam_exist();
+    void check_models_exist();
 
 private:
     Ui::MainWindow *ui;

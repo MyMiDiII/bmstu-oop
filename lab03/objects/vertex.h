@@ -15,8 +15,6 @@ public:
 
     ~Dot() = default;
 
-    // Get & set
-
     double get_x() const;
     double get_y() const;
     double get_z() const;
@@ -24,8 +22,6 @@ public:
     void set_x(double const &x);
     void set_y(double const &y);
     void set_z(double const &z);
-
-    // Actions
 
     bool operator == (const Dot &dot) const noexcept;
     bool is_equal(const Dot &dot) const noexcept;
