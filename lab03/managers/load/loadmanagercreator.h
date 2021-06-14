@@ -10,7 +10,7 @@ class CreatorLoadManager
 {
 public:
     std::shared_ptr<LoadManager> create_manager();
-    std::shared_ptr<LoadManager> create_manager(const std::shared_ptr<AbstractLoadModerator> &loader);
+    std::shared_ptr<LoadManager> create_manager(const std::shared_ptr<BaseLoadModerator> &loader);
 
 private:
     void create_instance();

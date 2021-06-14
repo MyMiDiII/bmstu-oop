@@ -1,20 +1,20 @@
-#ifndef LOAD_SCENE_MODERATOR_CREATOR_H
-#define LOAD_SCENE_MODERATOR_CREATOR_H
+#ifndef SCENELOADMODERATORCREATOR_H
+#define SCENELOADMODERATORCREATOR_H
 
 #include "sceneloadmoderator.h"
 
-class LoadSceneModeratorCreator
+class SceneLoadModeratorCreator
 {
 public:
-    std::shared_ptr<LoadSceneModerator> create_moderator();
-    std::shared_ptr<LoadSceneModerator> create_moderator(
+    std::shared_ptr<SceneLoadModerator> createModerator();
+    std::shared_ptr<SceneLoadModerator> createModerator(
             const std::shared_ptr<BaseSceneLoader> &loader);
 
 private:
-    void create_instance();
+    void createInstance();
 
-    std::shared_ptr<LoadSceneModerator> _moderator;
+    std::shared_ptr<SceneLoadModerator> _moderator;
 };
 
 
-#endif //LOAD_SCENE_MODERATOR_CREATOR_H
+#endif // SCENELOADMODERATORCREATOR_H

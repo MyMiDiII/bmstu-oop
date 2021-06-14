@@ -2,17 +2,17 @@
 #include "exceptions.h"
 
 
-LoadSceneModerator::LoadSceneModerator(std::shared_ptr<BaseSceneLoader> loader) :
+SceneLoadModerator::SceneLoadModerator(std::shared_ptr<BaseSceneLoader> loader) :
     _builder(new SceneBuilder)
 {
     _loader = loader;
 }
 
-std::shared_ptr<Object> LoadSceneModerator::load(std::string &file_name)
+std::shared_ptr<Object> SceneLoadModerator::load(std::string &fileName)
 {
     try
     {
-        _loader->open(file_name);
+        _loader->open(fileName);
     }
     catch (SourceException &error)
     {
@@ -28,6 +28,7 @@ std::shared_ptr<Object> LoadSceneModerator::load(std::string &file_name)
     }
     catch (std::exception &error)
     {
+        _loader->close();
         std::string msg = "Error : Read model";
         throw SourceException(msg);
     }

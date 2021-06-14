@@ -1,23 +1,23 @@
-#ifndef LOAD_MODEL_MODERATOR_H
-#define LOAD_MODEL_MODERATOR_H
+#ifndef MODELLOADMODERATOR_H
+#define MODELLOADMODERATOR_H
 
 #include "baseloadmoderator.h"
 #include "basemodelloader.h"
 #include "baseloader.h"
 #include "modelbuilder.h"
 
-class LoadModelModerator : public AbstractLoadModerator
+class ModelLoadModerator : public BaseLoadModerator
 {
 public:
-    explicit LoadModelModerator(std::shared_ptr<BaseModelLoader> loader);
+    explicit ModelLoadModerator(std::shared_ptr<BaseModelLoader> loader);
 
-    ~LoadModelModerator() = default;
+    ~ModelLoadModerator() = default;
 
-    std::shared_ptr<Object> load(std::string &file_name) override;
+    std::shared_ptr<Object> load(std::string &fileName) override;
 
 private:
     std::shared_ptr<ModelBuilder> _builder;
     std::shared_ptr<BaseModelLoader> _loader;
 };
 
-#endif //LOAD_MODEL_MODERATOR_H
+#endif // MODELLOADMODERATOR_H

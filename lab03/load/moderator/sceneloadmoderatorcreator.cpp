@@ -1,36 +1,36 @@
 #include "sceneloadmoderatorcreator.h"
 #include "filesceneloader.h"
 
-std::shared_ptr<LoadSceneModerator> LoadSceneModeratorCreator::create_moderator()
+std::shared_ptr<SceneLoadModerator> SceneLoadModeratorCreator::createModerator()
 {
     if (nullptr == _moderator)
-        create_instance();
+        createInstance();
 
     return _moderator;
 }
 
-std::shared_ptr<LoadSceneModerator> LoadSceneModeratorCreator::create_moderator(
+std::shared_ptr<SceneLoadModerator> SceneLoadModeratorCreator::createModerator(
         const std::shared_ptr<BaseSceneLoader> &loader)
 {
     if (nullptr == _moderator)
     {
-        create_instance();
+        createInstance();
     }
 
-    _moderator->set_loader(loader);
+    _moderator->setLoader(loader);
 
     return _moderator;
 }
 
-void LoadSceneModeratorCreator::create_instance()
+void SceneLoadModeratorCreator::createInstance()
 {
-    static std::shared_ptr<LoadSceneModerator> moderator;
+    static std::shared_ptr<SceneLoadModerator> moderator;
 
     if (!moderator)
     {
         std::shared_ptr<BaseSceneLoader> loader;
         loader = std::shared_ptr<BaseSceneLoader>(new FileSceneLoader);
-        moderator = std::make_shared<LoadSceneModerator>(loader);
+        moderator = std::make_shared<SceneLoadModerator>(loader);
     }
 
     _moderator = moderator;

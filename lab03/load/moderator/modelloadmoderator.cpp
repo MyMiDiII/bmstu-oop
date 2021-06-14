@@ -3,14 +3,14 @@
 #include "exceptions.h"
 
 
-LoadModelModerator::LoadModelModerator(std::shared_ptr<BaseModelLoader> loader) :
+ModelLoadModerator::ModelLoadModerator(std::shared_ptr<BaseModelLoader> loader) :
     _builder(new ModelBuilder)
 {
     _loader = loader;
 }
 
 
-std::shared_ptr<Object> LoadModelModerator::load(std::string &file_name)
+std::shared_ptr<Object> ModelLoadModerator::load(std::string &file_name)
 {
     try
     {

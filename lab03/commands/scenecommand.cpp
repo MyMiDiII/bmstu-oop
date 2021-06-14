@@ -26,7 +26,7 @@ LoadScene::LoadScene(std::string fileName) : _fileName(fileName) { }
 
 void LoadScene::execute()
 {
-    auto moderator = LoadSceneModeratorCreator().create_moderator();
+    auto moderator = SceneLoadModeratorCreator().createModerator();
     auto manager = CreatorLoadManager().create_manager(moderator);
     auto scene = std::dynamic_pointer_cast<Scene>(manager->load(_fileName));
 

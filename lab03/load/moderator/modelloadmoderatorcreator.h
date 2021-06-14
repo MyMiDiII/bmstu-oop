@@ -1,19 +1,19 @@
-#ifndef LOAD_MODEL_MODERATOR_CREATOR_H
-#define LOAD_MODEL_MODERATOR_CREATOR_H
+#ifndef MODELLOADMODERATORCREATOR_H
+#define MODELLOADMODERATORCREATOR_H
 
 #include "modelloadmoderator.h"
 
-class LoadModelModeratorCreator
+class ModelLoadModeratorCreator
 {
 public:
-    std::shared_ptr<LoadModelModerator> create_moderator();
-    std::shared_ptr<LoadModelModerator> create_moderator(
+    std::shared_ptr<ModelLoadModerator> createModerator();
+    std::shared_ptr<ModelLoadModerator> createModerator(
             const std::shared_ptr<BaseModelLoader> &loader);
 
 private:
-    void create_instance();
+    void createInstance();
 
-    std::shared_ptr<LoadModelModerator> _moderator;
+    std::shared_ptr<ModelLoadModerator> _moderator;
 };
 
-#endif //LOAD_MODEL_MODERATOR_CREATOR_H
+#endif // MODELLOADMODERATORCREATOR_H

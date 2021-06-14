@@ -1,10 +1,10 @@
 #include "loadmanager.h"
-//#include "../../../inc/managers/load/load_scene_moderator_creator.h"
+#include "sceneloadmoderatorcreator.h"
 #include "modelloadmoderator.h"
 
 LoadManager::LoadManager()
 {
-    //_loader = LoadSceneModeratorCreator().create_moderator();
+    _loader = SceneLoadModeratorCreator().createModerator();
 }
 
 std::shared_ptr<Object> LoadManager::load(std::string &name)
@@ -12,7 +12,7 @@ std::shared_ptr<Object> LoadManager::load(std::string &name)
     return _loader->load(name);
 }
 
-void LoadManager::set_loader(std::shared_ptr<AbstractLoadModerator> loader)
+void LoadManager::set_loader(std::shared_ptr<BaseLoadModerator> loader)
 {
     _loader = loader;
 }

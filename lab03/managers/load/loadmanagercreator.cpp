@@ -18,7 +18,8 @@ std::shared_ptr<LoadManager> CreatorLoadManager::create_manager()
     return _manager;
 }
 
-std::shared_ptr<LoadManager> CreatorLoadManager::create_manager(const std::shared_ptr <AbstractLoadModerator> &loader)
+std::shared_ptr<LoadManager> CreatorLoadManager::create_manager(
+        const std::shared_ptr <BaseLoadModerator> &loader)
 {
     if (nullptr == _manager)
     {

@@ -17,10 +17,10 @@ public:
     ~LoadManager() = default;
 
     virtual std::shared_ptr<Object> load(std::string &name);
-    virtual void set_loader(std::shared_ptr<AbstractLoadModerator> loader);
+    virtual void set_loader(std::shared_ptr<BaseLoadModerator> loader);
 
 private:
-    std::shared_ptr<AbstractLoadModerator> _loader;
+    std::shared_ptr<BaseLoadModerator> _loader;
 };
 
 
