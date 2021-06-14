@@ -34,7 +34,7 @@ MoveCamera::MoveCamera(const size_t index, const double dx, const double dy) :
 void MoveCamera::execute()
 {
     auto viewer = SceneManagerCreator().createManager()->getScene()->get_viewers().at(_index);
-    CreatorTransformManager().create_manager()->move_object(viewer, _dx, _dy, 0);
+    TransformManagerCreator().createManager()->moveObject(viewer, _dx, _dy, 0);
 }
 
 

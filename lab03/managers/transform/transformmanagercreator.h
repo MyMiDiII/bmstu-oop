@@ -1,19 +1,19 @@
-#ifndef TRANSFORM_MANAGER_CREATOR_H
-#define TRANSFORM_MANAGER_CREATOR_H
+#ifndef TRANSFORMMANAGERCREATOR_H
+#define TRANSFORMMANAGERCREATOR_H
 
 #include "transformmanager.h"
 
 
-class CreatorTransformManager
+class TransformManagerCreator
 {
 public:
-    std::shared_ptr<TransformManager> create_manager();
+    std::shared_ptr<TransformManager> createManager();
 
 private:
-    void create_instance();
+    void createInstance();
 
     std::shared_ptr<TransformManager> _manager;
 };
 
 
-#endif //TRANSFORM_MANAGER_CREATOR_H
+#endif //TRANSFORMMANAGERCREATOR_H

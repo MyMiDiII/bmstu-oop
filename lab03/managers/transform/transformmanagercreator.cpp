@@ -1,15 +1,15 @@
 #include "transformmanagercreator.h"
 
 
-std::shared_ptr<TransformManager> CreatorTransformManager::create_manager()
+std::shared_ptr<TransformManager> TransformManagerCreator::createManager()
 {
     if (nullptr == _manager)
-        create_instance();
+        createInstance();
 
     return _manager;
 }
 
-void CreatorTransformManager::create_instance()
+void TransformManagerCreator::createInstance()
 {
     static std::shared_ptr<TransformManager> manager(new TransformManager());
     _manager = manager;

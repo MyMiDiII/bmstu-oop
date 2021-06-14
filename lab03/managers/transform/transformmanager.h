@@ -14,24 +14,23 @@ public:
 
     ~TransformManager() = default;
 
-    static void move_object(const std::shared_ptr<Object> &object,
+    static void moveObject(const std::shared_ptr<Object> &object,
                             const double &dx,
                             const double &dy,
                             const double &dz);
-    static void scale_object(const std::shared_ptr<Object> &object,
+    static void scaleObject(const std::shared_ptr<Object> &object,
                              const double &kx,
                              const double &ky,
                              const double &kz);
-    static void spin_object(const std::shared_ptr<Object> &object,
+    static void rotateObject(const std::shared_ptr<Object> &object,
                             const double &ox,
                             const double &oy,
                             const double &oz);
 
-
-    static void transform_object(const std::shared_ptr<Object> &object,
+    static void transformObject(const std::shared_ptr<Object> &object,
                                  const Dot &move,
                                  const Dot &scale,
-                                 const Dot &spin);
+                                 const Dot &rotate);
 };
 
 

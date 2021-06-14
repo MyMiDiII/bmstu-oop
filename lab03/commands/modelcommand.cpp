@@ -13,7 +13,7 @@ void MoveModel::execute()
 {
     std::shared_ptr<Object> model = \
             SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
-    CreatorTransformManager().create_manager()->move_object(model, _dx, _dy, _dz);
+    TransformManagerCreator().createManager()->moveObject(model, _dx, _dy, _dz);
 }
 
 
@@ -22,19 +22,21 @@ ScaleModel::ScaleModel(const double &kx, const double &ky, const double &kz, con
 
 void ScaleModel::execute()
 {
-    std::shared_ptr<Object> model = SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
-    CreatorTransformManager().create_manager()->scale_object(model, _kx, _ky, _kz);
+    std::shared_ptr<Object> model = \
+            SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
+    TransformManagerCreator().createManager()->scaleObject(model, _kx, _ky, _kz);
 }
 
 
-RotateModel::RotateModel(const double &ox, const double &oy, const double &oz, const std::size_t index) :
+RotateModel::RotateModel(const double &ox, const double &oy,
+                         const double &oz, const std::size_t index) :
         _ox(ox), _oy(oy), _oz(oz), _index(index) { }
 
 void RotateModel::execute()
 {
     std::shared_ptr<Object> model = \
             SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
-    CreatorTransformManager().create_manager()->spin_object(model, _ox, _oy, _oz);
+    TransformManagerCreator().createManager()->rotateObject(model, _ox, _oy, _oz);
 }
 
 
@@ -45,7 +47,7 @@ void TransformModel::execute()
 {
     std::shared_ptr<Object> model = \
             SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
-    CreatorTransformManager().create_manager()->transform_object(model, _move, _scale, _rotate);
+    TransformManagerCreator().createManager()->transformObject(model, _move, _scale, _rotate);
 }
 
 
