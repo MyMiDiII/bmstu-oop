@@ -1,13 +1,13 @@
 #include "qtfactory.h"
 
-DrawerQtFactory::DrawerQtFactory(QGraphicsScene *scene)
+QtFactory::QtFactory(QGraphicsScene *scene)
 {
     _scene = scene;
 }
 
-std::unique_ptr<AbstractDrawer> DrawerQtFactory::graphic_create()
+std::unique_ptr<BaseDrawer> QtFactory::createDrawer()
 {
-    return std::unique_ptr<AbstractDrawer>(new DrawerQt(_scene));
+    return std::unique_ptr<BaseDrawer>(new QtDrawer(_scene));
 }
 
 

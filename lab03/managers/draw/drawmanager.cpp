@@ -7,7 +7,7 @@ void DrawManager::set_viewer(std::shared_ptr<Viewer> viewer)
 }
 
 
-void DrawManager::set_drawer(std::shared_ptr<AbstractDrawer> drawer)
+void DrawManager::set_drawer(std::shared_ptr<BaseDrawer> drawer)
 {
     _drawer = drawer;
 }
@@ -32,7 +32,7 @@ void DrawManager::visit(const Model &model)
 
     for (auto link : links)
     {
-        _drawer->draw_line(get_dot_proection(dots.at(link.get_dot1_index() - 1)).with_center(center),
+        _drawer->drawLine(get_dot_proection(dots.at(link.get_dot1_index() - 1)).with_center(center),
                            get_dot_proection(dots.at(link.get_dot2_index() - 1)).with_center(center));
     }
 

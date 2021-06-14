@@ -20,7 +20,7 @@ public:
     ~DrawManager() = default;
 
     void set_viewer(std::shared_ptr<Viewer> viewer);
-    void set_drawer(std::shared_ptr<AbstractDrawer> drawer);
+    void set_drawer(std::shared_ptr<BaseDrawer> drawer);
 
     void visit(const Model &model) override;
     void visit(const Viewer &viewer) override {};
@@ -30,7 +30,7 @@ private:
     Dot get_dot_proection(const Dot &dot);
 
     std::shared_ptr<Viewer> _viewer;
-    std::shared_ptr<AbstractDrawer> _drawer;
+    std::shared_ptr<BaseDrawer> _drawer;
 
 };
 

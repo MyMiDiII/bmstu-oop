@@ -1,19 +1,19 @@
 #ifndef QTDRAWER_H
-#define QTDRAWER_QT_H
+#define QTDRAWER_H
 
 #include <QGraphicsScene>
 #include "basedrawer.h"
 
 
-class DrawerQt : public AbstractDrawer
+class QtDrawer : public BaseDrawer
 {
 public:
-    DrawerQt() = delete;
-    explicit DrawerQt(QGraphicsScene *scene);
-    DrawerQt(const DrawerQt &drawer);
+    QtDrawer() = delete;
+    explicit QtDrawer(QGraphicsScene *scene);
+    QtDrawer(const QtDrawer &drawer);
 
-    void draw_line(const Dot &dot1, const Dot &dot2) override;
-    void clear_scene() override;
+    void drawLine(const Dot &vertex1, const Dot &vertex2) override;
+    void clearScene() override;
 
 private:
     QGraphicsScene *_scene;

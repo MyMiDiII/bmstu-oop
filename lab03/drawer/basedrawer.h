@@ -4,14 +4,14 @@
 #include "vertex.h"
 
 
-class AbstractDrawer
+class BaseDrawer
 {
 public:
-    AbstractDrawer() = default;
-    virtual ~AbstractDrawer() = default;
+    BaseDrawer() = default;
+    virtual ~BaseDrawer() = default;
 
-    virtual void draw_line(const Dot &dot1, const Dot &dot2) = 0;
-    virtual void clear_scene() = 0;
+    virtual void drawLine(const Dot &vertex1, const Dot &vertex2) = 0;
+    virtual void clearScene() = 0;
 };
 
 #endif //BASEDRAWER_H

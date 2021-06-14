@@ -1,24 +1,24 @@
 #include "qtdrawer.h"
 
-DrawerQt::DrawerQt(QGraphicsScene *scene)
+QtDrawer::QtDrawer(QGraphicsScene *scene)
 {
     _scene = scene;
 }
 
 
-DrawerQt::DrawerQt(const DrawerQt &drawer)
+QtDrawer::QtDrawer(const QtDrawer &drawer)
 {
     _scene = drawer._scene;
 }
 
 
-void DrawerQt::draw_line(const Dot &dot1, const Dot &dot2)
+void QtDrawer::drawLine(const Dot &vertex1, const Dot &vertex2)
 {
-    _scene->addLine(dot1.get_x(), dot1.get_y(), dot2.get_x(), dot2.get_y());
+    _scene->addLine(vertex1.get_x(), vertex1.get_y(), vertex2.get_x(), vertex2.get_y());
 }
 
 
-void DrawerQt::clear_scene()
+void QtDrawer::clearScene()
 {
     _scene->clear();
 }

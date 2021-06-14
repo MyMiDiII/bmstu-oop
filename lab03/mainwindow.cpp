@@ -26,8 +26,8 @@ void MainWindow::setup_scene()
     auto cont = ui->graphicsView->contentsRect();
     _scene->setSceneRect(0, 0, cont.width(), cont.height());
 
-    std::shared_ptr<AbstractDrawerFactory> factory(new DrawerQtFactory(_scene));
-    _drawer = factory->graphic_create();
+    std::shared_ptr<DrawerFactory> factory(new QtFactory(_scene));
+    _drawer = factory->createDrawer();
 }
 
 void MainWindow::update_scene()

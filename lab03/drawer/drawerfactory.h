@@ -4,10 +4,10 @@
 #include <memory>
 #include "basedrawer.h"
 
-class AbstractDrawerFactory
+class DrawerFactory
 {
 public:
-    virtual std::unique_ptr<AbstractDrawer> graphic_create() = 0;
+    virtual std::unique_ptr<BaseDrawer> createDrawer() = 0;
 };
 
 #endif //DRAWERFACTORY_H

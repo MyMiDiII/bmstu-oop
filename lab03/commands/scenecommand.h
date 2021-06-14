@@ -10,12 +10,12 @@ class SceneCommand : public BaseCommand { };
 class DrawScene : public SceneCommand
 {
 public:
-    DrawScene(std::shared_ptr<AbstractDrawer> drawer);
+    DrawScene(std::shared_ptr<BaseDrawer> drawer);
 
     virtual void execute() override;
 
 private:
-    std::shared_ptr<AbstractDrawer> _drawer;
+    std::shared_ptr<BaseDrawer> _drawer;
 };
 
 

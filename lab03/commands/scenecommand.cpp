@@ -6,7 +6,7 @@
 #include "sceneloadmoderatorcreator.h"
 
 
-DrawScene::DrawScene(std::shared_ptr<AbstractDrawer> drawer) : _drawer(drawer) { }
+DrawScene::DrawScene(std::shared_ptr<BaseDrawer> drawer) : _drawer(drawer) { }
 
 
 void DrawScene::execute()
@@ -15,7 +15,7 @@ void DrawScene::execute()
     auto scene_manager = CreatorSceneManager().create_manager();
     auto viewer = scene_manager->get_viewer();
 
-    _drawer->clear_scene();
+    _drawer->clearScene();
     draw_manager->set_drawer(_drawer);
     draw_manager->set_viewer(viewer);
     scene_manager->get_scene()->get_composite()->accept(draw_manager);

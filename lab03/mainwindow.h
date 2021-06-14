@@ -66,6 +66,6 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *_scene;
     std::shared_ptr<Facade> _facade;
-    std::shared_ptr<AbstractDrawer> _drawer;
+    std::shared_ptr<BaseDrawer> _drawer;
 };
 #endif // MAINWINDOW_H

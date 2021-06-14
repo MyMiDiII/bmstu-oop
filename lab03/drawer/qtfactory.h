@@ -5,12 +5,12 @@
 #include "qtdrawer.h"
 
 
-class DrawerQtFactory : public AbstractDrawerFactory
+class QtFactory : public DrawerFactory
 {
 public:
-    explicit DrawerQtFactory(QGraphicsScene *scene);
+    explicit QtFactory(QGraphicsScene *scene);
 
-    std::unique_ptr<AbstractDrawer> graphic_create() override;
+    std::unique_ptr<BaseDrawer> createDrawer() override;
 
 private:
     QGraphicsScene *_scene;
