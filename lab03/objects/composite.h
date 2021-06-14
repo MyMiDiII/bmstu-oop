@@ -3,9 +3,12 @@
 
 #include "object.h"
 #include "visitor.h"
+#include "scene.h"
 
 class Composite : public Object
 {
+    friend std::vector<std::shared_ptr<Object>> Scene::getModels();
+
 public:
     Composite() = default;
     explicit Composite(std::shared_ptr<Object> &element);
@@ -22,10 +25,6 @@ public:
 
     Iterator begin() override;
     Iterator end() override;
-
-    // delete
-    std::size_t getSize() const;
-    std::vector<std::shared_ptr<Object>> &getObjects();
 
 private:
     std::vector<std::shared_ptr<Object>> _elements;

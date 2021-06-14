@@ -5,10 +5,11 @@
 #include "vertex.h"
 #include "composite.h"
 #include "object.h"
-#include "camera.h"
 
 #include "basedrawer.h"
 #include "visitor.h"
+
+class Camera;
 
 class DrawManager : public BaseManager, public Visitor
 {
@@ -26,9 +27,9 @@ public:
     void visit(const Camera &camera) override {};
     void visit(const Composite &composite) override {};
 
-private:
-    Vertex getProjection(const Vertex &dot);
+    Vertex getProjection(const Vertex &vertex);
 
+private:
     std::shared_ptr<Camera> _camera;
     std::shared_ptr<BaseDrawer> _drawer;
 

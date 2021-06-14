@@ -1,10 +1,16 @@
 #include <iterator>
 
 #include "scene.h"
+#include "composite.h"
+
+Scene::Scene() : _models(new Composite)
+{
+
+}
 
 std::vector<std::shared_ptr<Object>> Scene::getModels()
 {
-    return _models->getObjects();
+    return _models->_elements;
 }
 
 

@@ -3,9 +3,12 @@
 
 #include "visitor.h"
 #include "object.h"
+#include "drawmanager.h"
 
 class Camera : public InvisibleObject
 {
+    friend Vertex DrawManager::getProjection(const Vertex &vertex);
+
 public:
     Camera() = default;
     explicit Camera(const Vertex &location) : _location(location) { };
@@ -13,9 +16,6 @@ public:
 
     void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate) override;
     void accept(std::shared_ptr<Visitor> visitor) override;
-
-    // delete
-    Vertex getLocation();
 
 private:
     void moveX(const double dx);

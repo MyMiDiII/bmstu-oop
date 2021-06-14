@@ -1,15 +1,14 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include "object.h"
 #include <vector>
-
-#include "camera.h"
-#include "composite.h"
+//#include "camera.h"
 
 class Scene : public Object
 {
 public:
-    Scene() : _models(new Composite) {};
+    Scene();
     ~Scene() override = default;
 
     std::vector<std::shared_ptr<Object>> getModels();

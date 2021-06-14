@@ -1,5 +1,6 @@
 #include "drawmanager.h"
 #include "model.h"
+#include "camera.h"
 
 void DrawManager::setCamera(std::shared_ptr<Camera> camera)
 {
@@ -13,12 +14,12 @@ void DrawManager::setDrawer(std::shared_ptr<BaseDrawer> drawer)
 }
 
 
-Vertex DrawManager::getProjection(const Vertex &dot)
+Vertex DrawManager::getProjection(const Vertex &vertex)
 {
-    Vertex projection = dot;
+    Vertex projection = vertex;
 
-    projection.setX(projection.getX() + _camera->getLocation().getX());
-    projection.setY(projection.getY() + _camera->getLocation().getY());
+    projection.setX(projection.getX() + _camera->_location.getX());
+    projection.setY(projection.getY() + _camera->_location.getY());
 
     return projection;
 }

@@ -25,12 +25,6 @@ void Camera::transform(const Vertex &move, const Vertex &scale, const Vertex &ro
 }
 
 
-Vertex Camera::getLocation()
-{
-    return _location;
-}
-
-
 void Camera::accept(std::shared_ptr<Visitor> visitor)
 {
     visitor->visit(*this);

@@ -60,18 +60,6 @@ Iterator Composite::end()
 }
 
 
-std::size_t Composite::getSize() const
-{
-    return _elements.size();
-}
-
-
-std::vector<std::shared_ptr<Object>> &Composite::getObjects()
-{
-    return _elements;
-}
-
-
 void Composite::accept(std::shared_ptr<Visitor> visitor)
 {
     for (const auto &element : _elements)
