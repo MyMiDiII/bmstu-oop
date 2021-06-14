@@ -28,9 +28,9 @@ public:
                             const double &oz);
 
     static void transformObject(const std::shared_ptr<Object> &object,
-                                 const Dot &move,
-                                 const Dot &scale,
-                                 const Dot &rotate);
+                                 const Vertex &move,
+                                 const Vertex &scale,
+                                 const Vertex &rotate);
 };
 
 

@@ -5,9 +5,9 @@ Model::Model(const Model &model)
     _modelStructure = model._modelStructure;
 }
 
-void Model::transform(const Dot &move, const Dot &scale, const Dot &spin)
+void Model::transform(const Vertex &move, const Vertex &scale, const Vertex &rotate)
 {
-    _modelStructure->transform(move, scale, spin);
+    _modelStructure->transform(move, scale, rotate);
 }
 
 void Model::accept(std::shared_ptr<Visitor> visitor)

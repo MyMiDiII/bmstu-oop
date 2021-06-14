@@ -78,7 +78,7 @@ void FileSceneLoader::loadCameras(std::shared_ptr<SceneBuilder> builder)
 
     for (int i = 0; i < camerasNum; i++)
     {
-        builder->buildCamera(std::dynamic_pointer_cast<Viewer>(
+        builder->buildCamera(std::dynamic_pointer_cast<Camera>(
                              FileCameraLoader(_file).load(cameraBuilder)));
     }
 }

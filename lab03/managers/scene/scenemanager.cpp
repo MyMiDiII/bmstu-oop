@@ -14,7 +14,7 @@ std::shared_ptr<Scene> SceneManager::getScene() const
 }
 
 
-std::shared_ptr<Viewer> SceneManager::getCamera() const
+std::shared_ptr<Camera> SceneManager::getCamera() const
 {
     return _camera;
 }

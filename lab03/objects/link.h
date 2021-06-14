@@ -7,20 +7,20 @@ class Link
 {
 public:
     Link() = default;
-    Link(const std::size_t &dot1_index, const std::size_t &dot2_index);
-    Link(const Link &_link) = default;
+    Link(const std::size_t firstVertex, const std::size_t secondVertex);
+    Link(const Link &link) = default;
 
     ~Link() = default;
 
-    std::size_t get_dot1_index() const;
-    std::size_t get_dot2_index() const;
+    std::size_t getFirst() const;
+    std::size_t getSecond() const;
 
-    void set_dot1_index(const std::size_t &first_dot_index);
-    void set_dot2_index(const std::size_t &second_dot_index);
+    void setFirst(const std::size_t index);
+    void setSecond(const std::size_t index);
 
 private:
-    std::size_t _dot1_index;
-    std::size_t _dot2_index;
+    std::size_t _first;
+    std::size_t _second;
 };
 
 

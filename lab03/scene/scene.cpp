@@ -3,11 +3,11 @@
 #include "scene.h"
 
 std::vector<std::shared_ptr<Object>> Scene::get_models() {
-    return _models->get_objects();
+    return _models->getObjects();
 }
 
 
-std::vector<std::shared_ptr<Viewer>> Scene::get_viewers() {
+std::vector<std::shared_ptr<Camera>> Scene::get_viewers() {
     return _viewers;
 }
 
@@ -31,7 +31,7 @@ void Scene::remove_model(const std::size_t index)
 }
 
 
-void Scene::add_viewer(const std::shared_ptr<Viewer> &viewer)
+void Scene::add_viewer(const std::shared_ptr<Camera> &viewer)
 {
     _viewers.push_back(viewer);
 }

@@ -2,7 +2,7 @@
 
 void CameraBuilder::build()
 {
-    _camera = std::make_shared<Viewer>();
+    _camera = std::make_shared<Camera>();
 }
 
 void CameraBuilder::buildLocation(const double x, const double y, const double z)

@@ -8,9 +8,9 @@ AddCamera::AddCamera(const double x, const double y, const double z) :
 
 void AddCamera::execute()
 {
-    Dot viewer_place(_x, _y, _z);
+    Vertex viewer_place(_x, _y, _z);
 
-    std::shared_ptr<Viewer> viewer(new Viewer);
+    std::shared_ptr<Camera> viewer(new Camera);
 
     viewer->transform(viewer_place, viewer_place, viewer_place);
 

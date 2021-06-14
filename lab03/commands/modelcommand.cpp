@@ -40,7 +40,7 @@ void RotateModel::execute()
 }
 
 
-TransformModel::TransformModel(const Dot &move, const Dot &scale, const Dot &rotate, const std::size_t index) :
+TransformModel::TransformModel(const Vertex &move, const Vertex &scale, const Vertex &rotate, const std::size_t index) :
     _move(move), _scale(scale), _rotate(rotate), _index(index) { }
 
 void TransformModel::execute()

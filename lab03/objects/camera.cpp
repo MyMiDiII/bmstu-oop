@@ -1,37 +1,37 @@
 #include "camera.h"
 
-void Viewer::move_x(const double &dx)
+void Camera::moveX(const double dx)
 {
-    _position.set_x(_position.get_x() + dx);
+    _location.setX(_location.getX() + dx);
 }
 
 
-void Viewer::move_y(const double &dy)
+void Camera::moveY(const double dy)
 {
-    _position.set_y(_position.get_y() + dy);
+    _location.setY(_location.getY() + dy);
 }
 
 
-void Viewer::move_z(const double &dz)
+void Camera::moveZ(const double dz)
 {
-    _position.set_z(_position.get_z() + dz);
+    _location.setZ(_location.getZ() + dz);
 }
 
 
-void Viewer::transform(const Dot &new_position, const Dot &scale, const Dot &spin)
+void Camera::transform(const Vertex &move, const Vertex &scale, const Vertex &rotate)
 {
-    move_x(new_position.get_x());
-    move_y(new_position.get_y());
+    moveX(move.getX());
+    moveY(move.getY());
 }
 
 
-Dot Viewer::get_position()
+Vertex Camera::getLocation()
 {
-    return _position;
+    return _location;
 }
 
 
-void Viewer::accept(std::shared_ptr<Visitor> visitor)
+void Camera::accept(std::shared_ptr<Visitor> visitor)
 {
     visitor->visit(*this);
 }

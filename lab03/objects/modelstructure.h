@@ -10,24 +10,24 @@ class ModelStructure
 {
 public:
     ModelStructure() = default;
-    ModelStructure(std::vector<Dot> &dots, std::vector<Link> &links);
-    ModelStructure(std::vector<Dot> &dots, std::vector<Link> &links, Dot center);
+    ModelStructure(std::vector<Vertex> &vertexes, std::vector<Link> &links);
+    ModelStructure(std::vector<Vertex> &vertexes, std::vector<Link> &links, Vertex &center);
 
     ~ModelStructure() = default;
 
-    const std::vector<Dot> &get_dots() const;
-    const std::vector<Link> &get_links() const;
-    const Dot &get_center() const;
+    const std::vector<Vertex> &getVertexes() const;
+    const std::vector<Link> &getLinks() const;
+    const Vertex &getCenter() const;
 
-    void add_dot(const Dot &dot);
-    void add_link(const Link &link);
+    void addVertex(const Vertex &vertex);
+    void addLink(const Link &link);
 
-    void transform(const Dot &move, const Dot &scale, const Dot &spin);
+    void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate);
 
 private:
-    Dot _center;
+    Vertex _center;
 
-    std::vector<Dot> _dots;
+    std::vector<Vertex> _vertexes;
     std::vector<Link> _links;
 };
 

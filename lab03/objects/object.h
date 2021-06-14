@@ -17,14 +17,14 @@ public:
     Object() = default;
     virtual ~Object() = default;
 
-    virtual bool add(const std::shared_ptr<Object> &) {return false;};
+    virtual bool add(const std::shared_ptr<Object> &) { return false; };
     virtual bool remove(const Iterator &) { return false; };
 
-    virtual bool is_visible() { return false; };
-    virtual bool is_composite() { return  false; };
+    virtual bool isVisible() { return false; };
+    virtual bool isComposite() { return  false; };
 
     virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
-    virtual void transform(const Dot &move, const Dot &scale, const Dot &spin) = 0;
+    virtual void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate) = 0;
 
     virtual Iterator begin() { return Iterator(); };
     virtual Iterator end() { return Iterator(); };
@@ -37,7 +37,7 @@ public:
     VisibleObject() = default;
     ~VisibleObject() override = default;
 
-    bool is_visible() override { return true; }
+    bool isVisible() override { return true; }
 };
 
 
@@ -47,7 +47,7 @@ public:
     InvisibleObject() = default;
     ~InvisibleObject() override = default;
 
-    bool is_visible() override { return false; }
+    bool isVisible() override { return false; }
 };
 
 #endif //OBJECT_H

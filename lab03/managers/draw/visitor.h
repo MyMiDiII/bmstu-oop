@@ -2,7 +2,7 @@
 #define VISITOR_H
 
 class Model;
-class Viewer;
+class Camera;
 class Composite;
 
 class Visitor
@@ -12,7 +12,7 @@ public:
     ~Visitor() = default;
 
     virtual void visit(const Model &model) = 0;
-    virtual void visit(const Viewer &viewer) = 0;
+    virtual void visit(const Camera &viewer) = 0;
     virtual void visit(const Composite &composite) = 0;
 };
 

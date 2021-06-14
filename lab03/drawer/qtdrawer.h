@@ -12,7 +12,7 @@ public:
     explicit QtDrawer(QGraphicsScene *scene);
     QtDrawer(const QtDrawer &drawer);
 
-    void drawLine(const Dot &vertex1, const Dot &vertex2) override;
+    void drawLine(const Vertex &vertex1, const Vertex &vertex2) override;
     void clearScene() override;
 
 private:

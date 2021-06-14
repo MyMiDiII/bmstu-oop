@@ -1,28 +1,29 @@
-#ifndef VIEWER_H
-#define VIEWER_H
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include "visitor.h"
 #include "object.h"
 
-class Viewer : public InvisibleObject
+class Camera : public InvisibleObject
 {
 public:
-    Viewer() = default;
-    explicit Viewer(const Dot &position) : _position(position) { };
-    ~Viewer() override = default;
+    Camera() = default;
+    explicit Camera(const Vertex &location) : _location(location) { };
+    ~Camera() override = default;
 
-    void transform(const Dot &new_position, const Dot &scale, const Dot &spin) override;
+    void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate) override;
     void accept(std::shared_ptr<Visitor> visitor) override;
 
-    Dot get_position();
+    // delete
+    Vertex getLocation();
 
 private:
-    void move_x(const double &dx);
-    void move_y(const double &dy);
-    void move_z(const double &dz);
+    void moveX(const double dx);
+    void moveY(const double dy);
+    void moveZ(const double dz);
 
-    Dot _position;
+    Vertex _location;
 };
 
 
-#endif //VIEWER_H
+#endif //CAMERA_H

@@ -12,7 +12,7 @@ public:
 
     void build() override;
     void buildModel(const std::shared_ptr<Object> &object);
-    void buildCamera(const std::shared_ptr<Viewer> &viewer);
+    void buildCamera(const std::shared_ptr<Camera> &viewer);
     bool isBuild() const override;
 
     std::shared_ptr<Object> get() override;

@@ -51,12 +51,12 @@ private:
 class TransformModel : public ModelCommand
 {
 public:
-    TransformModel(const Dot &move, const Dot &scale, const Dot &rotate, const std::size_t index);
+    TransformModel(const Vertex &move, const Vertex &scale, const Vertex &rotate, const std::size_t index);
 
     virtual void execute() override;
 
 private:
-    Dot _move, _scale, _rotate;
+    Vertex _move, _scale, _rotate;
     std::size_t _index;
 };
 

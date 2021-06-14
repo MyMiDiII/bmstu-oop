@@ -1,7 +1,7 @@
 #include "drawmanager.h"
 #include "model.h"
 
-void DrawManager::setCamera(std::shared_ptr<Viewer> camera)
+void DrawManager::setCamera(std::shared_ptr<Camera> camera)
 {
     _camera = camera;
 }
@@ -13,12 +13,12 @@ void DrawManager::setDrawer(std::shared_ptr<BaseDrawer> drawer)
 }
 
 
-Dot DrawManager::getProjection(const Dot &dot)
+Vertex DrawManager::getProjection(const Vertex &dot)
 {
-    Dot projection = dot;
+    Vertex projection = dot;
 
-    projection.set_x(projection.get_x() + _camera->get_position().get_x());
-    projection.set_y(projection.get_y() + _camera->get_position().get_y());
+    projection.setX(projection.getX() + _camera->getLocation().getX());
+    projection.setY(projection.getY() + _camera->getLocation().getY());
 
     return projection;
 }
@@ -26,14 +26,14 @@ Dot DrawManager::getProjection(const Dot &dot)
 
 void DrawManager::visit(const Model &model)
 {
-    auto dots = model._modelStructure->get_dots();
-    auto links = model._modelStructure->get_links();
-    auto center = model._modelStructure->get_center();
+    auto dots = model._modelStructure->getVertexes();
+    auto links = model._modelStructure->getLinks();
+    auto center = model._modelStructure->getCenter();
 
     for (auto link : links)
     {
-        _drawer->drawLine(getProjection(dots.at(link.get_dot1_index() - 1)).with_center(center),
-                          getProjection(dots.at(link.get_dot2_index() - 1)).with_center(center));
+        _drawer->drawLine(getProjection(dots.at(link.getFirst() - 1)).getAbsVertex(center),
+                          getProjection(dots.at(link.getSecond() - 1)).getAbsVertex(center));
     }
 
 }

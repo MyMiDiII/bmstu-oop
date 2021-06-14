@@ -10,8 +10,8 @@ void ModelBuilder::buildVertex(const double x, const double y, const double z)
 {
     if (!isBuild()) {}
 
-    Dot tmp(x, y, z);
-    _model->add_dot(tmp);
+    Vertex tmp(x, y, z);
+    _model->addVertex(tmp);
 }
 
 
@@ -20,7 +20,7 @@ void ModelBuilder::buildLink(const std::size_t vertex1Index, const std::size_t v
     if (!isBuild()) {}
 
     Link tmp(vertex1Index, vertex2Index);
-    _model->add_link(tmp);
+    _model->addLink(tmp);
 }
 
 

@@ -7,164 +7,166 @@ double to_radians(const double &angle)
     return angle * (M_PI / 180);
 }
 
-Dot::Dot(const double x, const double y, const double z)
+Vertex::Vertex(const double x, const double y, const double z)
 {
-    set_x(x);
-    set_y(y);
-    set_z(z);
+    setX(x);
+    setY(y);
+    setZ(z);
 }
 
 
-Dot::Dot(const Dot &&dot) noexcept
+Vertex::Vertex(const Vertex &&vertex) noexcept
 {
-    set_x(dot._x);
-    set_y(dot._y);
-    set_z(dot._z);
+    setX(vertex._x);
+    setY(vertex._y);
+    setZ(vertex._z);
 
-    dot.~Dot();
+    vertex.~Vertex();
 }
 
 
-Dot &Dot::operator = (Dot &&dot) noexcept
+Vertex &Vertex::operator = (Vertex &&vertex) noexcept
 {
-    set_x(dot._x);
-    set_y(dot._y);
-    set_z(dot._z);
+    setX(vertex._x);
+    setY(vertex._y);
+    setZ(vertex._z);
 
-    dot.~Dot();
+    vertex.~Vertex();
 
     return *this;
 }
 
-double Dot::get_x() const
+double Vertex::getX() const
 {
     return _x;
 }
 
-double Dot::get_y() const
+double Vertex::getY() const
 {
     return _y;
 }
 
-double Dot::get_z() const
+double Vertex::getZ() const
 {
     return _z;
 }
 
-void Dot::set_x(const double &x)
+void Vertex::setX(const double x)
 {
     _x = x;
 }
 
-void Dot::set_y(const double &y)
+void Vertex::setY(const double y)
 {
     _y = y;
 }
 
-void Dot::set_z(const double &z)
+void Vertex::setZ(const double z)
 {
     _z = z;
 }
 
-bool Dot::operator == (const Dot &dot) const noexcept
+bool Vertex::operator == (const Vertex &vertex) const noexcept
 {
-    return (dot._x == _x) && (dot._y == _y) && (dot._z == _z);
+    return (vertex._x == _x) && (vertex._y == _y) && (vertex._z == _z);
 }
 
-bool Dot::is_equal(const Dot &dot) const noexcept
+bool Vertex::isEqual(const Vertex &vertex) const noexcept
 {
-    return *this == dot;
+    return *this == vertex;
 }
 
-bool Dot::operator != (const Dot &dot) const noexcept
+bool Vertex::operator != (const Vertex &vertex) const noexcept
 {
-    return !(*this == dot);
+    return !(*this == vertex);
 }
 
-bool Dot::is_not_equal(const Dot &dot) const noexcept {
-    return !(*this == dot);
+bool Vertex::isNotEqual(const Vertex &vertex) const noexcept
+{
+    return !(*this == vertex);
 }
 
-Dot Dot::operator + (const Dot &dot)
+Vertex Vertex::operator + (const Vertex &vertex)
 {
-    Dot d{*this};
+    Vertex d{*this};
 
-    d.set_x(d._x + dot._x);
-    d.set_y(d._y + dot._y);
-    d.set_z(d._z + dot._z);
+    d.setX(d._x + vertex._x);
+    d.setY(d._y + vertex._y);
+    d.setZ(d._z + vertex._z);
 
     return d;
 }
 
-Dot Dot::operator - (const Dot &dot)
+Vertex Vertex::operator - (const Vertex &vertex)
 {
-    Dot d{*this};
+    Vertex d{*this};
 
-    d.set_x(d._x - dot._x);
-    d.set_y(d._y - dot._y);
-    d.set_z(d._z - dot._z);
+    d.setX(d._x - vertex._x);
+    d.setY(d._y - vertex._y);
+    d.setZ(d._z - vertex._z);
 
     return d;
 }
 
 
-void Dot::move(const double dx, const double dy, const double dz)
+void Vertex::move(const double dx, const double dy, const double dz)
 {
-    set_x(_x + dx);
-    set_y(_y + dy);
-    set_z(_y + dz);
+    setX(_x + dx);
+    setY(_y + dy);
+    setZ(_y + dz);
 }
 
-void Dot::scale(const double kx, const double ky, const double kz)
+void Vertex::scale(const double kx, const double ky, const double kz)
 {
-    set_x(_x * kx);
-    set_y(_y * ky);
-    set_z(_z * kz);
+    setX(_x * kx);
+    setY(_y * ky);
+    setZ(_z * kz);
 }
 
-void Dot::spin(const double ox, const double oy, const double oz)
+void Vertex::rotate(const double ox, const double oy, const double oz)
 {
-    spin_x(ox);
-    spin_y(oy);
-    spin_z(oz);
+    rotateX(ox);
+    rotateY(oy);
+    rotateZ(oz);
 }
 
 
-void Dot::spin_x(const double &ox)
+void Vertex::rotateX(const double ox)
 {
-    const double cos_spin = cos(to_radians(ox));
-    const double sin_spin = sin(to_radians(ox));
+    const double cos_rotate = cos(to_radians(ox));
+    const double sin_rotate = sin(to_radians(ox));
 
     const double tmp = _y;
 
-    set_y(_y * cos_spin + _z * sin_spin);
-    set_z(_z * cos_spin - tmp * sin_spin);
+    setY(_y * cos_rotate + _z * sin_rotate);
+    setZ(_z * cos_rotate - tmp * sin_rotate);
 }
 
 
-void Dot::spin_y(const double &oy)
+void Vertex::rotateY(const double oy)
 {
-    const double cos_spin = cos(to_radians(oy));
-    const double sin_spin = sin(to_radians(oy));
+    const double cos_rotate = cos(to_radians(oy));
+    const double sin_rotate = sin(to_radians(oy));
 
     const double tmp = _x;
 
-    set_x(_x * cos_spin + _z * sin_spin);
-    set_z(_z * cos_spin - tmp * sin_spin);
+    setX(_x * cos_rotate + _z * sin_rotate);
+    setZ(_z * cos_rotate - tmp * sin_rotate);
 }
 
 
-void Dot::spin_z(const double &oz)
+void Vertex::rotateZ(const double oz)
 {
-    const double cos_spin = cos(to_radians(oz));
-    const double sin_spin = sin(to_radians(oz));
+    const double cos_rotate = cos(to_radians(oz));
+    const double sin_rotate = sin(to_radians(oz));
 
     const double tmp = _x;
 
-    set_x(_x * cos_spin + _y * sin_spin);
-    set_y(_y * cos_spin - tmp * sin_spin);
+    setX(_x * cos_rotate + _y * sin_rotate);
+    setY(_y * cos_rotate - tmp * sin_rotate);
 }
 
-Dot Dot::with_center(const Dot &center) {
+Vertex Vertex::getAbsVertex(const Vertex &center)
+{
     return (*this) + center;
 }

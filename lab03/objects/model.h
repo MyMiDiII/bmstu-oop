@@ -18,13 +18,13 @@ class Model : public VisibleObject
 public:
 
     Model() : _modelStructure(new ModelStructure) { }
-    explicit Model(const std::shared_ptr<ModelStructure> &modelStructure) : _modelStructure(modelStructure) {};
+    explicit Model(const std::shared_ptr<ModelStructure> &modelStructure) :
+        _modelStructure(modelStructure) {};
     Model(const Model &model);
 
     ~Model() override = default;
 
-    void transform(const Dot &move, const Dot &scale, const Dot &spin) override;
-
+    void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate) override;
     void accept(std::shared_ptr<Visitor> visitor) override;
 
 protected:

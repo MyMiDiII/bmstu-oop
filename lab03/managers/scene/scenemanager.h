@@ -15,13 +15,13 @@ public:
     ~SceneManager() = default;
 
     std::shared_ptr<Scene> getScene() const;
-    std::shared_ptr<Viewer> getCamera() const;
+    std::shared_ptr<Camera> getCamera() const;
 
     void setScene(std::shared_ptr<Scene> scene);
     void setCamera(const std::size_t index);
 
 private:
-    std::shared_ptr<Viewer> _camera;
+    std::shared_ptr<Camera> _camera;
     std::shared_ptr<Scene> _scene;
 };
 

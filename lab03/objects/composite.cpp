@@ -28,21 +28,22 @@ bool Composite::remove(const Iterator &iter)
 }
 
 
-bool Composite::is_visible()
+bool Composite::isVisible()
 {
     return false;
 }
 
-bool Composite::is_composite() {
+bool Composite::isComposite()
+{
     return true;
 }
 
 
-void Composite::transform(const Dot &move, const Dot &scale, const Dot &spin)
+void Composite::transform(const Vertex &move, const Vertex &scale, const Vertex &rotate)
 {
     for (const auto &element : _elements)
     {
-        element->transform(move, scale, spin);
+        element->transform(move, scale, rotate);
     }
 }
 
@@ -59,13 +60,13 @@ Iterator Composite::end()
 }
 
 
-std::size_t Composite::get_size() const
+std::size_t Composite::getSize() const
 {
     return _elements.size();
 }
 
 
-std::vector<std::shared_ptr<Object>> &Composite::get_objects()
+std::vector<std::shared_ptr<Object>> &Composite::getObjects()
 {
     return _elements;
 }

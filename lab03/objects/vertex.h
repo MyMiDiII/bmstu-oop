@@ -1,51 +1,51 @@
-#ifndef DOT_H
-#define DOT_H
+#ifndef VERTEX_H
+#define VERTEX_H
 
-class Dot
+class Vertex
 {
 public:
-    Dot() = default;
-    Dot(const double x, const double y, const double z);
+    Vertex() = default;
+    Vertex(const double x, const double y, const double z);
 
-    Dot(const Dot &dot) = default;
-    Dot(const Dot &&dot) noexcept;
+    Vertex(const Vertex &vertex) = default;
+    Vertex(const Vertex &&vertex) noexcept;
 
-    Dot &operator = (const Dot &dot) = default;
-    Dot &operator = (Dot &&dot) noexcept;
+    Vertex &operator = (const Vertex &vertex) = default;
+    Vertex &operator = (Vertex &&vertex) noexcept;
 
-    ~Dot() = default;
+    ~Vertex() = default;
 
-    double get_x() const;
-    double get_y() const;
-    double get_z() const;
+    double getX() const;
+    double getY() const;
+    double getZ() const;
 
-    void set_x(double const &x);
-    void set_y(double const &y);
-    void set_z(double const &z);
+    void setX(double const x);
+    void setY(double const y);
+    void setZ(double const z);
 
-    bool operator == (const Dot &dot) const noexcept;
-    bool is_equal(const Dot &dot) const noexcept;
+    bool operator == (const Vertex &vertex) const noexcept;
+    bool isEqual(const Vertex &vertex) const noexcept;
 
-    bool operator != (const Dot &dot) const noexcept;
-    bool is_not_equal(const Dot &dot) const noexcept;
+    bool operator != (const Vertex &vertex) const noexcept;
+    bool isNotEqual(const Vertex &vertex) const noexcept;
 
-    Dot operator + (const Dot &dot);
-    Dot operator - (const Dot &dot);
+    Vertex operator + (const Vertex &vertex);
+    Vertex operator - (const Vertex &vertex);
 
-    Dot with_center(const Dot &center);
+    Vertex getAbsVertex(const Vertex &center);
 
     void move(const double dx, const double dy, const double dz);
     void scale(const double kx, const double ky, const double kz);
-    void spin(const double ox, const double oy, const double oz);
+    void rotate(const double ox, const double oy, const double oz);
 
 private:
-    void spin_x(const double &ox);
-    void spin_y(const double &oy);
-    void spin_z(const double &oz);
+    void rotateX(const double ox);
+    void rotateY(const double oy);
+    void rotateZ(const double oz);
 
     double _x;
     double _y;
     double _z;
 };
 
-#endif //DOT_H
+#endif // VERTEX_H

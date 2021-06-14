@@ -17,7 +17,7 @@ public:
     std::shared_ptr<Object> get() override;
 
 private:
-    std::shared_ptr<Viewer> _camera;
+    std::shared_ptr<Camera> _camera;
 };
 
 #endif //CAMERABUILDER_H

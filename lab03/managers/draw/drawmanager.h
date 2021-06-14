@@ -19,17 +19,17 @@ public:
 
     ~DrawManager() = default;
 
-    void setCamera(std::shared_ptr<Viewer> camera);
+    void setCamera(std::shared_ptr<Camera> camera);
     void setDrawer(std::shared_ptr<BaseDrawer> drawer);
 
     void visit(const Model &model) override;
-    void visit(const Viewer &camera) override {};
+    void visit(const Camera &camera) override {};
     void visit(const Composite &composite) override {};
 
 private:
-    Dot getProjection(const Dot &dot);
+    Vertex getProjection(const Vertex &dot);
 
-    std::shared_ptr<Viewer> _camera;
+    std::shared_ptr<Camera> _camera;
     std::shared_ptr<BaseDrawer> _drawer;
 
 };
