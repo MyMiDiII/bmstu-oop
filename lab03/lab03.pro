@@ -15,11 +15,17 @@ SOURCES += \
     drawer/qtdrawer.cpp \
     drawer/qtfactory.cpp \
     facade/facade.cpp \
+    load/builder/camerabuilder.cpp \
     load/builder/modelbuilder.cpp \
+    load/builder/scenebuilder.cpp \
+    load/loader/filecameraloader.cpp \
     load/loader/filemodelloader.cpp \
+    load/loader/filesceneloader.cpp \
     load/moderator/baseloadmoderator.cpp \
     load/moderator/modelloadmoderator.cpp \
     load/moderator/modelloadmoderatorcreator.cpp \
+    load/moderator/sceneloadmoderator.cpp \
+    load/moderator/sceneloadmoderatorcreator.cpp \
     main.cpp \
     mainwindow.cpp \
     managers/draw/drawmanager.cpp \
@@ -50,13 +56,21 @@ HEADERS += \
     exceptions/exceptions.h \
     facade/facade.h \
     load/builder/basebuilder.h \
+    load/builder/camerabuilder.h \
     load/builder/modelbuilder.h \
+    load/builder/scenebuilder.h \
+    load/loader/basecameraloader.h \
     load/loader/baseloader.h \
     load/loader/basemodelloader.h \
+    load/loader/basesceneloader.h \
+    load/loader/filecameraloader.h \
     load/loader/filemodelloader.h \
+    load/loader/filesceneloader.h \
     load/moderator/baseloadmoderator.h \
     load/moderator/modelloadmoderator.h \
     load/moderator/modelloadmoderatorcreator.h \
+    load/moderator/sceneloadmoderator.h \
+    load/moderator/sceneloadmoderatorcreator.h \
     mainwindow.h \
     managers/basemanager.h \
     managers/draw/drawmanager.h \
