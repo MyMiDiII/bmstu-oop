@@ -110,7 +110,7 @@ void MainWindow::on_loadModelBtn_clicked()
         return;
     }
 
-    auto file = QFileDialog::getOpenFileName();
+    auto file = QFileDialog::getOpenFileName(nullptr, "Загрузка модели", "/home/mymidi/01_BMSTU/bmstu-oop/lab03/data");
 
     if (file.isNull())
         return;
