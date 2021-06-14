@@ -2,7 +2,7 @@
 
 #include "vertex.h"
 
-double to_radians(const double &angle)
+double toRadians(const double angle)
 {
     return angle * (M_PI / 180);
 }
@@ -133,37 +133,37 @@ void Vertex::rotate(const double ox, const double oy, const double oz)
 
 void Vertex::rotateX(const double ox)
 {
-    const double cos_rotate = cos(to_radians(ox));
-    const double sin_rotate = sin(to_radians(ox));
+    const double cosO = cos(toRadians(ox));
+    const double sinO = sin(toRadians(ox));
 
     const double tmp = _y;
 
-    setY(_y * cos_rotate + _z * sin_rotate);
-    setZ(_z * cos_rotate - tmp * sin_rotate);
+    setY(_y * cosO + _z * sinO);
+    setZ(_z * cosO - tmp * sinO);
 }
 
 
 void Vertex::rotateY(const double oy)
 {
-    const double cos_rotate = cos(to_radians(oy));
-    const double sin_rotate = sin(to_radians(oy));
+    const double cosO = cos(toRadians(oy));
+    const double sinO = sin(toRadians(oy));
 
     const double tmp = _x;
 
-    setX(_x * cos_rotate + _z * sin_rotate);
-    setZ(_z * cos_rotate - tmp * sin_rotate);
+    setX(_x * cosO + _z * sinO);
+    setZ(_z * cosO - tmp * sinO);
 }
 
 
 void Vertex::rotateZ(const double oz)
 {
-    const double cos_rotate = cos(to_radians(oz));
-    const double sin_rotate = sin(to_radians(oz));
+    const double cosO = cos(toRadians(oz));
+    const double sinO = sin(toRadians(oz));
 
     const double tmp = _x;
 
-    setX(_x * cos_rotate + _y * sin_rotate);
-    setY(_y * cos_rotate - tmp * sin_rotate);
+    setX(_x * cosO + _y * sinO);
+    setY(_y * cosO - tmp * sinO);
 }
 
 Vertex Vertex::getAbsVertex(const Vertex &center)

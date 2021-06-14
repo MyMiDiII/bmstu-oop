@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setup_scene();
+    setupScene();
 
     _facade = std::make_shared<Facade>(Facade());
 }
@@ -16,7 +16,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setup_scene()
+void MainWindow::setupScene()
 {
     _scene = new QGraphicsScene(this);
 
@@ -30,50 +30,51 @@ void MainWindow::setup_scene()
     _drawer = factory->createDrawer();
 }
 
-void MainWindow::update_scene()
+void MainWindow::updateScene()
 {
-    DrawScene draw_command(_drawer);
-    _facade->execute(draw_command);
+    DrawScene cmd(_drawer);
+    _facade->execute(cmd);
 }
 
-void MainWindow::check_cam_exist()
+void MainWindow::checkCamExist()
 {
-    auto viewer_count = std::make_shared<size_t>(0);
-    CountCamera viewer_cmd(viewer_count);
+    auto cameraNum = std::make_shared<size_t>(0);
+    CountCamera cameraCmd(cameraNum);
 
-    _facade->execute(viewer_cmd);
+    _facade->execute(cameraCmd);
 
-    if (!*viewer_count)
+    if (!*cameraNum)
     {
         std::string msg = "No camera found.";
         throw CameraException(msg);
     }
 }
 
-void MainWindow::check_models_exist()
+void MainWindow::checkModelsExist()
 {
-    auto model_count = std::make_shared<size_t>(0);
-    CountModel model_cmd(model_count);
-    _facade->execute(model_cmd);
+    auto modelNum = std::make_shared<size_t>(0);
+    CountModel modelCmd(modelNum);
+    _facade->execute(modelCmd);
 
-    if (!*model_count)
+    if (!*modelNum)
     {
         std::string msg = "No models found.";
         throw ModelException(msg);
     }
 }
 
-void MainWindow::check_can_delete_cam()
+void MainWindow::checkCamDelete()
 {
-    auto model_count = std::make_shared<size_t>(0);
-    CountModel model_cmd(model_count);
-    _facade->execute(model_cmd);
+    auto modelNum = std::make_shared<size_t>(0);
+    CountModel modelCmd(modelNum);
+    _facade->execute(modelCmd);
 
-    auto viewer_count = std::make_shared<size_t>(0);
-    CountCamera viewer_cmd(viewer_count);
-    _facade->execute(viewer_cmd);
+    auto cameraNum = std::make_shared<size_t>(0);
+    CountCamera cameraCmd(cameraNum);
+    _facade->execute(cameraCmd);
 
-    if (*viewer_count <= 1 && *model_count) {
+    if (*cameraNum <= 1 && *modelNum)
+    {
         std::string msg = "Can not delete the last camera with the loaded models";
         throw CameraException(msg);
     }
@@ -85,7 +86,7 @@ void MainWindow::on_addCameraBtn_clicked()
     AddCamera camera_command(cont.width() / 2.0, cont.height() / 2.0, 0.0);
     _facade->execute(camera_command);
 
-    update_scene();
+    updateScene();
 
     auto cam = ui->cameraCB;
 
@@ -101,7 +102,7 @@ void MainWindow::on_loadModelBtn_clicked()
 {
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
@@ -114,11 +115,11 @@ void MainWindow::on_loadModelBtn_clicked()
     if (file.isNull())
         return;
 
-    LoadModel load_command(file.toUtf8().data());
+    LoadModel cmd(file.toUtf8().data());
 
     try
     {
-        _facade->execute(load_command);
+        _facade->execute(cmd);
     }
     catch (const BaseException &error)
     {
@@ -126,7 +127,7 @@ void MainWindow::on_loadModelBtn_clicked()
         return;
     }
 
-    update_scene();
+    updateScene();
     ui->modelsCB->addItem(QFileInfo(file.toUtf8().data()).fileName());
     ui->modelsCB->setCurrentIndex(ui->modelsCB->count() - 1);
 }
@@ -135,7 +136,7 @@ void MainWindow::on_deleteModelBtn_clicked()
 {
     try
     {
-        check_models_exist();
+        checkModelsExist();
     }
     catch (const ModelException &error)
     {
@@ -143,19 +144,19 @@ void MainWindow::on_deleteModelBtn_clicked()
         return;
     }
 
-    DeleteModel delete_command(ui->modelsCB->currentIndex());
-    _facade->execute(delete_command);
+    DeleteModel cmd(ui->modelsCB->currentIndex());
+    _facade->execute(cmd);
 
     ui->modelsCB->removeItem(ui->modelsCB->currentIndex());
 
-    update_scene();
+    updateScene();
 }
 
 void MainWindow::on_deleteModelsBtn_clicked()
 {
     try
     {
-        check_models_exist();
+        checkModelsExist();
     }
     catch (const ModelException &error)
     {
@@ -171,30 +172,30 @@ void MainWindow::on_deleteModelsBtn_clicked()
         ui->modelsCB->removeItem(i);
     }
 
-    update_scene();
+    updateScene();
 }
 
 void MainWindow::on_cameraCB_currentIndexChanged(int index)
 {
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
         return;
     }
 
-    SetCamera camera_command(index);
-    _facade->execute(camera_command);
-    update_scene();
+    SetCamera cmd(index);
+    _facade->execute(cmd);
+    updateScene();
 }
 
 void MainWindow::on_deleteCameraBtn_clicked()
 {
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
@@ -204,35 +205,36 @@ void MainWindow::on_deleteCameraBtn_clicked()
 
     try
     {
-        check_can_delete_cam();
+        checkCamDelete();
     }
-    catch (const CameraException &error) {
+    catch (const CameraException &error)
+    {
         QMessageBox::critical(nullptr, "Ошибка", "Это последняя камера! Для удаления удалите модели!");
         return;
     }
 
-    DeleteCamera delete_command(ui->cameraCB->currentIndex());
-    _facade->execute(delete_command);
+    DeleteCamera cmd(ui->cameraCB->currentIndex());
+    _facade->execute(cmd);
 
     ui->cameraCB->removeItem(ui->cameraCB->currentIndex());
 
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
         return;
     }
 
-    update_scene();
+    updateScene();
 }
 
 void MainWindow::on_upBtn_clicked()
 {
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
@@ -240,16 +242,16 @@ void MainWindow::on_upBtn_clicked()
         return;
     }
 
-    MoveCamera camera_command(ui->cameraCB->currentIndex(), 0, 10);
-    _facade->execute(camera_command);
-    update_scene();
+    MoveCamera cmd(ui->cameraCB->currentIndex(), 0, 10);
+    _facade->execute(cmd);
+    updateScene();
 }
 
 void MainWindow::on_rigthBtn_clicked()
 {
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
@@ -257,16 +259,16 @@ void MainWindow::on_rigthBtn_clicked()
         return;
     }
 
-    MoveCamera camera_command(ui->cameraCB->currentIndex(), -10, 0);
-    _facade->execute(camera_command);
-    update_scene();
+    MoveCamera cmd(ui->cameraCB->currentIndex(), -10, 0);
+    _facade->execute(cmd);
+    updateScene();
 }
 
 void MainWindow::on_downBtn_clicked()
 {
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
@@ -274,16 +276,16 @@ void MainWindow::on_downBtn_clicked()
         return;
     }
 
-    MoveCamera camera_command(ui->cameraCB->currentIndex(), 0, -10);
-    _facade->execute(camera_command);
-    update_scene();
+    MoveCamera cmd(ui->cameraCB->currentIndex(), 0, -10);
+    _facade->execute(cmd);
+    updateScene();
 }
 
 void MainWindow::on_leftBtn_clicked()
 {
     try
     {
-        check_cam_exist();
+        checkCamExist();
     }
     catch (const CameraException &error)
     {
@@ -291,17 +293,17 @@ void MainWindow::on_leftBtn_clicked()
         return;
     }
 
-    MoveCamera camera_command(ui->cameraCB->currentIndex(), 10, 0);
-    _facade->execute(camera_command);
-    update_scene();
+    MoveCamera cmd(ui->cameraCB->currentIndex(), 10, 0);
+    _facade->execute(cmd);
+    updateScene();
 }
 
 void MainWindow::on_moveBtn_clicked()
 {
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        checkCamExist();
+        checkModelsExist();
     }
     catch (const CameraException &error)
     {
@@ -314,22 +316,22 @@ void MainWindow::on_moveBtn_clicked()
         return;
     }
 
-    MoveModel move_cmd(
+    MoveModel cmd(
             ui->dxDSB->value(),
             ui->dyDSB->value(),
             ui->dzDSB->value(),
             ui->modelsCB->currentIndex());
 
-    _facade->execute(move_cmd);
-    update_scene();
+    _facade->execute(cmd);
+    updateScene();
 }
 
 void MainWindow::on_scaleBtn_clicked()
 {
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        checkCamExist();
+        checkModelsExist();
     }
     catch (const CameraException &error)
     {
@@ -342,22 +344,22 @@ void MainWindow::on_scaleBtn_clicked()
         return;
     }
 
-    ScaleModel scale_cmd(
+    ScaleModel cmd(
             ui->kxDSB->value(),
             ui->kyDSB->value(),
             ui->kzDSB->value(),
             ui->modelsCB->currentIndex());
 
-    _facade->execute(scale_cmd);
-    update_scene();
+    _facade->execute(cmd);
+    updateScene();
 }
 
 void MainWindow::on_rotateBtn_clicked()
 {
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        checkCamExist();
+        checkModelsExist();
     }
     catch (const CameraException &error)
     {
@@ -370,12 +372,12 @@ void MainWindow::on_rotateBtn_clicked()
         return;
     }
 
-    RotateModel spin_cmd(
+    RotateModel cmd(
             ui->oxDSB->value(),
             ui->oyDSB->value(),
             ui->ozDSB->value(),
             ui->modelsCB->currentIndex());
 
-    _facade->execute(spin_cmd);
-    update_scene();
+    _facade->execute(cmd);
+    updateScene();
 }

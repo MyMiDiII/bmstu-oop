@@ -11,14 +11,14 @@ void SceneBuilder::buildModel(const std::shared_ptr<Object> &object)
 {
     if (isBuild()) {}
 
-    _scene->add_model(object);
+    _scene->addModel(object);
 }
 
 void SceneBuilder::buildCamera(const std::shared_ptr<Camera> &camera)
 {
     if (isBuild()) {}
 
-    _scene->add_viewer(camera);
+    _scene->addCamera(camera);
 }
 
 

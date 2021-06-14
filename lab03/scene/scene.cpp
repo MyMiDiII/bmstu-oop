@@ -2,27 +2,30 @@
 
 #include "scene.h"
 
-std::vector<std::shared_ptr<Object>> Scene::get_models() {
+std::vector<std::shared_ptr<Object>> Scene::getModels()
+{
     return _models->getObjects();
 }
 
 
-std::vector<std::shared_ptr<Camera>> Scene::get_viewers() {
-    return _viewers;
+std::vector<std::shared_ptr<Camera>> Scene::getCameras()
+{
+    return _cameras;
 }
 
 
-std::shared_ptr<Composite> Scene::get_composite() {
+std::shared_ptr<Composite> Scene::getComposite()
+{
     return _models;
 }
 
-void Scene::add_model(const std::shared_ptr<Object> &model)
+void Scene::addModel(const std::shared_ptr<Object> &model)
 {
     _models->add(model);
 }
 
 
-void Scene::remove_model(const std::size_t index)
+void Scene::deleteModel(const std::size_t index)
 {
     auto iter = _models->begin();
 
@@ -31,17 +34,16 @@ void Scene::remove_model(const std::size_t index)
 }
 
 
-void Scene::add_viewer(const std::shared_ptr<Camera> &viewer)
+void Scene::addCamera(const std::shared_ptr<Camera> &camera)
 {
-    _viewers.push_back(viewer);
+    _cameras.push_back(camera);
 }
 
-void Scene::remove_viewer(const std::size_t index)
+void Scene::deleteCamera(const std::size_t index)
 {
-    auto iter = _viewers.begin();
-
+    auto iter = _cameras.begin();
     std::advance(iter, index);
-    _viewers.erase(iter);
+    _cameras.erase(iter);
 }
 
 

@@ -12,22 +12,23 @@ public:
     Scene() : _models(new Composite) {};
     ~Scene() override = default;
 
-    std::vector<std::shared_ptr<Object>> get_models();
-    std::vector<std::shared_ptr<Camera>> get_viewers();
-    std::shared_ptr<Composite> get_composite();
+    std::vector<std::shared_ptr<Object>> getModels();
+    std::vector<std::shared_ptr<Camera>> getCameras();
+    std::shared_ptr<Composite> getComposite();
 
-    void add_model(const std::shared_ptr<Object> &model);
-    void remove_model(const std::size_t index);
+    void addModel(const std::shared_ptr<Object> &model);
+    void deleteModel(const std::size_t index);
 
-    void add_viewer(const std::shared_ptr<Camera> &viewer);
-    void remove_viewer(const std::size_t index);
+    void addCamera(const std::shared_ptr<Camera> &camera);
+    void deleteCamera(const std::size_t index);
 
 protected:
-    std::vector<std::shared_ptr<Camera>> _viewers;
+    std::vector<std::shared_ptr<Camera>> _cameras;
     std::shared_ptr<Composite> _models;
 
     void accept(std::shared_ptr<Visitor> visitor) override {};
-    void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate) override {};
+    void transform(const Vertex &move, const Vertex &scale,
+                   const Vertex &rotate) override {};
 };
 
 #endif //SCENE_H

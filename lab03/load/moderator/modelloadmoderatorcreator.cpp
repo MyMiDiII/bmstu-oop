@@ -4,9 +4,7 @@
 std::shared_ptr<ModelLoadModerator> ModelLoadModeratorCreator::createModerator()
 {
     if (nullptr == _moderator)
-    {
         createInstance();
-    }
 
     return _moderator;
 }
@@ -15,9 +13,7 @@ std::shared_ptr<ModelLoadModerator> ModelLoadModeratorCreator::createModerator(
         const std::shared_ptr<BaseModelLoader> &loader)
 {
     if (nullptr == _moderator)
-    {
         createInstance();
-    }
 
     _moderator->setLoader(loader);
 

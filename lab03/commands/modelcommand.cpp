@@ -12,7 +12,7 @@ MoveModel::MoveModel(const double &dx, const double &dy, const double &dz, const
 void MoveModel::execute()
 {
     std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
+            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
     TransformManagerCreator().createManager()->moveObject(model, _dx, _dy, _dz);
 }
 
@@ -23,7 +23,7 @@ ScaleModel::ScaleModel(const double &kx, const double &ky, const double &kz, con
 void ScaleModel::execute()
 {
     std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
+            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
     TransformManagerCreator().createManager()->scaleObject(model, _kx, _ky, _kz);
 }
 
@@ -35,18 +35,19 @@ RotateModel::RotateModel(const double &ox, const double &oy,
 void RotateModel::execute()
 {
     std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
+            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
     TransformManagerCreator().createManager()->rotateObject(model, _ox, _oy, _oz);
 }
 
 
-TransformModel::TransformModel(const Vertex &move, const Vertex &scale, const Vertex &rotate, const std::size_t index) :
+TransformModel::TransformModel(const Vertex &move, const Vertex &scale,
+                               const Vertex &rotate, const std::size_t index) :
     _move(move), _scale(scale), _rotate(rotate), _index(index) { }
 
 void TransformModel::execute()
 {
     std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->get_models().at(_index);
+            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
     TransformManagerCreator().createManager()->transformObject(model, _move, _scale, _rotate);
 }
 
@@ -55,7 +56,7 @@ AddModel::AddModel(std::shared_ptr<Object> model) : _model(model) { }
 
 void AddModel::execute()
 {
-    SceneManagerCreator().createManager()->getScene()->add_model(_model);
+    SceneManagerCreator().createManager()->getScene()->addModel(_model);
 }
 
 
@@ -63,7 +64,7 @@ DeleteModel::DeleteModel(const std::size_t index) : _index(index) { }
 
 void DeleteModel::execute()
 {
-    SceneManagerCreator().createManager()->getScene()->remove_model(_index);
+    SceneManagerCreator().createManager()->getScene()->deleteModel(_index);
 }
 
 
@@ -71,7 +72,7 @@ CountModel::CountModel(const std::shared_ptr<std::size_t> &num) : _num(num) { }
 
 void CountModel::execute()
 {
-    (*_num) = SceneManagerCreator().createManager()->getScene()->get_models().size();
+    (*_num) = SceneManagerCreator().createManager()->getScene()->getModels().size();
 }
 
 
@@ -83,5 +84,5 @@ void LoadModel::execute()
     auto manager = LoadManagerCreator().createManager(moderator);
     auto model = manager->load(_fileName);
 
-    SceneManagerCreator().createManager()->getScene()->add_model(model);
+    SceneManagerCreator().createManager()->getScene()->addModel(model);
 }

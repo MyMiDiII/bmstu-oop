@@ -56,11 +56,11 @@ private slots:
     void on_rotateBtn_clicked();
 
 protected:
-    void setup_scene();
-    void update_scene();
-    void check_cam_exist();
-    void check_models_exist();
-    void check_can_delete_cam();
+    void setupScene();
+    void updateScene();
+    void checkCamExist();
+    void checkModelsExist();
+    void checkCamDelete();
 
 private:
     Ui::MainWindow *ui;

@@ -11,14 +11,14 @@ DrawScene::DrawScene(std::shared_ptr<BaseDrawer> drawer) : _drawer(drawer) { }
 
 void DrawScene::execute()
 {
-    auto draw_manager = DrawManagerCreator().createManager();
-    auto scene_manager = SceneManagerCreator().createManager();
-    auto viewer = scene_manager->getCamera();
+    auto drawManager = DrawManagerCreator().createManager();
+    auto sceneManager = SceneManagerCreator().createManager();
+    auto camera = sceneManager->getCamera();
 
     _drawer->clearScene();
-    draw_manager->setDrawer(_drawer);
-    draw_manager->setCamera(viewer);
-    scene_manager->getScene()->get_composite()->accept(draw_manager);
+    drawManager->setDrawer(_drawer);
+    drawManager->setCamera(camera);
+    sceneManager->getScene()->getComposite()->accept(drawManager);
 }
 
 

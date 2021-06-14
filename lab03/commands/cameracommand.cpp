@@ -15,8 +15,8 @@ void AddCamera::execute()
     viewer->transform(viewer_place, viewer_place, viewer_place);
 
     auto sceneManager = SceneManagerCreator().createManager();
-    sceneManager->getScene()->add_viewer(viewer);
-    sceneManager->setCamera(sceneManager->getScene()->get_viewers().size() - 1);
+    sceneManager->getScene()->addCamera(viewer);
+    sceneManager->setCamera(sceneManager->getScene()->getCameras().size() - 1);
 };
 
 
@@ -24,7 +24,7 @@ DeleteCamera::DeleteCamera(const size_t index) : _index(index) {}
 
 void DeleteCamera::execute()
 {
-    SceneManagerCreator().createManager()->getScene()->remove_viewer(_index);
+    SceneManagerCreator().createManager()->getScene()->deleteCamera(_index);
 }
 
 
@@ -33,7 +33,8 @@ MoveCamera::MoveCamera(const size_t index, const double dx, const double dy) :
 
 void MoveCamera::execute()
 {
-    auto viewer = SceneManagerCreator().createManager()->getScene()->get_viewers().at(_index);
+    auto viewer = \
+            SceneManagerCreator().createManager()->getScene()->getCameras().at(_index);
     TransformManagerCreator().createManager()->moveObject(viewer, _dx, _dy, 0);
 }
 
@@ -50,5 +51,5 @@ CountCamera::CountCamera(const std::shared_ptr<size_t> num) : _num(num) {}
 
 void CountCamera::execute()
 {
-    (*_num) = SceneManagerCreator().createManager()->getScene()->get_viewers().size();
+    (*_num) = SceneManagerCreator().createManager()->getScene()->getCameras().size();
 }

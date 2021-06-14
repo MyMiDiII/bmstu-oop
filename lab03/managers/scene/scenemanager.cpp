@@ -28,7 +28,7 @@ void SceneManager::setScene(std::shared_ptr<Scene> scene)
 
 void SceneManager::setCamera(const size_t index)
 {
-    auto camera = _scene->get_viewers().at(index);
+    auto camera = _scene->getCameras().at(index);
 
     _camera = camera;
 }
