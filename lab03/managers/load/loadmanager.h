@@ -1,5 +1,5 @@
-#ifndef LOAD_MANAGER_H
-#define LOAD_MANAGER_H
+#ifndef LOADMANAGER_H
+#define LOADMANAGER_H
 
 #include <memory>
 
@@ -17,11 +17,11 @@ public:
     ~LoadManager() = default;
 
     virtual std::shared_ptr<Object> load(std::string &name);
-    virtual void set_loader(std::shared_ptr<BaseLoadModerator> loader);
+    virtual void setLoader(std::shared_ptr<BaseLoadModerator> loader);
 
 private:
     std::shared_ptr<BaseLoadModerator> _loader;
 };
 
 
-#endif //LOAD_MANAGER_H
+#endif // LOADMANAGER_H

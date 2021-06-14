@@ -75,7 +75,7 @@ LoadModel::LoadModel(std::string fileName) : _fileName(fileName) { }
 void LoadModel::execute()
 {
     auto moderator = ModelLoadModeratorCreator().createModerator();
-    auto manager = CreatorLoadManager().create_manager(moderator);
+    auto manager = LoadManagerCreator().createManager(moderator);
     auto model = manager->load(_fileName);
 
     CreatorSceneManager().create_manager()->get_scene()->add_model(model);

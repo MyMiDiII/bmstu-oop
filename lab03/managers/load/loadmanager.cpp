@@ -12,7 +12,7 @@ std::shared_ptr<Object> LoadManager::load(std::string &name)
     return _loader->load(name);
 }
 
-void LoadManager::set_loader(std::shared_ptr<BaseLoadModerator> loader)
+void LoadManager::setLoader(std::shared_ptr<BaseLoadModerator> loader)
 {
     _loader = loader;
 }

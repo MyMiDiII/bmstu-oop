@@ -1,24 +1,21 @@
-#ifndef LOAD_MANAGER_CREATOR_H
-#define LOAD_MANAGER_CREATOR_H
+#ifndef LOADMANAGERCREATOR_H
+#define LOADMANAGERCREATOR_H
 
 #include <memory>
 
 #include "loadmanager.h"
 
 
-class CreatorLoadManager
+class LoadManagerCreator
 {
 public:
-    std::shared_ptr<LoadManager> create_manager();
-    std::shared_ptr<LoadManager> create_manager(const std::shared_ptr<BaseLoadModerator> &loader);
+    std::shared_ptr<LoadManager> createManager();
+    std::shared_ptr<LoadManager> createManager(const std::shared_ptr<BaseLoadModerator> &loader);
 
 private:
-    void create_instance();
+    void createInstance();
 
     std::shared_ptr<LoadManager> _manager;
 };
 
-
-
-
-#endif //LOAD_MANAGER_CREATOR_H
+#endif //LOADMANAGERCREATOR_H

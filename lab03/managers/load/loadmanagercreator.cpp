@@ -1,33 +1,28 @@
 #include "loadmanagercreator.h"
 
-void CreatorLoadManager::create_instance()
+std::shared_ptr<LoadManager> LoadManagerCreator::createManager()
+{
+    if (nullptr == _manager)
+        createInstance();
+
+    return _manager;
+}
+
+std::shared_ptr<LoadManager> LoadManagerCreator::createManager(
+        const std::shared_ptr <BaseLoadModerator> &loader)
+{
+    if (nullptr == _manager)
+        createInstance();
+
+    _manager->setLoader(loader);
+
+    return _manager;
+}
+
+
+void LoadManagerCreator::createInstance()
 {
     static std::shared_ptr<LoadManager> manager(new LoadManager());
 
     _manager = manager;
 }
-
-
-std::shared_ptr<LoadManager> CreatorLoadManager::create_manager()
-{
-    if (nullptr == _manager)
-    {
-        create_instance();
-    }
-
-    return _manager;
-}
-
-std::shared_ptr<LoadManager> CreatorLoadManager::create_manager(
-        const std::shared_ptr <BaseLoadModerator> &loader)
-{
-    if (nullptr == _manager)
-    {
-        create_instance();
-    }
-
-    _manager->set_loader(loader);
-
-    return _manager;
-}
-
