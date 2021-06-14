@@ -1,5 +1,5 @@
-#ifndef SCENE_MANAGER_H
-#define SCENE_MANAGER_H
+#ifndef SCENEMANAGER_H
+#define SCENEMANAGER_H
 
 #include "basemanager.h"
 #include "scene.h"
@@ -14,16 +14,16 @@ public:
 
     ~SceneManager() = default;
 
-    std::shared_ptr<Scene> get_scene() const;
-    std::shared_ptr<Viewer> get_viewer() const;
+    std::shared_ptr<Scene> getScene() const;
+    std::shared_ptr<Viewer> getCamera() const;
 
-    void set_scene(std::shared_ptr<Scene> scene);
-    void set_viewer(const std::size_t &viewer_index);
+    void setScene(std::shared_ptr<Scene> scene);
+    void setCamera(const std::size_t index);
 
 private:
-    std::shared_ptr<Viewer> _viewer;
+    std::shared_ptr<Viewer> _camera;
     std::shared_ptr<Scene> _scene;
 };
 
 
-#endif //SCENE_MANAGER_H
+#endif // SCENEMANAGER_H

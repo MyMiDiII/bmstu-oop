@@ -8,25 +8,27 @@ SceneManager::SceneManager()
 }
 
 
-std::shared_ptr<Scene> SceneManager::get_scene() const {
+std::shared_ptr<Scene> SceneManager::getScene() const
+{
     return _scene;
 }
 
 
-std::shared_ptr<Viewer> SceneManager::get_viewer() const {
-    return _viewer;
+std::shared_ptr<Viewer> SceneManager::getCamera() const
+{
+    return _camera;
 }
 
 
-void SceneManager::set_scene(std::shared_ptr<Scene> scene)
+void SceneManager::setScene(std::shared_ptr<Scene> scene)
 {
     _scene = std::move(scene);
 }
 
 
-void SceneManager::set_viewer(const size_t &viewer_index)
+void SceneManager::setCamera(const size_t index)
 {
-    auto viewer = _scene->get_viewers().at(viewer_index);
+    auto camera = _scene->get_viewers().at(index);
 
-    _viewer = viewer;
+    _camera = camera;
 }

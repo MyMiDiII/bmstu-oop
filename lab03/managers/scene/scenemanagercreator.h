@@ -1,18 +1,18 @@
-#ifndef CREATOR_SCENE_MANAGER_H
-#define CREATOR_SCENE_MANAGER_H
+#ifndef SCENEMANAGERCREATOR_H
+#define SCENEMANAGERCREATOR_H
 
 #include <memory>
 #include "scenemanager.h"
 
-class CreatorSceneManager
+class SceneManagerCreator
 {
 public:
-    std::shared_ptr<SceneManager> create_manager();
+    std::shared_ptr<SceneManager> createManager();
 
 private:
-    void create_instance();
+    void createInstance();
 
     std::shared_ptr<SceneManager> _manager;
 };
 
-#endif //CREATOR_SCENE_MANAGER_H
+#endif // SCENEMANAGERCREATOR_H
