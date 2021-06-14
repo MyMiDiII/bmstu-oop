@@ -11,7 +11,8 @@ std::shared_ptr<LoadModelModerator> LoadModelModeratorCreator::create_moderator(
     return _moderator;
 }
 
-std::shared_ptr<LoadModelModerator> LoadModelModeratorCreator::create_moderator(const std::shared_ptr<BaseLoaderModel> &loader)
+std::shared_ptr<LoadModelModerator> LoadModelModeratorCreator::create_moderator(
+        const std::shared_ptr<BaseModelLoader> &loader)
 {
     if (nullptr == _moderator)
     {
@@ -29,8 +30,8 @@ void LoadModelModeratorCreator::create_instance()
 
     if (!moderator)
     {
-        std::shared_ptr<BaseLoaderModel> loader;
-        loader = std::shared_ptr<BaseLoaderModel>(new ModelLoaderFile);
+        std::shared_ptr<BaseModelLoader> loader;
+        loader = std::shared_ptr<BaseModelLoader>(new FileModelLoader);
         moderator = std::make_shared<LoadModelModerator>(loader);
     }
 

@@ -7,7 +7,8 @@ class LoadModelModeratorCreator
 {
 public:
     std::shared_ptr<LoadModelModerator> create_moderator();
-    std::shared_ptr<LoadModelModerator> create_moderator(const std::shared_ptr<BaseLoaderModel> &loader);
+    std::shared_ptr<LoadModelModerator> create_moderator(
+            const std::shared_ptr<BaseModelLoader> &loader);
 
 private:
     void create_instance();

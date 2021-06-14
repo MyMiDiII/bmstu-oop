@@ -4,10 +4,10 @@
 #include "baseloader.h"
 #include "modelbuilder.h"
 
-class BaseLoaderModel : public BaseLoader
+class BaseModelLoader : public BaseLoader
 {
 public:
     virtual std::shared_ptr<Object> load(std::shared_ptr<ModelBuilder> builder) = 0;
 };
 
-#endif //BASELOADER_MODEL_H
+#endif // BASEMODELLOADER_H

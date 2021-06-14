@@ -3,15 +3,15 @@
 
 #include "basemodelloader.h"
 
-class ModelLoaderFile : public BaseLoaderModel
+class FileModelLoader : public BaseModelLoader
 {
 public:
-    ModelLoaderFile();
-    explicit ModelLoaderFile(std::shared_ptr<std::ifstream> &file_in);
+    FileModelLoader();
+    explicit FileModelLoader(std::shared_ptr<std::ifstream> &file);
 
-    ~ModelLoaderFile() override = default;
+    ~FileModelLoader() override = default;
 
-    void open(std::string &file_name) override;
+    void open(std::string &fileName) override;
     void close() override;
 
     std::shared_ptr<Object> load(std::shared_ptr<ModelBuilder> builder) override;

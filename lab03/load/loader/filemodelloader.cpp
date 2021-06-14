@@ -3,19 +3,19 @@
 #include "modelbuilder.h"
 
 
-ModelLoaderFile::ModelLoaderFile()
+FileModelLoader::FileModelLoader()
 {
     _file = std::make_shared<std::ifstream>();
 }
 
 
-ModelLoaderFile::ModelLoaderFile(std::shared_ptr<std::ifstream> &file_in)
+FileModelLoader::FileModelLoader(std::shared_ptr<std::ifstream> &file)
 {
-    _file = file_in;
+    _file = file;
 }
 
 
-void ModelLoaderFile::open(std::string &file_name)
+void FileModelLoader::open(std::string &fileName)
 {
     if (!_file)
     {
@@ -23,7 +23,7 @@ void ModelLoaderFile::open(std::string &file_name)
         throw SourceException(msg);
     }
 
-    _file->open(file_name);
+    _file->open(fileName);
 
     if (!_file)
     {
@@ -33,7 +33,7 @@ void ModelLoaderFile::open(std::string &file_name)
 }
 
 
-void ModelLoaderFile::close()
+void FileModelLoader::close()
 {
     if (!_file)
     {
@@ -45,20 +45,20 @@ void ModelLoaderFile::close()
 }
 
 
-std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<ModelBuilder> builder)
+std::shared_ptr<Object> FileModelLoader::load(std::shared_ptr<ModelBuilder> builder)
 {
     builder->build();
 
-    int count_dots;
-    *_file >> count_dots;
+    int vertexNum;
+    *_file >> vertexNum;
 
-    if (count_dots <= 0)
+    if (vertexNum <= 0)
     {
         std::string msg = "wrong vertex num";
         throw SourceException(msg);
     }
 
-    for (int i = 0; i < count_dots; i++)
+    for (int i = 0; i < vertexNum; i++)
     {
         double x, y, z;
 
@@ -66,29 +66,29 @@ std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<ModelBuilder> buil
         builder->buildVertex(x, y, z);
     }
 
-    int count_links;
-    *_file >> count_links;
+    int linksNum;
+    *_file >> linksNum;
 
-    if (count_links <= 0)
+    if (linksNum <= 0)
     {
         std::string msg = "wrong links num";
         throw SourceException(msg);
     }
 
-    for (int i = 0; i < count_links; i++)
+    for (int i = 0; i < linksNum; i++)
     {
-        int dot1_num, dot2_num;
+        int vertex1Index, vertex2Index;
 
-        *_file >> dot1_num >> dot2_num;
+        *_file >> vertex1Index >> vertex2Index;
 
-        if (dot1_num <= 0 or dot2_num <= 0 or
-            dot1_num > count_dots or dot2_num > count_dots)
+        if (vertex1Index <= 0 or vertex2Index <= 0 or
+            vertex1Index > vertexNum or vertex2Index > vertexNum)
         {
             std::string msg = "wrong link data";
             throw SourceException(msg);
         }
 
-        builder->buildLink(dot1_num, dot2_num);
+        builder->buildLink(vertex1Index, vertex2Index);
     }
 
     return builder->get();

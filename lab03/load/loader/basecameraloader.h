@@ -1,13 +1,13 @@
-#ifndef LOADER_VIEWER_H
-#define LOADER_VIEWER_H
+#ifndef BASECAMERALOADER_H
+#define BASECAMERALOADER_H
 
 #include "baseloader.h"
 #include "camerabuilder.h"
 
-class BaseLoaderViewer : public BaseLoader
+class BaseCameraLoader : public BaseLoader
 {
 public:
     virtual std::shared_ptr<Object> load(std::shared_ptr<CameraBuilder> builder) = 0;
 };
 
-#endif //LOADER_VIEWER_H
+#endif // BASECAMERALOADER_H

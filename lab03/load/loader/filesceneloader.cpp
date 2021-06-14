@@ -3,18 +3,18 @@
 #include "filemodelloader.h"
 #include "exceptions.h"
 
-SceneLoaderFile::SceneLoaderFile()
+FileSceneLoader::FileSceneLoader()
 {
     _file = std::make_shared<std::ifstream>();
 }
 
-SceneLoaderFile::SceneLoaderFile(std::shared_ptr<std::ifstream> &file_in)
+FileSceneLoader::FileSceneLoader(std::shared_ptr<std::ifstream> &file)
 {
-    _file = file_in;
+    _file = file;
 }
 
 
-void SceneLoaderFile::open(std::string &file_name)
+void FileSceneLoader::open(std::string &fileName)
 {
     if (!_file)
     {
@@ -22,7 +22,7 @@ void SceneLoaderFile::open(std::string &file_name)
         throw SourceException(msg);
     }
 
-    _file->open(file_name);
+    _file->open(fileName);
 
     if (!_file)
     {
@@ -32,7 +32,7 @@ void SceneLoaderFile::open(std::string &file_name)
 }
 
 
-void SceneLoaderFile::close()
+void FileSceneLoader::close()
 {
     if (!_file)
     {
@@ -44,41 +44,42 @@ void SceneLoaderFile::close()
 }
 
 
-std::shared_ptr<Object> SceneLoaderFile::load(std::shared_ptr<SceneBuilder> builder)
+std::shared_ptr<Object> FileSceneLoader::load(std::shared_ptr<SceneBuilder> builder)
 {
     builder->build();
 
-    load_models(builder);
-    load_viewers(builder);
+    loadModels(builder);
+    loadCameras(builder);
 
     return builder->get();
 }
 
-void SceneLoaderFile::load_models(std::shared_ptr<SceneBuilder> builder)
+void FileSceneLoader::loadModels(std::shared_ptr<SceneBuilder> builder)
 {
-    int count_models;
+    int modelsNum;
 
-    *_file >> count_models;
+    *_file >> modelsNum;
 
-    auto model_builder = std::make_shared<ModelBuilder>();
+    auto modelBuilder = std::make_shared<ModelBuilder>();
 
-    for (int i = 0; i < count_models; i++)
+    for (int i = 0; i < modelsNum; i++)
     {
-        builder->buildModel(ModelLoaderFile(_file).load(model_builder));
+        builder->buildModel(FileModelLoader(_file).load(modelBuilder));
     }
 }
 
-void SceneLoaderFile::load_viewers(std::shared_ptr<SceneBuilder> builder)
+void FileSceneLoader::loadCameras(std::shared_ptr<SceneBuilder> builder)
 {
-    int count_viewers;
+    int camerasNum;
 
-    *_file >> count_viewers;
+    *_file >> camerasNum;
 
-    auto viewer_builder = std::make_shared<CameraBuilder>();
+    auto cameraBuilder = std::make_shared<CameraBuilder>();
 
-    for (int i = 0; i < count_viewers; i++)
+    for (int i = 0; i < camerasNum; i++)
     {
-        builder->buildCamera(std::dynamic_pointer_cast<Viewer>(ViewerLoaderFile(_file).load(viewer_builder)));
+        builder->buildCamera(std::dynamic_pointer_cast<Viewer>(
+                             FileCameraLoader(_file).load(cameraBuilder)));
     }
 }
 

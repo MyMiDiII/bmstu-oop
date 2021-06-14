@@ -9,7 +9,7 @@
 class LoadSceneModerator : public AbstractLoadModerator
 {
 public:
-    explicit LoadSceneModerator(std::shared_ptr<BaseLoaderScene> loader);
+    explicit LoadSceneModerator(std::shared_ptr<BaseSceneLoader> loader);
 
     ~LoadSceneModerator() = default;
 
@@ -17,7 +17,7 @@ public:
 
 private:
     std::shared_ptr<SceneBuilder> _builder;
-    std::shared_ptr<BaseLoaderScene> _loader;
+    std::shared_ptr<BaseSceneLoader> _loader;
 };
 
 #endif //LOAD_MODEL_MODERATOR_H

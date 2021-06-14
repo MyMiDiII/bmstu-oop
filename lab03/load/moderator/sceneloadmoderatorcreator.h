@@ -7,7 +7,8 @@ class LoadSceneModeratorCreator
 {
 public:
     std::shared_ptr<LoadSceneModerator> create_moderator();
-    std::shared_ptr<LoadSceneModerator> create_moderator(const std::shared_ptr<BaseLoaderScene> &loader);
+    std::shared_ptr<LoadSceneModerator> create_moderator(
+            const std::shared_ptr<BaseSceneLoader> &loader);
 
 private:
     void create_instance();

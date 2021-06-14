@@ -1,27 +1,27 @@
-#ifndef LOADER_SCENE_FILE_H
-#define LOADER_SCENE_FILE_H
+#ifndef FILESCENELOADER_H
+#define FILESCENELOADER_H
 
 #include "basesceneloader.h"
 
-class SceneLoaderFile : public BaseLoaderScene
+class FileSceneLoader : public BaseSceneLoader
 {
 public:
-    SceneLoaderFile();
-    explicit SceneLoaderFile(std::shared_ptr<std::ifstream> &file_in);
+    FileSceneLoader();
+    explicit FileSceneLoader(std::shared_ptr<std::ifstream> &file);
 
-    ~SceneLoaderFile() override = default;
+    ~FileSceneLoader() override = default;
 
-    void open(std::string &file_name) override;
+    void open(std::string &fileName) override;
     void close() override;
 
     std::shared_ptr<Object> load(std::shared_ptr<SceneBuilder> builder) override;
 
 protected:
-    void load_models(std::shared_ptr<SceneBuilder> builder) override;
-    void load_viewers(std::shared_ptr<SceneBuilder> builder) override;
+    void loadModels(std::shared_ptr<SceneBuilder> builder) override;
+    void loadCameras(std::shared_ptr<SceneBuilder> builder) override;
 
     std::shared_ptr<std::ifstream> _file;
 };
 
 
-#endif //LOADER_SCENE_FILE_H
+#endif // FILESCENELOADER_H

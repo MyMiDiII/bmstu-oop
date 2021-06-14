@@ -9,7 +9,7 @@
 class LoadModelModerator : public AbstractLoadModerator
 {
 public:
-    explicit LoadModelModerator(std::shared_ptr<BaseLoaderModel> loader);
+    explicit LoadModelModerator(std::shared_ptr<BaseModelLoader> loader);
 
     ~LoadModelModerator() = default;
 
@@ -17,7 +17,7 @@ public:
 
 private:
     std::shared_ptr<ModelBuilder> _builder;
-    std::shared_ptr<BaseLoaderModel> _loader;
+    std::shared_ptr<BaseModelLoader> _loader;
 };
 
 #endif //LOAD_MODEL_MODERATOR_H

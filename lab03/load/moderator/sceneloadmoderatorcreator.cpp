@@ -9,7 +9,8 @@ std::shared_ptr<LoadSceneModerator> LoadSceneModeratorCreator::create_moderator(
     return _moderator;
 }
 
-std::shared_ptr<LoadSceneModerator> LoadSceneModeratorCreator::create_moderator(const std::shared_ptr<BaseLoaderScene> &loader)
+std::shared_ptr<LoadSceneModerator> LoadSceneModeratorCreator::create_moderator(
+        const std::shared_ptr<BaseSceneLoader> &loader)
 {
     if (nullptr == _moderator)
     {
@@ -27,8 +28,8 @@ void LoadSceneModeratorCreator::create_instance()
 
     if (!moderator)
     {
-        std::shared_ptr<BaseLoaderScene> loader;
-        loader = std::shared_ptr<BaseLoaderScene>(new SceneLoaderFile);
+        std::shared_ptr<BaseSceneLoader> loader;
+        loader = std::shared_ptr<BaseSceneLoader>(new FileSceneLoader);
         moderator = std::make_shared<LoadSceneModerator>(loader);
     }
 

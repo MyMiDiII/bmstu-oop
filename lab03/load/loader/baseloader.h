@@ -10,7 +10,7 @@ public:
     BaseLoader() = default;
     virtual ~BaseLoader() = default;
 
-    virtual void open(std::string &file_name) = 0;
+    virtual void open(std::string &fileName) = 0;
     virtual void close() = 0;
 };
 

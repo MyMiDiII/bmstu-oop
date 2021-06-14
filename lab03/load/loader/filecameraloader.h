@@ -1,17 +1,17 @@
-#ifndef LOADER_VIEWER_FILE_H
-#define LOADER_VIEWER_FILE_H
+#ifndef FILECAMERALOADER_H
+#define FILECAMERALOADER_H
 
 #include "basecameraloader.h"
 
-class ViewerLoaderFile : public BaseLoaderViewer
+class FileCameraLoader : public BaseCameraLoader
 {
 public:
-    ViewerLoaderFile();
-    explicit ViewerLoaderFile(std::shared_ptr<std::ifstream> &file_in);
+    FileCameraLoader();
+    explicit FileCameraLoader(std::shared_ptr<std::ifstream> &file);
 
-    ~ViewerLoaderFile() override = default;
+    ~FileCameraLoader() override = default;
 
-    void open(std::string &file_name) override;
+    void open(std::string &fileName) override;
     void close() override;
 
     std::shared_ptr<Object> load(std::shared_ptr<CameraBuilder> builder) override;
@@ -20,4 +20,4 @@ protected:
     std::shared_ptr<std::ifstream> _file;
 };
 
-#endif //LOADER_VIEWER_FILE_H
+#endif // FILECAMERALOADER_H

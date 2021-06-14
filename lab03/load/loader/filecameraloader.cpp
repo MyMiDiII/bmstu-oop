@@ -1,17 +1,17 @@
 #include "filecameraloader.h"
 #include "exceptions.h"
 
-ViewerLoaderFile::ViewerLoaderFile()
+FileCameraLoader::FileCameraLoader()
 {
     _file = std::make_shared<std::ifstream>();
 }
 
-ViewerLoaderFile::ViewerLoaderFile(std::shared_ptr<std::ifstream> &file_in)
+FileCameraLoader::FileCameraLoader(std::shared_ptr<std::ifstream> &file)
 {
-    _file = file_in;
+    _file = file;
 }
 
-void ViewerLoaderFile::open(std::string &file_name)
+void FileCameraLoader::open(std::string &fileName)
 {
     if (!_file)
     {
@@ -19,7 +19,7 @@ void ViewerLoaderFile::open(std::string &file_name)
         throw SourceException(msg);
     }
 
-    _file->open(file_name);
+    _file->open(fileName);
 
     if (!_file)
     {
@@ -28,7 +28,7 @@ void ViewerLoaderFile::open(std::string &file_name)
     }
 }
 
-void ViewerLoaderFile::close()
+void FileCameraLoader::close()
 {
     if (!_file)
     {
@@ -39,7 +39,7 @@ void ViewerLoaderFile::close()
     _file->close();
 }
 
-std::shared_ptr<Object> ViewerLoaderFile::load(std::shared_ptr<CameraBuilder> builder)
+std::shared_ptr<Object> FileCameraLoader::load(std::shared_ptr<CameraBuilder> builder)
 {
     builder->build();
 
