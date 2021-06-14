@@ -49,10 +49,14 @@ std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<BuilderModel> buil
 {
     builder->build();
 
-    // Dots
-
     int count_dots;
     *_file >> count_dots;
+
+    if (count_dots <= 0)
+    {
+        std::string msg = "wrong vertex num";
+        throw SourceException(msg);
+    }
 
     for (int i = 0; i < count_dots; i++)
     {
@@ -62,17 +66,28 @@ std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<BuilderModel> buil
         builder->build_dot(x, y, z);
     }
 
-
-    // Links
-
     int count_links;
     *_file >> count_links;
+
+    if (count_links <= 0)
+    {
+        std::string msg = "wrong links num";
+        throw SourceException(msg);
+    }
 
     for (int i = 0; i < count_links; i++)
     {
         int dot1_num, dot2_num;
 
         *_file >> dot1_num >> dot2_num;
+
+        if (dot1_num <= 0 or dot2_num <= 0 or
+            dot1_num > count_dots or dot2_num > count_dots)
+        {
+            std::string msg = "wrong link data";
+            throw SourceException(msg);
+        }
+
         builder->build_link(dot1_num, dot2_num);
     }
 

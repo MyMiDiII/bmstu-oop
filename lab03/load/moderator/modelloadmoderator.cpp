@@ -29,6 +29,7 @@ std::shared_ptr<Object> LoadModelModerator::load(std::string &file_name)
     }
     catch (std::exception &error)
     {
+        _loader->close();
         std::string msg = "Error : Read model";
         throw SourceException(msg);
     }
