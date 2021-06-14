@@ -10,30 +10,20 @@ class BaseException : public std::exception
 public:
     explicit BaseException(std::string &msg) : _msg(msg) { }
 
-    const char *what() const noexcept override
-    {
-        return "Something went wrong!";
-    }
-
-    const std::string &get_info() const noexcept
-    {
-        return _msg;
-    }
+    const char *what() const noexcept override { return "Something went wrong!"; }
+    const std::string &getInfo() const noexcept { return _msg; }
 
 protected:
     std::string _msg;
 };
 
 
-class ViewerException : public BaseException
+class CameraException : public BaseException
 {
 public:
-    explicit ViewerException(std::string &msg) : BaseException(msg) { }
+    explicit CameraException(std::string &msg) : BaseException(msg) { }
 
-    const char *what() const noexcept override
-    {
-        return "Camera isn't added";
-    }
+    const char *what() const noexcept override { return "Camera isn't added"; }
 };
 
 
@@ -42,10 +32,7 @@ class SourceException : public BaseException
 public:
     explicit SourceException(std::string &msg) : BaseException(msg) { }
 
-    const char *what() const noexcept override
-    {
-        return "Load error";
-    }
+    const char *what() const noexcept override { return "Load error"; }
 };
 
 
@@ -54,10 +41,7 @@ class ModelException : public BaseException
 public:
     explicit ModelException(std::string &msg) : BaseException(msg) { }
 
-    const char *what() const noexcept override
-    {
-        return "Can't build model";
-    }
+    const char *what() const noexcept override { return "Can't build model"; }
 };
 
 #endif //EXCEPTIONS_H
