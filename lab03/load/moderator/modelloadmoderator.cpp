@@ -3,7 +3,8 @@
 #include "exceptions.h"
 
 
-LoadModelModerator::LoadModelModerator(std::shared_ptr<BaseLoaderModel> loader) : _builder(new BuilderModel)
+LoadModelModerator::LoadModelModerator(std::shared_ptr<BaseLoaderModel> loader) :
+    _builder(new ModelBuilder)
 {
     _loader = loader;
 }

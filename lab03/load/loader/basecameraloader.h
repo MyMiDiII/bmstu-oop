@@ -7,7 +7,7 @@
 class BaseLoaderViewer : public BaseLoader
 {
 public:
-    virtual std::shared_ptr<Object> load(std::shared_ptr<BuilderViewer> builder) = 0;
+    virtual std::shared_ptr<Object> load(std::shared_ptr<CameraBuilder> builder) = 0;
 };
 
 #endif //LOADER_VIEWER_H

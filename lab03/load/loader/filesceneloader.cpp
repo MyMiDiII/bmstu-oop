@@ -44,7 +44,7 @@ void SceneLoaderFile::close()
 }
 
 
-std::shared_ptr<Object> SceneLoaderFile::load(std::shared_ptr<BuilderScene> builder)
+std::shared_ptr<Object> SceneLoaderFile::load(std::shared_ptr<SceneBuilder> builder)
 {
     builder->build();
 
@@ -54,31 +54,31 @@ std::shared_ptr<Object> SceneLoaderFile::load(std::shared_ptr<BuilderScene> buil
     return builder->get();
 }
 
-void SceneLoaderFile::load_models(std::shared_ptr<BuilderScene> builder)
+void SceneLoaderFile::load_models(std::shared_ptr<SceneBuilder> builder)
 {
     int count_models;
 
     *_file >> count_models;
 
-    auto model_builder = std::make_shared<BuilderModel>();
+    auto model_builder = std::make_shared<ModelBuilder>();
 
     for (int i = 0; i < count_models; i++)
     {
-        builder->build_model(ModelLoaderFile(_file).load(model_builder));
+        builder->buildModel(ModelLoaderFile(_file).load(model_builder));
     }
 }
 
-void SceneLoaderFile::load_viewers(std::shared_ptr<BuilderScene> builder)
+void SceneLoaderFile::load_viewers(std::shared_ptr<SceneBuilder> builder)
 {
     int count_viewers;
 
     *_file >> count_viewers;
 
-    auto viewer_builder = std::make_shared<BuilderViewer>();
+    auto viewer_builder = std::make_shared<CameraBuilder>();
 
     for (int i = 0; i < count_viewers; i++)
     {
-        builder->build_viewer(std::dynamic_pointer_cast<Viewer>(ViewerLoaderFile(_file).load(viewer_builder)));
+        builder->buildCamera(std::dynamic_pointer_cast<Viewer>(ViewerLoaderFile(_file).load(viewer_builder)));
     }
 }
 

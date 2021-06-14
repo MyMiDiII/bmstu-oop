@@ -45,7 +45,7 @@ void ModelLoaderFile::close()
 }
 
 
-std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<BuilderModel> builder)
+std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<ModelBuilder> builder)
 {
     builder->build();
 
@@ -63,7 +63,7 @@ std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<BuilderModel> buil
         double x, y, z;
 
         *_file >> x >> y >> z;
-        builder->build_dot(x, y, z);
+        builder->buildVertex(x, y, z);
     }
 
     int count_links;
@@ -88,7 +88,7 @@ std::shared_ptr<Object> ModelLoaderFile::load(std::shared_ptr<BuilderModel> buil
             throw SourceException(msg);
         }
 
-        builder->build_link(dot1_num, dot2_num);
+        builder->buildLink(dot1_num, dot2_num);
     }
 
     return builder->get();

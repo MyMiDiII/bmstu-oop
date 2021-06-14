@@ -1,36 +1,37 @@
 #include "modelbuilder.h"
 
-void BuilderModel::build()
+void ModelBuilder::build()
 {
-    _model_ptr = std::make_shared<ModelStructure>();
+    _model = std::make_shared<ModelStructure>();
 }
 
 
-void BuilderModel::build_dot(const double &x, const double &y, const double &z)
+void ModelBuilder::buildVertex(const double x, const double y, const double z)
 {
-    if (!is_build()) {}
+    if (!isBuild()) {}
 
     Dot tmp(x, y, z);
-    _model_ptr->add_dot(tmp);
+    _model->add_dot(tmp);
 }
 
 
-void BuilderModel::build_link(const size_t &dot1_num, const std::size_t dot2_num)
+void ModelBuilder::buildLink(const std::size_t vertex1Index, const std::size_t vertex2Index)
 {
-    if (!is_build()) {}
+    if (!isBuild()) {}
 
-    Link tmp(dot1_num, dot2_num);
-    _model_ptr->add_link(tmp);
+    Link tmp(vertex1Index, vertex2Index);
+    _model->add_link(tmp);
 }
 
 
-bool BuilderModel::is_build() const
+bool ModelBuilder::isBuild() const
 {
-    return nullptr != _model_ptr;
+    return nullptr != _model;
 }
 
-std::shared_ptr<Object> BuilderModel::get() {
-    return std::make_shared<Model>(Model(_model_ptr));
+std::shared_ptr<Object> ModelBuilder::get()
+{
+    return std::make_shared<Model>(Model(_model));
 }
 
 

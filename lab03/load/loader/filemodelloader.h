@@ -14,7 +14,7 @@ public:
     void open(std::string &file_name) override;
     void close() override;
 
-    std::shared_ptr<Object> load(std::shared_ptr<BuilderModel> builder) override;
+    std::shared_ptr<Object> load(std::shared_ptr<ModelBuilder> builder) override;
 
 protected:
     std::shared_ptr<std::ifstream> _file;

@@ -12,7 +12,7 @@ public:
     virtual std::shared_ptr<Object> get() = 0;
 
     virtual void build() = 0;
-    virtual bool is_build() const = 0;
+    virtual bool isBuild() const = 0;
 };
 
 #endif //BASEBUILDER_H

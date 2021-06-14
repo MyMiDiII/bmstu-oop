@@ -1,23 +1,23 @@
-#ifndef BUILDER_VIEWER_H
-#define BUILDER_VIEWER_H
+#ifndef CAMERABUILDER_H
+#define CAMERABUILDER_H
 
 #include "camera.h"
 #include "basebuilder.h"
 
-class BuilderViewer : public BaseBuilder
+class CameraBuilder : public BaseBuilder
 {
 public:
-    BuilderViewer() = default;
-    ~BuilderViewer() = default;
+    CameraBuilder() = default;
+    ~CameraBuilder() = default;
 
     void build() override;
-    void build_position(const double x, const double y, const double z);
-    bool is_build() const override;
+    void buildLocation(const double x, const double y, const double z);
+    bool isBuild() const override;
 
     std::shared_ptr<Object> get() override;
 
 private:
-    std::shared_ptr<Viewer> _viewer_ptr;
+    std::shared_ptr<Viewer> _camera;
 };
 
-#endif //BUILDER_VIEWER_H
+#endif //CAMERABUILDER_H

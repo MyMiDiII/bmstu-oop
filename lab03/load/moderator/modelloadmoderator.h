@@ -16,7 +16,7 @@ public:
     std::shared_ptr<Object> load(std::string &file_name) override;
 
 private:
-    std::shared_ptr<BuilderModel> _builder;
+    std::shared_ptr<ModelBuilder> _builder;
     std::shared_ptr<BaseLoaderModel> _loader;
 };
 

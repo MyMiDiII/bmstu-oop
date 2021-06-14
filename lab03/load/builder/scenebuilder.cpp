@@ -1,34 +1,34 @@
 #include "scenebuilder.h"
 
 
-void BuilderScene::build()
+void SceneBuilder::build()
 {
-    _scene_ptr = std::make_shared<Scene>();
+    _scene = std::make_shared<Scene>();
 }
 
 
-void BuilderScene::build_model(const std::shared_ptr<Object> &object)
+void SceneBuilder::buildModel(const std::shared_ptr<Object> &object)
 {
-    if (is_build()) {}
+    if (isBuild()) {}
 
-    _scene_ptr->add_model(object);
+    _scene->add_model(object);
 }
 
-void BuilderScene::build_viewer(const std::shared_ptr<Viewer> &viewer)
+void SceneBuilder::buildCamera(const std::shared_ptr<Viewer> &camera)
 {
-    if (is_build()) {}
+    if (isBuild()) {}
 
-    _scene_ptr->add_viewer(viewer);
-}
-
-
-bool BuilderScene::is_build() const
-{
-    return nullptr != _scene_ptr;
+    _scene->add_viewer(camera);
 }
 
 
-std::shared_ptr<Object> BuilderScene::get()
+bool SceneBuilder::isBuild() const
 {
-    return _scene_ptr;
+    return nullptr != _scene;
+}
+
+
+std::shared_ptr<Object> SceneBuilder::get()
+{
+    return _scene;
 }

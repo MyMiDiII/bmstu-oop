@@ -7,7 +7,7 @@
 class BaseLoaderModel : public BaseLoader
 {
 public:
-    virtual std::shared_ptr<Object> load(std::shared_ptr<BuilderModel> builder) = 0;
+    virtual std::shared_ptr<Object> load(std::shared_ptr<ModelBuilder> builder) = 0;
 };
 
 #endif //BASELOADER_MODEL_H

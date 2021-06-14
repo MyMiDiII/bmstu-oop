@@ -39,7 +39,7 @@ void ViewerLoaderFile::close()
     _file->close();
 }
 
-std::shared_ptr<Object> ViewerLoaderFile::load(std::shared_ptr<BuilderViewer> builder)
+std::shared_ptr<Object> ViewerLoaderFile::load(std::shared_ptr<CameraBuilder> builder)
 {
     builder->build();
 
@@ -47,7 +47,7 @@ std::shared_ptr<Object> ViewerLoaderFile::load(std::shared_ptr<BuilderViewer> bu
 
     *_file >> x >> y >> z;
 
-    builder->build_position(x, y, z);
+    builder->buildLocation(x, y, z);
 
     return builder->get();
 }

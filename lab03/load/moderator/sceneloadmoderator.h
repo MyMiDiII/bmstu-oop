@@ -16,7 +16,7 @@ public:
     std::shared_ptr<Object> load(std::string &file_name) override;
 
 private:
-    std::shared_ptr<BuilderScene> _builder;
+    std::shared_ptr<SceneBuilder> _builder;
     std::shared_ptr<BaseLoaderScene> _loader;
 };
 

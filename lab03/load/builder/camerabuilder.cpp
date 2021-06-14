@@ -1,22 +1,22 @@
 #include "camerabuilder.h"
 
-void BuilderViewer::build()
+void CameraBuilder::build()
 {
-    _viewer_ptr = std::make_shared<Viewer>();
+    _camera = std::make_shared<Viewer>();
 }
 
-void BuilderViewer::build_position(const double x, const double y, const double z)
+void CameraBuilder::buildLocation(const double x, const double y, const double z)
 {
 
 }
 
-bool BuilderViewer::is_build() const
+bool CameraBuilder::isBuild() const
 {
-    return nullptr != _viewer_ptr;
+    return nullptr != _camera;
 }
 
-std::shared_ptr<Object> BuilderViewer::get()
+std::shared_ptr<Object> CameraBuilder::get()
 {
-    return _viewer_ptr;
+    return _camera;
 }
 

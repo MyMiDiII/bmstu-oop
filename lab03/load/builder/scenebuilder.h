@@ -4,22 +4,21 @@
 #include "scene.h"
 #include "basebuilder.h"
 
-class BuilderScene : public BaseBuilder
+class SceneBuilder : public BaseBuilder
 {
 public:
-    BuilderScene() = default;
-    ~BuilderScene() = default;
+    SceneBuilder() = default;
+    ~SceneBuilder() = default;
 
     void build() override;
-    void build_model(const std::shared_ptr<Object> &object);
-    void build_viewer(const std::shared_ptr<Viewer> &viewer);
-
-    bool is_build() const override;
+    void buildModel(const std::shared_ptr<Object> &object);
+    void buildCamera(const std::shared_ptr<Viewer> &viewer);
+    bool isBuild() const override;
 
     std::shared_ptr<Object> get() override;
 
 private:
-    std::shared_ptr<Scene> _scene_ptr;
+    std::shared_ptr<Scene> _scene;
 };
 
 

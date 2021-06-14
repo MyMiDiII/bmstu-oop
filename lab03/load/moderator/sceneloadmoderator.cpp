@@ -2,7 +2,8 @@
 #include "exceptions.h"
 
 
-LoadSceneModerator::LoadSceneModerator(std::shared_ptr<BaseLoaderScene> loader) : _builder(new BuilderScene)
+LoadSceneModerator::LoadSceneModerator(std::shared_ptr<BaseLoaderScene> loader) :
+    _builder(new SceneBuilder)
 {
     _loader = loader;
 }
