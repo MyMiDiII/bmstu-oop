@@ -1,18 +1,16 @@
 #include "drawmanagercreator.h"
 
 
-std::shared_ptr<DrawManager> CreatorDrawManager::create_manager() {
+std::shared_ptr<DrawManager> DrawManagerCreator::createManager() {
     if (nullptr == _manager)
-    {
-        create_instance();
-    }
+        createInstance();
 
     return _manager;
 }
 
 
-void CreatorDrawManager::create_instance() {
+void DrawManagerCreator::createInstance()
+{
     static std::shared_ptr<DrawManager> manager(new DrawManager());
-
     _manager = manager;
 }

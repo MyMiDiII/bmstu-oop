@@ -1,5 +1,5 @@
-#ifndef DRAW_MANAGER_H
-#define DRAW_MANAGER_H
+#ifndef DRAWMANAGER_H
+#define DRAWMANAGER_H
 
 #include "basemanager.h"
 #include "vertex.h"
@@ -19,19 +19,19 @@ public:
 
     ~DrawManager() = default;
 
-    void set_viewer(std::shared_ptr<Viewer> viewer);
-    void set_drawer(std::shared_ptr<BaseDrawer> drawer);
+    void setCamera(std::shared_ptr<Viewer> camera);
+    void setDrawer(std::shared_ptr<BaseDrawer> drawer);
 
     void visit(const Model &model) override;
-    void visit(const Viewer &viewer) override {};
+    void visit(const Viewer &camera) override {};
     void visit(const Composite &composite) override {};
 
 private:
-    Dot get_dot_proection(const Dot &dot);
+    Dot getProjection(const Dot &dot);
 
-    std::shared_ptr<Viewer> _viewer;
+    std::shared_ptr<Viewer> _camera;
     std::shared_ptr<BaseDrawer> _drawer;
 
 };
 
-#endif //DRAW_MANAGER_H
+#endif //DRAWMANAGER_H

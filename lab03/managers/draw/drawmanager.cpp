@@ -1,26 +1,26 @@
 #include "drawmanager.h"
 #include "model.h"
 
-void DrawManager::set_viewer(std::shared_ptr<Viewer> viewer)
+void DrawManager::setCamera(std::shared_ptr<Viewer> camera)
 {
-    _viewer = viewer;
+    _camera = camera;
 }
 
 
-void DrawManager::set_drawer(std::shared_ptr<BaseDrawer> drawer)
+void DrawManager::setDrawer(std::shared_ptr<BaseDrawer> drawer)
 {
     _drawer = drawer;
 }
 
 
-Dot DrawManager::get_dot_proection(const Dot &dot)
+Dot DrawManager::getProjection(const Dot &dot)
 {
-    Dot proection = dot;
+    Dot projection = dot;
 
-    proection.set_x(proection.get_x() + _viewer->get_position().get_x());
-    proection.set_y(proection.get_y() + _viewer->get_position().get_y());
+    projection.set_x(projection.get_x() + _camera->get_position().get_x());
+    projection.set_y(projection.get_y() + _camera->get_position().get_y());
 
-    return proection;
+    return projection;
 }
 
 
@@ -32,8 +32,8 @@ void DrawManager::visit(const Model &model)
 
     for (auto link : links)
     {
-        _drawer->drawLine(get_dot_proection(dots.at(link.get_dot1_index() - 1)).with_center(center),
-                           get_dot_proection(dots.at(link.get_dot2_index() - 1)).with_center(center));
+        _drawer->drawLine(getProjection(dots.at(link.get_dot1_index() - 1)).with_center(center),
+                          getProjection(dots.at(link.get_dot2_index() - 1)).with_center(center));
     }
 
 }

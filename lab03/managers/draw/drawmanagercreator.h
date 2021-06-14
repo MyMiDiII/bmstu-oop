@@ -1,17 +1,17 @@
-#ifndef DRAW_MANAGER_CREATOR_H
-#define DRAW_MANAGER_CREATOR_H
+#ifndef DRAWMANAGERCREATOR_H
+#define DRAWMANAGERCREATOR_H
 
 #include "drawmanager.h"
 
-class CreatorDrawManager
+class DrawManagerCreator
 {
 public:
-    std::shared_ptr<DrawManager> create_manager();
+    std::shared_ptr<DrawManager> createManager();
 
 private:
-    void create_instance();
+    void createInstance();
 
     std::shared_ptr<DrawManager> _manager;
 };
 
-#endif //DRAW_MANAGER_CREATOR_H
+#endif //DRAWMANAGERCREATOR_H
