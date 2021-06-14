@@ -32,14 +32,14 @@ void MainWindow::setup_scene()
 
 void MainWindow::update_scene()
 {
-    DrawSceneCMD draw_command(_drawer);
+    DrawScene draw_command(_drawer);
     _facade->exec(draw_command);
 }
 
 void MainWindow::check_cam_exist()
 {
     auto viewer_count = std::make_shared<size_t>(0);
-    CountCameraCMD viewer_cmd(viewer_count);
+    CountCamera viewer_cmd(viewer_count);
 
     _facade->exec(viewer_cmd);
 
@@ -53,7 +53,7 @@ void MainWindow::check_cam_exist()
 void MainWindow::check_models_exist()
 {
     auto model_count = std::make_shared<size_t>(0);
-    CountModelCMD model_cmd(model_count);
+    CountModel model_cmd(model_count);
     _facade->exec(model_cmd);
 
     if (!*model_count)
@@ -66,11 +66,11 @@ void MainWindow::check_models_exist()
 void MainWindow::check_can_delete_cam()
 {
     auto model_count = std::make_shared<size_t>(0);
-    CountModelCMD model_cmd(model_count);
+    CountModel model_cmd(model_count);
     _facade->exec(model_cmd);
 
     auto viewer_count = std::make_shared<size_t>(0);
-    CountCameraCMD viewer_cmd(viewer_count);
+    CountCamera viewer_cmd(viewer_count);
     _facade->exec(viewer_cmd);
 
     if (*viewer_count <= 1 && *model_count) {
@@ -82,7 +82,7 @@ void MainWindow::check_can_delete_cam()
 void MainWindow::on_addCameraBtn_clicked()
 {
     auto cont = ui->graphicsView->contentsRect();
-    AddCameraCMD camera_command(cont.width() / 2.0, cont.height() / 2.0, 0.0);
+    AddCamera camera_command(cont.width() / 2.0, cont.height() / 2.0, 0.0);
     _facade->exec(camera_command);
 
     update_scene();
@@ -114,7 +114,7 @@ void MainWindow::on_loadModelBtn_clicked()
    if (file.isNull())
        return;
 
-   LoadModelCMD load_command(file.toUtf8().data());
+   LoadModel load_command(file.toUtf8().data());
 
    try
    {
@@ -143,8 +143,8 @@ void MainWindow::on_deleteModelBtn_clicked()
         return;
     }
 
-    RemoveModelCMD remove_command(ui->modelsCB->currentIndex());
-    _facade->exec(remove_command);
+    DeleteModel delete_command(ui->modelsCB->currentIndex());
+    _facade->exec(delete_command);
 
     ui->modelsCB->removeItem(ui->modelsCB->currentIndex());
 
@@ -165,8 +165,8 @@ void MainWindow::on_deleteModelsBtn_clicked()
 
     for (int i = ui->modelsCB->count() - 1; i >= 0; --i)
     {
-        RemoveModelCMD remove_command(i);
-        _facade->exec(remove_command);
+        DeleteModel delete_command(i);
+        _facade->exec(delete_command);
 
         ui->modelsCB->removeItem(i);
     }
@@ -185,7 +185,7 @@ void MainWindow::on_cameraCB_currentIndexChanged(int index)
         return;
     }
 
-    SetCameraCMD camera_command(index);
+    SetCamera camera_command(index);
     _facade->exec(camera_command);
     update_scene();
 }
@@ -211,8 +211,8 @@ void MainWindow::on_deleteCameraBtn_clicked()
         return;
     }
 
-    RemoveCameraCMD remove_command(ui->cameraCB->currentIndex());
-    _facade->exec(remove_command);
+    DeleteCamera delete_command(ui->cameraCB->currentIndex());
+    _facade->exec(delete_command);
 
     ui->cameraCB->removeItem(ui->cameraCB->currentIndex());
 
@@ -240,7 +240,7 @@ void MainWindow::on_upBtn_clicked()
         return;
     }
 
-    MoveCameraCMD camera_command(ui->cameraCB->currentIndex(), 0, 10);
+    MoveCamera camera_command(ui->cameraCB->currentIndex(), 0, 10);
     _facade->exec(camera_command);
     update_scene();
 }
@@ -257,7 +257,7 @@ void MainWindow::on_rigthBtn_clicked()
         return;
     }
 
-    MoveCameraCMD camera_command(ui->cameraCB->currentIndex(), -10, 0);
+    MoveCamera camera_command(ui->cameraCB->currentIndex(), -10, 0);
     _facade->exec(camera_command);
     update_scene();
 }
@@ -274,7 +274,7 @@ void MainWindow::on_downBtn_clicked()
         return;
     }
 
-    MoveCameraCMD camera_command(ui->cameraCB->currentIndex(), 0, -10);
+    MoveCamera camera_command(ui->cameraCB->currentIndex(), 0, -10);
     _facade->exec(camera_command);
     update_scene();
 }
@@ -291,7 +291,7 @@ void MainWindow::on_leftBtn_clicked()
         return;
     }
 
-    MoveCameraCMD camera_command(ui->cameraCB->currentIndex(), 10, 0);
+    MoveCamera camera_command(ui->cameraCB->currentIndex(), 10, 0);
     _facade->exec(camera_command);
     update_scene();
 }
@@ -314,7 +314,7 @@ void MainWindow::on_moveBtn_clicked()
         return;
     }
 
-    MoveModelCMD move_cmd(
+    MoveModel move_cmd(
             ui->dxDSB->value(),
             ui->dyDSB->value(),
             ui->dzDSB->value(),
@@ -342,7 +342,7 @@ void MainWindow::on_scaleBtn_clicked()
         return;
     }
 
-    ScaleModelCMD scale_cmd(
+    ScaleModel scale_cmd(
             ui->kxDSB->value(),
             ui->kyDSB->value(),
             ui->kzDSB->value(),
@@ -370,7 +370,7 @@ void MainWindow::on_rotateBtn_clicked()
         return;
     }
 
-    SpinModelCMD spin_cmd(
+    RotateModel spin_cmd(
             ui->oxDSB->value(),
             ui->oyDSB->value(),
             ui->ozDSB->value(),

@@ -6,66 +6,66 @@
 
 #include "basecommand.h"
 
-class CameraCMD : public BaseCommand { };
+class CameraCommand : public BaseCommand {};
 
-class AddCameraCMD : public CameraCMD
+class AddCamera: public CameraCommand
 {
 public:
-    AddCameraCMD(const double x, const double y, const double z);
+    AddCamera(const double x, const double y, const double z);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
     double _x, _y, _z;
 };
 
 
-class RemoveCameraCMD : public CameraCMD
+class DeleteCamera: public CameraCommand
 {
 public:
-    RemoveCameraCMD(const std::size_t &viewer_num);
+    DeleteCamera(const std::size_t index);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    std::size_t _viewer_num;
+    std::size_t _index;
 };
 
 
-class MoveCameraCMD : public CameraCMD
+class MoveCamera: public CameraCommand
 {
 public:
-    MoveCameraCMD(const std::size_t &viewer_num, const double &dx, const double &dy);
+    MoveCamera(const std::size_t index, const double dx, const double dy);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
     double _dx, _dy;
-    std::size_t _viewer_num;
+    std::size_t _index;
 };
 
 
-class SetCameraCMD : public CameraCMD
+class SetCamera: public CameraCommand
 {
 public:
-    SetCameraCMD(const std::size_t &viewer_num);
+    SetCamera(const std::size_t index);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    std::size_t _viewer_num;
+    std::size_t _index;
 };
 
 
-class CountCameraCMD : public CameraCMD
+class CountCamera: public CameraCommand
 {
 public:
-    CountCameraCMD(const std::shared_ptr<size_t> &count);
+    CountCamera(const std::shared_ptr<size_t> num);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    std::shared_ptr<size_t> _count;
+    std::shared_ptr<size_t> _num;
 };
 
 #endif //CAMERACOMMAND_H

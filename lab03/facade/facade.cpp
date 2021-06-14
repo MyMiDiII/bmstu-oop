@@ -3,5 +3,5 @@
 
 void Facade::exec(BaseCommand &command)
 {
-    command.exec();
+    command.execute();
 }

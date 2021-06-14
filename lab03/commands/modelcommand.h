@@ -7,66 +7,66 @@
 #include "basecommand.h"
 #include "object.h"
 
-class ModelCMD : public BaseCommand { };
+class ModelCommand : public BaseCommand { };
 
-class MoveModelCMD : public ModelCMD
+class MoveModel : public ModelCommand
 {
 public:
-    MoveModelCMD(const double &dx, const double &dy, const double &dz, const std::size_t model_num);
+    MoveModel(const double &dx, const double &dy, const double &dz, const std::size_t index);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
     double _dx, _dy, _dz;
-    std::size_t _model_num;
+    std::size_t _index;
 };
 
 
-class ScaleModelCMD : public ModelCMD
+class ScaleModel : public ModelCommand
 {
 public:
-    ScaleModelCMD(const double &kx, const double &ky, const double &kz, const std::size_t model_num);
+    ScaleModel(const double &kx, const double &ky, const double &kz, const std::size_t index);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
     double _kx, _ky, _kz;
-    std::size_t _model_num;
+    std::size_t _index;
 };
 
 
-class SpinModelCMD : public ModelCMD
+class RotateModel : public ModelCommand
 {
 public:
-    SpinModelCMD(const double &ox, const double &oy, const double &oz, const std::size_t model_num);
+    RotateModel(const double &ox, const double &oy, const double &oz, const std::size_t index);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
     double _ox, _oy, _oz;
-    std::size_t _model_num;
+    std::size_t _index;
 };
 
 
-class TransformModelCMD : public ModelCMD
+class TransformModel : public ModelCommand
 {
 public:
-    TransformModelCMD(const Dot &move, const Dot &scale, const Dot &spin, const std::size_t model_num);
+    TransformModel(const Dot &move, const Dot &scale, const Dot &rotate, const std::size_t index);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    Dot _move, _scale, _spin;
-    std::size_t _model_num;
+    Dot _move, _scale, _rotate;
+    std::size_t _index;
 };
 
 
-class AddModelCMD : public ModelCMD
+class AddModel : public ModelCommand
 {
 public:
-    AddModelCMD(std::shared_ptr<Object> model);
+    AddModel(std::shared_ptr<Object> model);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
     std::shared_ptr<Object> _model;
@@ -74,51 +74,39 @@ private:
 
 
 
-class RemoveModelCMD : public ModelCMD
+class DeleteModel : public ModelCommand
 {
 public:
-    RemoveModelCMD(std::size_t model_num);
+    DeleteModel(const std::size_t index);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    std::size_t _model_num;
+    std::size_t _index;
 };
 
 
-class CountModelCMD : public ModelCMD
+class CountModel : public ModelCommand
 {
 public:
-    CountModelCMD(const std::shared_ptr<size_t> &count);
+    CountModel(const std::shared_ptr<size_t> &num);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    std::shared_ptr<size_t> _count;
+    std::shared_ptr<size_t> _num;
 };
 
 
-class LoadModelCMD : public ModelCMD
+class LoadModel : public ModelCommand
 {
 public:
-    LoadModelCMD(std::string file_name);
+    LoadModel(std::string fileName);
 
-    virtual void exec() override;
-
-private:
-    std::string _file_name;
-};
-
-
-class ExportModelCMD : public ModelCMD
-{
-public:
-    ExportModelCMD(std::string file_name);
-
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    std::string _file_name;
+    std::string _fileName;
 };
 
 #endif //MODELCOMMAND_H

@@ -5,29 +5,29 @@
 #include "basecommand.h"
 #include "basedrawer.h"
 
-class SceneCMD : public BaseCommand { };
+class SceneCommand : public BaseCommand { };
 
-class DrawSceneCMD : public SceneCMD
+class DrawScene : public SceneCommand
 {
 public:
-    DrawSceneCMD(std::shared_ptr<AbstractDrawer> drawer);
+    DrawScene(std::shared_ptr<AbstractDrawer> drawer);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
     std::shared_ptr<AbstractDrawer> _drawer;
 };
 
 
-class LoadSceneCMD : public SceneCMD
+class LoadScene : public SceneCommand
 {
 public:
-    LoadSceneCMD(std::string file_name);
+    LoadScene(std::string fileName);
 
-    virtual void exec() override;
+    virtual void execute() override;
 
 private:
-    std::string _file_name;
+    std::string _fileName;
 };
 
 #endif //SCENECOMMAND_H

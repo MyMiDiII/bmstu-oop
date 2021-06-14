@@ -3,12 +3,13 @@
 #include "loadmanagercreator.h"
 #include "scenemanagercreator.h"
 #include "transformmanagercreator.h"
+#include "sceneloadmoderatorcreator.h"
 
 
-DrawSceneCMD::DrawSceneCMD(std::shared_ptr<AbstractDrawer> drawer) : _drawer(drawer) { }
+DrawScene::DrawScene(std::shared_ptr<AbstractDrawer> drawer) : _drawer(drawer) { }
 
 
-void DrawSceneCMD::exec()
+void DrawScene::execute()
 {
     auto draw_manager = CreatorDrawManager().create_manager();
     auto scene_manager = CreatorSceneManager().create_manager();
@@ -21,15 +22,13 @@ void DrawSceneCMD::exec()
 }
 
 
-LoadSceneCMD::LoadSceneCMD(std::string file_name) : _file_name(file_name) { }
+LoadScene::LoadScene(std::string fileName) : _fileName(fileName) { }
 
-void LoadSceneCMD::exec()
+void LoadScene::execute()
 {
-    /*
     auto moderator = LoadSceneModeratorCreator().create_moderator();
     auto manager = CreatorLoadManager().create_manager(moderator);
-    auto scene = std::dynamic_pointer_cast<Scene>(manager->load(_file_name));
+    auto scene = std::dynamic_pointer_cast<Scene>(manager->load(_fileName));
 
     CreatorSceneManager().create_manager()->set_scene(scene);
-    */
 }

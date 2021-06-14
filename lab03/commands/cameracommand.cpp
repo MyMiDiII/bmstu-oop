@@ -3,11 +3,10 @@
 #include "scenemanagercreator.h"
 #include "transformmanagercreator.h"
 
-AddCameraCMD::AddCameraCMD(const double x, const double y, const double z) :
+AddCamera::AddCamera(const double x, const double y, const double z) :
     _x(x), _y(y), _z(z) {}
 
-
-void AddCameraCMD::exec()
+void AddCamera::execute()
 {
     Dot viewer_place(_x, _y, _z);
 
@@ -21,42 +20,35 @@ void AddCameraCMD::exec()
 };
 
 
-RemoveCameraCMD::RemoveCameraCMD(const size_t &viewer_num) :
-    _viewer_num(viewer_num) {}
+DeleteCamera::DeleteCamera(const size_t index) : _index(index) {}
 
-
-void RemoveCameraCMD::exec()
+void DeleteCamera::execute()
 {
-    CreatorSceneManager().create_manager()->get_scene()->remove_viewer(_viewer_num);
+    CreatorSceneManager().create_manager()->get_scene()->remove_viewer(_index);
 }
 
 
-MoveCameraCMD::MoveCameraCMD(const size_t &viewer_num, const double &dx, const double &dy) :
-    _dx(dx), _dy(dy), _viewer_num(viewer_num) {}
+MoveCamera::MoveCamera(const size_t index, const double dx, const double dy) :
+    _dx(dx), _dy(dy), _index(index) {}
 
-void MoveCameraCMD::exec()
+void MoveCamera::execute()
 {
-    Dot move(_dx, _dy, 0);
-
-    auto viewer = CreatorSceneManager().create_manager()->get_scene()->get_viewers().at(_viewer_num);
-
-    CreatorTransformManager().create_manager()->transform_object(viewer, move, move, move);
+    auto viewer = CreatorSceneManager().create_manager()->get_scene()->get_viewers().at(_index);
+    CreatorTransformManager().create_manager()->move_object(viewer, _dx, _dy, 0);
 }
 
 
-SetCameraCMD::SetCameraCMD(const size_t &viewer_num) : _viewer_num(viewer_num) {}
+SetCamera::SetCamera(const size_t index) : _index(index) {}
 
-
-void SetCameraCMD::exec()
+void SetCamera::execute()
 {
-    CreatorSceneManager().create_manager()->set_viewer(_viewer_num);
+    CreatorSceneManager().create_manager()->set_viewer(_index);
 }
 
 
-CountCameraCMD::CountCameraCMD(const std::shared_ptr<size_t> &count) : _count(count) {}
+CountCamera::CountCamera(const std::shared_ptr<size_t> num) : _num(num) {}
 
-
-void CountCameraCMD::exec()
+void CountCamera::execute()
 {
-    (*_count) = CreatorSceneManager().create_manager()->get_scene()->get_viewers().size();
+    (*_num) = CreatorSceneManager().create_manager()->get_scene()->get_viewers().size();
 }
