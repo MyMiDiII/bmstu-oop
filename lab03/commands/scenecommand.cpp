@@ -2,7 +2,7 @@
 #include "drawmanagercreator.h"
 #include "loadmanagercreator.h"
 #include "scenemanagercreator.h"
-//#include "../../inc/managers/load/load_scene_moderator_creator.h"
+#include "transformmanagercreator.h"
 
 
 DrawSceneCMD::DrawSceneCMD(std::shared_ptr<AbstractDrawer> drawer) : _drawer(drawer) { }

@@ -28,6 +28,8 @@ SOURCES += \
     managers/load/loadmanagercreator.cpp \
     managers/scene/scenemanager.cpp \
     managers/scene/scenemanagercreator.cpp \
+    managers/transform/transformmanager.cpp \
+    managers/transform/transformmanagercreator.cpp \
     objects/camera.cpp \
     objects/composite.cpp \
     objects/link.cpp \
@@ -64,6 +66,8 @@ HEADERS += \
     managers/load/loadmanagercreator.h \
     managers/scene/scenemanager.h \
     managers/scene/scenemanagercreator.h \
+    managers/transform/transformmanager.h \
+    managers/transform/transformmanagercreator.h \
     objects/camera.h \
     objects/composite.h \
     objects/link.h \
@@ -83,6 +87,7 @@ INCLUDEPATH += \
     managers/draw/ \
     managers/load/ \
     managers/scene/ \
+    managers/transform/ \
     drawer/ \
     facade/ \
     load/builder/ \

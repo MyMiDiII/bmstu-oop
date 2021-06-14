@@ -35,11 +35,32 @@ private slots:
 
     void on_deleteModelBtn_clicked();
 
+    void on_deleteModelsBtn_clicked();
+
+    void on_cameraCB_currentIndexChanged(int index);
+
+    void on_deleteCameraBtn_clicked();
+
+    void on_upBtn_clicked();
+
+    void on_rigthBtn_clicked();
+
+    void on_downBtn_clicked();
+
+    void on_leftBtn_clicked();
+
+    void on_moveBtn_clicked();
+
+    void on_scaleBtn_clicked();
+
+    void on_rotateBtn_clicked();
+
 protected:
     void setup_scene();
     void update_scene();
     void check_cam_exist();
     void check_models_exist();
+    void check_can_delete_cam();
 
 private:
     Ui::MainWindow *ui;

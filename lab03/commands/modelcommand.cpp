@@ -2,7 +2,7 @@
 #include "loadmanagercreator.h"
 #include "modelloadmoderatorcreator.h"
 #include "scenemanagercreator.h"
-//#include "../../inc/managers/transform/transform_manager_creator.h"
+#include "transformmanagercreator.h"
 
 
 MoveModelCMD::MoveModelCMD(const double &dx, const double &dy, const double &dz, const std::size_t model_num) :
@@ -11,12 +11,13 @@ MoveModelCMD::MoveModelCMD(const double &dx, const double &dy, const double &dz,
 
 void MoveModelCMD::exec()
 {
-    Dot move(_dx, _dy, _dz);
-    Dot scale(1, 1, 1);
-    Dot spin(0, 0, 0);
+    //Dot move(_dx, _dy, _dz);
+    //Dot scale(1, 1, 1);
+    //Dot spin(0, 0, 0);
 
     std::shared_ptr<Object> model = CreatorSceneManager().create_manager()->get_scene()->get_models().at(_model_num);
     //CreatorTransformManager().create_manager()->transform_object(model, move, scale, spin);
+    CreatorTransformManager().create_manager()->move_object(model, _dx, _dy, _dz);
 }
 
 ScaleModelCMD::ScaleModelCMD(const double &kx, const double &ky, const double &kz, const std::size_t model_num) :
@@ -24,12 +25,13 @@ ScaleModelCMD::ScaleModelCMD(const double &kx, const double &ky, const double &k
 
 void ScaleModelCMD::exec()
 {
-    Dot move(0, 0, 0);
-    Dot scale(_kx, _ky, _kz);
-    Dot spin(0, 0, 0);
+    //Dot move(0, 0, 0);
+    //Dot scale(_kx, _ky, _kz);
+    //Dot spin(0, 0, 0);
 
     std::shared_ptr<Object> model = CreatorSceneManager().create_manager()->get_scene()->get_models().at(_model_num);
     //CreatorTransformManager().create_manager()->transform_object(model, move, scale, spin);
+    CreatorTransformManager().create_manager()->scale_object(model, _kx, _ky, _kz);
 }
 
 
@@ -38,12 +40,13 @@ SpinModelCMD::SpinModelCMD(const double &ox, const double &oy, const double &oz,
 
 void SpinModelCMD::exec()
 {
-    Dot move(0, 0, 0);
-    Dot scale(1, 1, 1);
-    Dot spin(_ox, _oy, _oz);
+    //Dot move(0, 0, 0);
+    //Dot scale(1, 1, 1);
+    //Dot spin(_ox, _oy, _oz);
 
     std::shared_ptr<Object> model = CreatorSceneManager().create_manager()->get_scene()->get_models().at(_model_num);
     //CreatorTransformManager().create_manager()->transform_object(model, move, scale, spin);
+    CreatorTransformManager().create_manager()->spin_object(model, _ox, _oy, _oz);
 }
 
 
@@ -53,7 +56,7 @@ TransformModelCMD::TransformModelCMD(const Dot &move, const Dot &scale, const Do
 void TransformModelCMD::exec()
 {
     std::shared_ptr<Object> model = CreatorSceneManager().create_manager()->get_scene()->get_models().at(_model_num);
-    //CreatorTransformManager().create_manager()->transform_object(model, _move, _scale, _spin);
+    CreatorTransformManager().create_manager()->transform_object(model, _move, _scale, _spin);
 }
 
 AddModelCMD::AddModelCMD(std::shared_ptr<Object> model) : _model(model) { }
@@ -62,7 +65,6 @@ void AddModelCMD::exec()
 {
     CreatorSceneManager().create_manager()->get_scene()->add_model(_model);
 }
-
 
 RemoveModelCMD::RemoveModelCMD(const std::size_t model_num) : _model_num(model_num) { }
 

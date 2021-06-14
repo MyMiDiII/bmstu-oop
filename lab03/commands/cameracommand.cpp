@@ -1,7 +1,7 @@
 #include "cameracommand.h"
 #include "camera.h"
 #include "scenemanagercreator.h"
-//#include "../../inc/managers/transform/transform_manager_creator.h"
+#include "transformmanagercreator.h"
 
 AddCameraCMD::AddCameraCMD(const double x, const double y, const double z) :
     _x(x), _y(y), _z(z) {}
@@ -40,7 +40,7 @@ void MoveCameraCMD::exec()
 
     auto viewer = CreatorSceneManager().create_manager()->get_scene()->get_viewers().at(_viewer_num);
 
-    //CreatorTransformManager().create_manager()->transform_object(viewer, move, move, move);
+    CreatorTransformManager().create_manager()->transform_object(viewer, move, move, move);
 }
 
 
