@@ -3,9 +3,12 @@
 
 #include "object.h"
 #include "scene.h"
+#include "drawvisitor.h"
 
 class Composite : public Object
 {
+    friend void DrawVisitor::visit(const Composite &composite);
+
 public:
     Composite() = default;
     explicit Composite(std::shared_ptr<Object> &element);

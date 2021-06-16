@@ -4,6 +4,7 @@
 #include "scenemanagercreator.h"
 #include "transformmanagercreator.h"
 #include "sceneloadmoderatorcreator.h"
+#include "drawvisitorcreator.h"
 
 
 DrawScene::DrawScene(std::shared_ptr<BaseDrawer> drawer) : _drawer(drawer) { }
@@ -14,11 +15,13 @@ void DrawScene::execute()
     auto drawManager = DrawManagerCreator().createManager();
     auto sceneManager = SceneManagerCreator().createManager();
     auto camera = sceneManager->getCamera();
+    auto visitor = DrawVisitorCreator().createVisitor();
+    visitor->setCamera(camera);
+    visitor->setDrawer(_drawer);
 
     _drawer->clearScene();
-    drawManager->setDrawer(_drawer);
-    drawManager->setCamera(camera);
-    sceneManager->getScene()->getModels()->accept(drawManager);
+    drawManager->setVisitor(visitor);
+    drawManager->drawScene(sceneManager->getScene());
 }
 
 

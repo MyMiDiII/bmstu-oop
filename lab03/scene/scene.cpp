@@ -45,6 +45,11 @@ void Scene::deleteCamera(const std::size_t index)
     _cameras->remove(iter);
 }
 
+void Scene::accept(std::shared_ptr<Visitor> visitor)
+{
+    visitor->visit(*this);
+}
+
 
 
 

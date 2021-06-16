@@ -5,9 +5,11 @@
 
 #include "object.h"
 #include "composite.h"
+#include "drawvisitor.h"
 
 class Scene : public Object
 {
+    friend void DrawVisitor::visit(const Scene &scene);
 public:
     Scene();
     ~Scene() override = default;
@@ -21,13 +23,14 @@ public:
     void addCamera(const std::shared_ptr<Object> &camera);
     void deleteCamera(const std::size_t index);
 
+    void accept(std::shared_ptr<Visitor> visitor) override;
+    void transform(const Vertex &move, const Vertex &scale,
+                   const Vertex &rotate) override {};
+
 protected:
     std::shared_ptr<Composite> _models;
     std::shared_ptr<Composite> _cameras;
 
-    void accept(std::shared_ptr<Visitor> visitor) override {};
-    void transform(const Vertex &move, const Vertex &scale,
-                   const Vertex &rotate) override {};
 };
 
 #endif //SCENE_H

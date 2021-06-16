@@ -3,11 +3,11 @@
 
 #include "visitor.h"
 #include "object.h"
-#include "drawmanager.h"
+#include "drawvisitor.h"
 
 class Camera : public InvisibleObject
 {
-    friend Vertex DrawManager::getProjection(const Vertex &vertex);
+    friend Vertex DrawVisitor::getProjection(const Vertex &vertex);
 
 public:
     Camera() = default;

@@ -30,6 +30,8 @@ SOURCES += \
     mainwindow.cpp \
     managers/draw/drawmanager.cpp \
     managers/draw/drawmanagercreator.cpp \
+    managers/draw/drawvisitor.cpp \
+    managers/draw/drawvisitorcreator.cpp \
     managers/load/loadmanager.cpp \
     managers/load/loadmanagercreator.cpp \
     managers/scene/scenemanager.cpp \
@@ -75,6 +77,8 @@ HEADERS += \
     managers/basemanager.h \
     managers/draw/drawmanager.h \
     managers/draw/drawmanagercreator.h \
+    managers/draw/drawvisitor.h \
+    managers/draw/drawvisitorcreator.h \
     managers/draw/visitor.h \
     managers/load/loadmanager.h \
     managers/load/loadmanagercreator.h \

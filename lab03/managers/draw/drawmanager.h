@@ -5,13 +5,12 @@
 #include "vertex.h"
 #include "composite.h"
 #include "object.h"
+#include "scene.h"
 
 #include "basedrawer.h"
 #include "visitor.h"
 
-class Camera;
-
-class DrawManager : public BaseManager, public Visitor
+class DrawManager : public BaseManager
 {
 public:
     DrawManager() = default;
@@ -20,19 +19,12 @@ public:
 
     ~DrawManager() = default;
 
-    void setCamera(std::shared_ptr<Camera> camera);
-    void setDrawer(std::shared_ptr<BaseDrawer> drawer);
+    void setVisitor(std::shared_ptr<Visitor> visitor);
 
-    void visit(const Model &model) override;
-    void visit(const Camera &camera) override {};
-    void visit(const Composite &composite) override {};
-
-    Vertex getProjection(const Vertex &vertex);
+    void drawScene(std::shared_ptr<Scene> scene);
 
 private:
-    std::shared_ptr<Camera> _camera;
-    std::shared_ptr<BaseDrawer> _drawer;
-
+    std::shared_ptr<Visitor> _visitor;
 };
 
 #endif //DRAWMANAGER_H

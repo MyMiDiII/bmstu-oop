@@ -4,6 +4,7 @@
 class Model;
 class Camera;
 class Composite;
+class Scene;
 
 class Visitor
 {
@@ -14,6 +15,7 @@ public:
     virtual void visit(const Model &model) = 0;
     virtual void visit(const Camera &viewer) = 0;
     virtual void visit(const Composite &composite) = 0;
+    virtual void visit(const Scene &scene) = 0;
 };
 
 #endif //VISITOR_H

@@ -62,6 +62,5 @@ Iterator Composite::end()
 
 void Composite::accept(std::shared_ptr<Visitor> visitor)
 {
-    for (const auto &element : _elements)
-        element->accept(visitor);
+    visitor->visit(*this);
 }

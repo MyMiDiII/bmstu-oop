@@ -83,10 +83,11 @@ void CountModel::execute()
     auto scene = \
             SceneManagerCreator().createManager()->getScene();
 
-    auto begin = scene->getModels()->begin();
-    auto end = scene->getCameras()->end();
+    auto modBegin = scene->getModels()->begin();
+    auto modEnd = scene->getModels()->end();
 
-    (*_num) = end - begin;
+    (*_num) = 0;
+    for (auto it = modBegin; it != modEnd; it++, (*_num)++);
 }
 
 

@@ -9,11 +9,11 @@
 #include "link.h"
 #include "modelstructure.h"
 #include "visitor.h"
-#include "drawmanager.h"
+#include "drawvisitor.h"
 
 class Model : public VisibleObject
 {
-    friend void DrawManager::visit(const Model &model);
+    friend void DrawVisitor::visit(const Model &model);
 
 public:
 

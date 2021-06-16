@@ -2,39 +2,12 @@
 #include "model.h"
 #include "camera.h"
 
-void DrawManager::setCamera(std::shared_ptr<Camera> camera)
+void DrawManager::setVisitor(std::shared_ptr<Visitor> visitor)
 {
-    _camera = camera;
+    _visitor = visitor;
 }
 
-
-void DrawManager::setDrawer(std::shared_ptr<BaseDrawer> drawer)
+void DrawManager::drawScene(std::shared_ptr<Scene> scene)
 {
-    _drawer = drawer;
-}
-
-
-Vertex DrawManager::getProjection(const Vertex &vertex)
-{
-    Vertex projection = vertex;
-
-    projection.setX(projection.getX() + _camera->_location.getX());
-    projection.setY(projection.getY() + _camera->_location.getY());
-
-    return projection;
-}
-
-
-void DrawManager::visit(const Model &model)
-{
-    auto dots = model._modelStructure->getVertexes();
-    auto links = model._modelStructure->getLinks();
-    auto center = model._modelStructure->getCenter();
-
-    for (auto link : links)
-    {
-        _drawer->drawLine(getProjection(dots.at(link.getFirst() - 1)).getAbsVertex(center),
-                          getProjection(dots.at(link.getSecond() - 1)).getAbsVertex(center));
-    }
-
+    scene->accept(_visitor);
 }
