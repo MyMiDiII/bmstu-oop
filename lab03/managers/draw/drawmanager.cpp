@@ -38,6 +38,3 @@ void DrawManager::visit(const Model &model)
     }
 
 }
-
-
-

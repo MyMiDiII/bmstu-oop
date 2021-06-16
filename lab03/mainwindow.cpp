@@ -83,8 +83,8 @@ void MainWindow::checkCamDelete()
 void MainWindow::on_addCameraBtn_clicked()
 {
     auto cont = ui->graphicsView->contentsRect();
-    AddCamera camera_command(cont.width() / 2.0, cont.height() / 2.0, 0.0);
-    _facade->execute(camera_command);
+    AddCamera addCMD(cont.width() / 2.0, cont.height() / 2.0, 0.0);
+    _facade->execute(addCMD);
 
     updateScene();
 

@@ -18,7 +18,7 @@ void DrawScene::execute()
     _drawer->clearScene();
     drawManager->setDrawer(_drawer);
     drawManager->setCamera(camera);
-    sceneManager->getScene()->getComposite()->accept(drawManager);
+    sceneManager->getScene()->getModels()->accept(drawManager);
 }
 
 

@@ -28,7 +28,15 @@ void SceneManager::setScene(std::shared_ptr<Scene> scene)
 
 void SceneManager::setCamera(const size_t index)
 {
-    auto camera = _scene->getCameras().at(index);
+    if (_scene->getCameras()->begin() == _scene->getCameras()->end())
+    {
+        _camera = nullptr;
+        return;
+    }
 
-    _camera = camera;
+    auto it = _scene->getCameras()->begin();
+    std::advance(it, index);
+    auto camera = *it;
+
+    _camera = std::dynamic_pointer_cast<Camera>(camera);
 }

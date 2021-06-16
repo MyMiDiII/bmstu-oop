@@ -8,15 +8,15 @@ AddCamera::AddCamera(const double x, const double y, const double z) :
 
 void AddCamera::execute()
 {
-    Vertex viewer_place(_x, _y, _z);
+    Vertex location(_x, _y, _z);
 
-    std::shared_ptr<Camera> viewer(new Camera);
+    std::shared_ptr<Camera> camera(new Camera);
 
-    viewer->transform(viewer_place, viewer_place, viewer_place);
+    camera->transform(location, location, location);
 
     auto sceneManager = SceneManagerCreator().createManager();
-    sceneManager->getScene()->addCamera(viewer);
-    sceneManager->setCamera(sceneManager->getScene()->getCameras().size() - 1);
+    sceneManager->getScene()->addCamera(camera);
+    //sceneManager->setCamera(sceneManager->getScene()->getCameras().size() - 1);
 };
 
 
@@ -33,9 +33,13 @@ MoveCamera::MoveCamera(const size_t index, const double dx, const double dy) :
 
 void MoveCamera::execute()
 {
-    auto viewer = \
-            SceneManagerCreator().createManager()->getScene()->getCameras().at(_index);
-    TransformManagerCreator().createManager()->moveObject(viewer, _dx, _dy, 0);
+    auto scene = \
+            SceneManagerCreator().createManager()->getScene();
+
+    auto camIt = scene->getCameras()->begin();
+    std::advance(camIt , _index);
+    auto camera = *camIt;
+    TransformManagerCreator().createManager()->moveObject(camera, _dx, _dy, 0);
 }
 
 
@@ -51,5 +55,12 @@ CountCamera::CountCamera(const std::shared_ptr<size_t> num) : _num(num) {}
 
 void CountCamera::execute()
 {
-    (*_num) = SceneManagerCreator().createManager()->getScene()->getCameras().size();
+    auto scene = \
+            SceneManagerCreator().createManager()->getScene();
+
+    auto camBegin = scene->getCameras()->begin();
+    auto camEnd = scene->getCameras()->end();
+
+    (*_num) = 0;
+    for (auto it = camBegin; it != camEnd; it++, (*_num)++);
 }

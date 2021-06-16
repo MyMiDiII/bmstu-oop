@@ -3,27 +3,21 @@
 #include "scene.h"
 #include "composite.h"
 
-Scene::Scene() : _models(new Composite)
+Scene::Scene() : _models(new Composite), _cameras(new Composite)
 {
 
 }
 
-std::vector<std::shared_ptr<Object>> Scene::getModels()
+std::shared_ptr<Composite> Scene::getModels()
 {
-    return _models->_elements;
+    return _models;
 }
 
-
-std::vector<std::shared_ptr<Camera>> Scene::getCameras()
+std::shared_ptr<Composite> Scene::getCameras()
 {
     return _cameras;
 }
 
-
-std::shared_ptr<Composite> Scene::getComposite()
-{
-    return _models;
-}
 
 void Scene::addModel(const std::shared_ptr<Object> &model)
 {
@@ -34,22 +28,21 @@ void Scene::addModel(const std::shared_ptr<Object> &model)
 void Scene::deleteModel(const std::size_t index)
 {
     auto iter = _models->begin();
-
     std::advance(iter, index);
     _models->remove(iter);
 }
 
 
-void Scene::addCamera(const std::shared_ptr<Camera> &camera)
+void Scene::addCamera(const std::shared_ptr<Object> &camera)
 {
-    _cameras.push_back(camera);
+    _cameras->add(camera);
 }
 
 void Scene::deleteCamera(const std::size_t index)
 {
-    auto iter = _cameras.begin();
+    auto iter = _cameras->begin();
     std::advance(iter, index);
-    _cameras.erase(iter);
+    _cameras->remove(iter);
 }
 
 

@@ -1,7 +1,5 @@
 #include "modelstructure.h"
 
-#include <utility>
-
 ModelStructure::ModelStructure(std::vector<Vertex> &vertexes, std::vector<Link> &links) :
     _center{}, _vertexes(vertexes), _links(links) {}
 

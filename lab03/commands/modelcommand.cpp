@@ -11,8 +11,10 @@ MoveModel::MoveModel(const double &dx, const double &dy, const double &dz, const
 
 void MoveModel::execute()
 {
-    std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
+    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
+    std::advance(iter, _index);
+    std::shared_ptr<Object> model = *iter;
+
     TransformManagerCreator().createManager()->moveObject(model, _dx, _dy, _dz);
 }
 
@@ -22,8 +24,10 @@ ScaleModel::ScaleModel(const double &kx, const double &ky, const double &kz, con
 
 void ScaleModel::execute()
 {
-    std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
+    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
+    std::advance(iter, _index);
+    std::shared_ptr<Object> model = *iter;
+
     TransformManagerCreator().createManager()->scaleObject(model, _kx, _ky, _kz);
 }
 
@@ -34,8 +38,10 @@ RotateModel::RotateModel(const double &ox, const double &oy,
 
 void RotateModel::execute()
 {
-    std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
+    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
+    std::advance(iter, _index);
+    std::shared_ptr<Object> model = *iter;
+
     TransformManagerCreator().createManager()->rotateObject(model, _ox, _oy, _oz);
 }
 
@@ -46,8 +52,10 @@ TransformModel::TransformModel(const Vertex &move, const Vertex &scale,
 
 void TransformModel::execute()
 {
-    std::shared_ptr<Object> model = \
-            SceneManagerCreator().createManager()->getScene()->getModels().at(_index);
+    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
+    std::advance(iter, _index);
+    std::shared_ptr<Object> model = *iter;
+
     TransformManagerCreator().createManager()->transformObject(model, _move, _scale, _rotate);
 }
 
@@ -72,7 +80,13 @@ CountModel::CountModel(const std::shared_ptr<std::size_t> &num) : _num(num) { }
 
 void CountModel::execute()
 {
-    (*_num) = SceneManagerCreator().createManager()->getScene()->getModels().size();
+    auto scene = \
+            SceneManagerCreator().createManager()->getScene();
+
+    auto begin = scene->getModels()->begin();
+    auto end = scene->getCameras()->end();
+
+    (*_num) = end - begin;
 }
 
 

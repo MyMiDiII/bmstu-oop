@@ -14,7 +14,7 @@ void SceneBuilder::buildModel(const std::shared_ptr<Object> &object)
     _scene->addModel(object);
 }
 
-void SceneBuilder::buildCamera(const std::shared_ptr<Camera> &camera)
+void SceneBuilder::buildCamera(const std::shared_ptr<Object> &camera)
 {
     if (isBuild()) {}
 

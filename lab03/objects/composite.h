@@ -2,13 +2,10 @@
 #define COMPOSITE_H
 
 #include "object.h"
-#include "visitor.h"
 #include "scene.h"
 
 class Composite : public Object
 {
-    friend std::vector<std::shared_ptr<Object>> Scene::getModels();
-
 public:
     Composite() = default;
     explicit Composite(std::shared_ptr<Object> &element);
@@ -20,7 +17,7 @@ public:
     bool isVisible() override;
     bool isComposite() override;
 
-    virtual void transform(const Vertex &move, const Vertex &scale, const Vertex &spin) override;
+    virtual void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate) override;
     void accept(std::shared_ptr<Visitor> visitor) override;
 
     Iterator begin() override;

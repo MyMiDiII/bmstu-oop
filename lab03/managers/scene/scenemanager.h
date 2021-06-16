@@ -3,7 +3,7 @@
 
 #include "basemanager.h"
 #include "scene.h"
-
+#include "camera.h"
 
 class SceneManager : public BaseManager
 {
