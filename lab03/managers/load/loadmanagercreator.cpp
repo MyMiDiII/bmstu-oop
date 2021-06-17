@@ -8,18 +8,6 @@ std::shared_ptr<LoadManager> LoadManagerCreator::createManager()
     return _manager;
 }
 
-std::shared_ptr<LoadManager> LoadManagerCreator::createManager(
-        const std::shared_ptr <BaseLoadModerator> &loader)
-{
-    if (nullptr == _manager)
-        createInstance();
-
-    _manager->setLoader(loader);
-
-    return _manager;
-}
-
-
 void LoadManagerCreator::createInstance()
 {
     static std::shared_ptr<LoadManager> manager(new LoadManager());

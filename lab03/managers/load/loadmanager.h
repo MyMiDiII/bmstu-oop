@@ -6,6 +6,7 @@
 #include "basemanager.h"
 #include "model.h"
 #include "baseloadmoderator.h"
+#include "sceneloadmoderator.h"
 
 class LoadManager : BaseManager
 {
@@ -16,12 +17,13 @@ public:
 
     ~LoadManager() = default;
 
-    virtual std::shared_ptr<Object> load(std::string &name);
-    virtual void setLoader(std::shared_ptr<BaseLoadModerator> loader);
+    std::shared_ptr<Object> load(std::string &name);
+    void setLoader(std::shared_ptr<BaseLoadModerator> loader);
+    void setSceneLoader(std::shared_ptr<SceneLoadModerator> loader);
 
 private:
     std::shared_ptr<BaseLoadModerator> _loader;
+    std::shared_ptr<SceneLoadModerator> _sceneLoader;
 };
-
 
 #endif // LOADMANAGER_H
