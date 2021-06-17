@@ -14,7 +14,7 @@ public:
     void buildLocation(const double x, const double y, const double z);
     bool isBuild() const override;
 
-    std::shared_ptr<Object> get() override;
+    std::shared_ptr<Camera> get();
 
 private:
     std::shared_ptr<Camera> _camera;

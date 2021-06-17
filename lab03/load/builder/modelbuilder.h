@@ -16,7 +16,7 @@ public:
     void buildLink(const std::size_t vertex1Index, const std::size_t vertex2Index);
     bool isBuild() const override;
 
-    std::shared_ptr<Object> get() override;
+    std::shared_ptr<Model> get();
 
 private:
     std::shared_ptr<ModelStructure> _model;

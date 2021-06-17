@@ -29,7 +29,7 @@ bool ModelBuilder::isBuild() const
     return nullptr != _model;
 }
 
-std::shared_ptr<Object> ModelBuilder::get()
+std::shared_ptr<Model> ModelBuilder::get()
 {
     return std::make_shared<Model>(Model(_model));
 }

@@ -14,7 +14,7 @@ public:
     void open(std::string &fileName) override;
     void close() override;
 
-    std::shared_ptr<Object> load(std::shared_ptr<CameraBuilder> builder) override;
+    std::shared_ptr<Camera> load(std::shared_ptr<CameraBuilder> builder) override;
 
 protected:
     std::shared_ptr<std::ifstream> _file;

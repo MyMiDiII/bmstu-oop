@@ -18,7 +18,7 @@ public:
     std::shared_ptr<Camera> getCamera() const;
 
     void setScene(std::shared_ptr<Scene> scene);
-    void setCamera(const std::size_t index);
+    void setCamera(const std::size_t id);
 
 private:
     std::shared_ptr<Camera> _camera;

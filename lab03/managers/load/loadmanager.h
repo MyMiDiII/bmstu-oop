@@ -10,7 +10,7 @@
 class LoadManager : BaseManager
 {
 public:
-    LoadManager();
+    LoadManager() = default;
     LoadManager(const LoadManager &manager) = delete;
     LoadManager &operator = (const LoadManager &manager) = delete;
 

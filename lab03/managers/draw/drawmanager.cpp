@@ -9,5 +9,6 @@ void DrawManager::setVisitor(std::shared_ptr<Visitor> visitor)
 
 void DrawManager::drawScene(std::shared_ptr<Scene> scene)
 {
-    scene->accept(_visitor);
+    for (auto &elem : *scene)
+        elem->accept(_visitor);
 }

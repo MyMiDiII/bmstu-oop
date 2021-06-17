@@ -43,9 +43,3 @@ void DrawVisitor::visit(const Composite &composite)
     for (auto &elem : composite._elements)
         elem->accept(std::make_shared<DrawVisitor>(*this));
 }
-
-void DrawVisitor::visit(const Scene &scene)
-{
-    _drawer->clearScene();
-    visit(*scene._models);
-}

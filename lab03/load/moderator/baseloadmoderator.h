@@ -3,11 +3,7 @@
 
 #include <memory>
 
-#include "basebuilder.h"
 #include "baseloader.h"
-
-class Model;
-class BaseLoader;
 
 class BaseLoadModerator
 {
@@ -15,7 +11,7 @@ public:
     BaseLoadModerator() = default;
     ~BaseLoadModerator() = default;
 
-    virtual std::shared_ptr<Object> load(std::string &name) = 0;
+    virtual std::shared_ptr<Object> load(std::string &fileName) = 0;
     virtual void setLoader(std::shared_ptr<BaseLoader> loader);
 
 protected:

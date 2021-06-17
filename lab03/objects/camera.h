@@ -11,7 +11,7 @@ class Camera : public InvisibleObject
 
 public:
     Camera() = default;
-    explicit Camera(const Vertex &location) : _location(location) { };
+    Camera(const Vertex &location) : _location(location) { }
     ~Camera() override = default;
 
     void transform(const Vertex &move, const Vertex &scale, const Vertex &rotate) override;

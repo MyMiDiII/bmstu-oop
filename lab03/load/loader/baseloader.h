@@ -3,6 +3,9 @@
 
 #include <string>
 #include <fstream>
+#include <memory>
+
+#include "object.h"
 
 class BaseLoader
 {

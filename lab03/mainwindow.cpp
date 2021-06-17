@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -38,12 +40,7 @@ void MainWindow::updateScene()
 
 void MainWindow::checkCamExist()
 {
-    auto cameraNum = std::make_shared<size_t>(0);
-    CountCamera cameraCmd(cameraNum);
-
-    _facade->execute(cameraCmd);
-
-    if (!*cameraNum)
+    if (!_cameras.size())
     {
         std::string msg = "No camera found.";
         throw CameraException(msg);
@@ -52,11 +49,7 @@ void MainWindow::checkCamExist()
 
 void MainWindow::checkModelsExist()
 {
-    auto modelNum = std::make_shared<size_t>(0);
-    CountModel modelCmd(modelNum);
-    _facade->execute(modelCmd);
-
-    if (!*modelNum)
+    if (!_models.size())
     {
         std::string msg = "No models found.";
         throw ModelException(msg);
@@ -65,15 +58,7 @@ void MainWindow::checkModelsExist()
 
 void MainWindow::checkCamDelete()
 {
-    auto modelNum = std::make_shared<size_t>(0);
-    CountModel modelCmd(modelNum);
-    _facade->execute(modelCmd);
-
-    auto cameraNum = std::make_shared<size_t>(0);
-    CountCamera cameraCmd(cameraNum);
-    _facade->execute(cameraCmd);
-
-    if (*cameraNum <= 1 && *modelNum)
+    if (_cameras.size() <= 1 && _models.size())
     {
         std::string msg = "Can not delete the last camera with the loaded models";
         throw CameraException(msg);
@@ -83,17 +68,18 @@ void MainWindow::checkCamDelete()
 void MainWindow::on_addCameraBtn_clicked()
 {
     auto cont = ui->graphicsView->contentsRect();
-    AddCamera addCMD(cont.width() / 2.0, cont.height() / 2.0, 0.0);
+    auto id = std::make_shared<size_t>(0);
+    AddCamera addCMD(id, cont.width() / 2.0, cont.height() / 2.0, 0.0);
+    qDebug() << *id;
     _facade->execute(addCMD);
+    _cameras.push_back(*id);
 
     updateScene();
 
     auto cam = ui->cameraCB;
 
-    if (0 == cam->count())
-        cam->addItem(QString::number(1));
-    else
-        cam->addItem(QString::number(cam->itemText(cam->count() - 1).toInt() + 1));
+    std::string camName = std::string("cam") + std::to_string(_cameras.size());
+    cam->addItem(QString(camName.data()));
 
     ui->cameraCB->setCurrentIndex(ui->cameraCB->count() - 1);
 }
@@ -115,7 +101,9 @@ void MainWindow::on_loadModelBtn_clicked()
     if (file.isNull())
         return;
 
-    LoadModel cmd(file.toUtf8().data());
+    auto id = std::make_shared<size_t>(0);
+    std::string fileName = file.toStdString();
+    LoadModel cmd(id, fileName);
 
     try
     {
@@ -127,6 +115,7 @@ void MainWindow::on_loadModelBtn_clicked()
         return;
     }
 
+    _models.push_back(*id);
     updateScene();
     ui->modelsCB->addItem(QFileInfo(file.toUtf8().data()).fileName());
     ui->modelsCB->setCurrentIndex(ui->modelsCB->count() - 1);
@@ -144,9 +133,11 @@ void MainWindow::on_deleteModelBtn_clicked()
         return;
     }
 
-    DeleteModel cmd(ui->modelsCB->currentIndex());
+    std::size_t id = _models.at(ui->modelsCB->currentIndex());
+    DeleteModel cmd(id);
     _facade->execute(cmd);
 
+    _models.erase(_models.begin() + ui->modelsCB->currentIndex());
     ui->modelsCB->removeItem(ui->modelsCB->currentIndex());
 
     updateScene();
@@ -166,14 +157,17 @@ void MainWindow::on_deleteModelsBtn_clicked()
 
     for (int i = ui->modelsCB->count() - 1; i >= 0; --i)
     {
-        DeleteModel delete_command(i);
-        _facade->execute(delete_command);
+        std::size_t id = _models.at(i);
+        DeleteModel cmd(id);
+        _facade->execute(cmd);
 
+        _models.erase(_models.begin() + i);
         ui->modelsCB->removeItem(i);
     }
 
     updateScene();
 }
+
 
 void MainWindow::on_cameraCB_currentIndexChanged(int index)
 {
@@ -186,10 +180,13 @@ void MainWindow::on_cameraCB_currentIndexChanged(int index)
         return;
     }
 
-    SetCamera cmd(index);
+    std::size_t id = _cameras.at(index);
+    SetCamera cmd(id);
     _facade->execute(cmd);
+
     updateScene();
 }
+
 
 void MainWindow::on_deleteCameraBtn_clicked()
 {
@@ -213,9 +210,11 @@ void MainWindow::on_deleteCameraBtn_clicked()
         return;
     }
 
-    DeleteCamera cmd(ui->cameraCB->currentIndex());
+    std::size_t id = _cameras.at(ui->cameraCB->currentIndex());
+    DeleteCamera cmd(id);
     _facade->execute(cmd);
 
+    _cameras.erase(_cameras.begin() + ui->cameraCB->currentIndex());
     ui->cameraCB->removeItem(ui->cameraCB->currentIndex());
 
     try
@@ -242,7 +241,8 @@ void MainWindow::on_upBtn_clicked()
         return;
     }
 
-    MoveCamera cmd(ui->cameraCB->currentIndex(), 0, 10);
+    std::size_t id = _cameras.at(ui->cameraCB->currentIndex());
+    MoveCamera cmd(0, 10, id);
     _facade->execute(cmd);
     updateScene();
 }
@@ -259,7 +259,8 @@ void MainWindow::on_rigthBtn_clicked()
         return;
     }
 
-    MoveCamera cmd(ui->cameraCB->currentIndex(), -10, 0);
+    std::size_t id = _cameras.at(ui->cameraCB->currentIndex());
+    MoveCamera cmd(-10, 0, id);
     _facade->execute(cmd);
     updateScene();
 }
@@ -276,7 +277,8 @@ void MainWindow::on_downBtn_clicked()
         return;
     }
 
-    MoveCamera cmd(ui->cameraCB->currentIndex(), 0, -10);
+    std::size_t id = _cameras.at(ui->cameraCB->currentIndex());
+    MoveCamera cmd(0, -10, id);
     _facade->execute(cmd);
     updateScene();
 }
@@ -293,7 +295,8 @@ void MainWindow::on_leftBtn_clicked()
         return;
     }
 
-    MoveCamera cmd(ui->cameraCB->currentIndex(), 10, 0);
+    std::size_t id = _cameras.at(ui->cameraCB->currentIndex());
+    MoveCamera cmd(10, 0, id);
     _facade->execute(cmd);
     updateScene();
 }
@@ -320,7 +323,7 @@ void MainWindow::on_moveBtn_clicked()
             ui->dxDSB->value(),
             ui->dyDSB->value(),
             ui->dzDSB->value(),
-            ui->modelsCB->currentIndex());
+            _models.at(ui->modelsCB->currentIndex()));
 
     _facade->execute(cmd);
     updateScene();
@@ -348,7 +351,7 @@ void MainWindow::on_scaleBtn_clicked()
             ui->kxDSB->value(),
             ui->kyDSB->value(),
             ui->kzDSB->value(),
-            ui->modelsCB->currentIndex());
+            _models.at(ui->modelsCB->currentIndex()));
 
     _facade->execute(cmd);
     updateScene();
@@ -376,8 +379,9 @@ void MainWindow::on_rotateBtn_clicked()
             ui->oxDSB->value(),
             ui->oyDSB->value(),
             ui->ozDSB->value(),
-            ui->modelsCB->currentIndex());
+            _models.at(ui->modelsCB->currentIndex()));
 
     _facade->execute(cmd);
     updateScene();
 }
+

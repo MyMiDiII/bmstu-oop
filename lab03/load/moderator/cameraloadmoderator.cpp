@@ -1,14 +1,14 @@
-#include "sceneloadmoderator.h"
+#include "cameraloadmoderator.h"
 #include "exceptions.h"
 
 
-SceneLoadModerator::SceneLoadModerator(std::shared_ptr<BaseSceneLoader> loader) :
-    _builder(new SceneBuilder)
+CameraLoadModerator::CameraLoadModerator(std::shared_ptr<BaseCameraLoader> loader) :
+    _builder(new CameraBuilder)
 {
     _loader = loader;
 }
 
-std::shared_ptr<Object> SceneLoadModerator::load(std::string &fileName)
+std::shared_ptr<Object> CameraLoadModerator::load(std::string &fileName)
 {
     try
     {
@@ -20,11 +20,11 @@ std::shared_ptr<Object> SceneLoadModerator::load(std::string &fileName)
         throw SourceException(msg);
     }
 
-    std::shared_ptr<Object> scene;
+    std::shared_ptr<Camera> camera;
 
     try
     {
-        scene = _loader->load(_builder);
+        camera = _loader->load(_builder);
     }
     catch (std::exception &error)
     {
@@ -35,7 +35,7 @@ std::shared_ptr<Object> SceneLoadModerator::load(std::string &fileName)
 
     _loader->close();
 
-    return scene;
+    return camera;
 }
 
 

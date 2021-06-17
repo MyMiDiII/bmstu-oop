@@ -1,6 +1,7 @@
 #include "modelloadmoderator.h"
 
 #include "exceptions.h"
+#include <QDebug>
 
 
 ModelLoadModerator::ModelLoadModerator(std::shared_ptr<BaseModelLoader> loader) :
@@ -22,7 +23,7 @@ std::shared_ptr<Object> ModelLoadModerator::load(std::string &file_name)
         throw SourceException(msg);
     }
 
-    std::shared_ptr<Object> model;
+    std::shared_ptr<Model> model;
 
     try
     {

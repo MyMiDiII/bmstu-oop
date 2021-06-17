@@ -3,6 +3,7 @@
 Model::Model(const Model &model)
 {
     _modelStructure = model._modelStructure;
+    _id = model._id;
 }
 
 void Model::transform(const Vertex &move, const Vertex &scale, const Vertex &rotate)

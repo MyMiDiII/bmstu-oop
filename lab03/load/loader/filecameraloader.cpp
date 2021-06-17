@@ -39,7 +39,7 @@ void FileCameraLoader::close()
     _file->close();
 }
 
-std::shared_ptr<Object> FileCameraLoader::load(std::shared_ptr<CameraBuilder> builder)
+std::shared_ptr<Camera> FileCameraLoader::load(std::shared_ptr<CameraBuilder> builder)
 {
     builder->build();
 

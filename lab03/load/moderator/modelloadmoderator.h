@@ -10,7 +10,6 @@ class ModelLoadModerator : public BaseLoadModerator
 {
 public:
     explicit ModelLoadModerator(std::shared_ptr<BaseModelLoader> loader);
-
     ~ModelLoadModerator() = default;
 
     std::shared_ptr<Object> load(std::string &fileName) override;

@@ -67,5 +67,7 @@ private:
     QGraphicsScene *_scene;
     std::shared_ptr<Facade> _facade;
     std::shared_ptr<BaseDrawer> _drawer;
+    std::vector<std::size_t> _models;
+    std::vector<std::size_t> _cameras;
 };
 #endif // MAINWINDOW_H

@@ -4,94 +4,75 @@
 #include "scenemanagercreator.h"
 #include "transformmanagercreator.h"
 
+#include <QDebug>
 
-MoveModel::MoveModel(const double &dx, const double &dy, const double &dz, const std::size_t index) :
-    _dx(dx), _dy(dy), _dz(dz), _index(index) { }
+
+MoveModel::MoveModel(const double dx, const double dy, const double dz, const std::size_t id) :
+    _dx(dx), _dy(dy), _dz(dz), _id(id) { }
 
 
 void MoveModel::execute()
 {
-    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
-    std::advance(iter, _index);
-    std::shared_ptr<Object> model = *iter;
+    auto scene = SceneManagerCreator().createManager()->getScene();
 
+    auto iter = scene->getObject(_id);
+    auto model = *iter;
     TransformManagerCreator().createManager()->moveObject(model, _dx, _dy, _dz);
 }
 
 
-ScaleModel::ScaleModel(const double &kx, const double &ky, const double &kz, const std::size_t index) :
-    _kx(kx), _ky(ky), _kz(kz), _index(index) { }
+ScaleModel::ScaleModel(const double kx, const double ky, const double kz, const std::size_t id) :
+    _kx(kx), _ky(ky), _kz(kz), _id(id) { }
 
 void ScaleModel::execute()
 {
-    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
-    std::advance(iter, _index);
-    std::shared_ptr<Object> model = *iter;
+    auto scene = SceneManagerCreator().createManager()->getScene();
 
+    auto iter = scene->getObject(_id);
+    auto model = *iter;
     TransformManagerCreator().createManager()->scaleObject(model, _kx, _ky, _kz);
 }
 
 
-RotateModel::RotateModel(const double &ox, const double &oy,
-                         const double &oz, const std::size_t index) :
-        _ox(ox), _oy(oy), _oz(oz), _index(index) { }
+RotateModel::RotateModel(const double ox, const double oy,
+                         const double oz, const std::size_t id) :
+        _ox(ox), _oy(oy), _oz(oz), _id(id) { }
 
 void RotateModel::execute()
 {
-    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
-    std::advance(iter, _index);
-    std::shared_ptr<Object> model = *iter;
+    auto scene = SceneManagerCreator().createManager()->getScene();
 
+    auto iter = scene->getObject(_id);
+    auto model = *iter;
     TransformManagerCreator().createManager()->rotateObject(model, _ox, _oy, _oz);
 }
 
 
 TransformModel::TransformModel(const Vertex &move, const Vertex &scale,
-                               const Vertex &rotate, const std::size_t index) :
-    _move(move), _scale(scale), _rotate(rotate), _index(index) { }
+                               const Vertex &rotate, const std::size_t id) :
+    _move(move), _scale(scale), _rotate(rotate), _id(id) { }
 
 void TransformModel::execute()
 {
-    auto iter = SceneManagerCreator().createManager()->getScene()->getModels()->begin();
-    std::advance(iter, _index);
-    std::shared_ptr<Object> model = *iter;
+    auto scene = SceneManagerCreator().createManager()->getScene();
 
+    auto iter = scene->getObject(_id);
+    auto model = *iter;
     TransformManagerCreator().createManager()->transformObject(model, _move, _scale, _rotate);
 }
 
 
-AddModel::AddModel(std::shared_ptr<Object> model) : _model(model) { }
-
-void AddModel::execute()
-{
-    SceneManagerCreator().createManager()->getScene()->addModel(_model);
-}
-
-
-DeleteModel::DeleteModel(const std::size_t index) : _index(index) { }
+DeleteModel::DeleteModel(const std::size_t id) : _id(id) { }
 
 void DeleteModel::execute()
 {
-    SceneManagerCreator().createManager()->getScene()->deleteModel(_index);
+    auto scene = SceneManagerCreator().createManager()->getScene();
+    Iterator objIt = scene->getObject(_id);
+    scene->deleteObject(objIt);
 }
 
 
-CountModel::CountModel(const std::shared_ptr<std::size_t> &num) : _num(num) { }
-
-void CountModel::execute()
-{
-    auto scene = \
-            SceneManagerCreator().createManager()->getScene();
-
-    auto modBegin = scene->getModels()->begin();
-    auto modEnd = scene->getModels()->end();
-
-    (*_num) = 0;
-    for (auto it = modBegin; it != modEnd; it++, (*_num)++);
-}
-
-
-LoadModel::LoadModel(std::string fileName) : _fileName(fileName) { }
+LoadModel::LoadModel(const ID &id, std::string &fileName) : _fileName(fileName), _id(id) { }
 
 void LoadModel::execute()
 {
@@ -99,5 +80,8 @@ void LoadModel::execute()
     auto manager = LoadManagerCreator().createManager(moderator);
     auto model = manager->load(_fileName);
 
-    SceneManagerCreator().createManager()->getScene()->addModel(model);
+    SceneManagerCreator().createManager()->getScene()->addObject(model);
+
+    (*_id) = model->getId();
+    qDebug() << "modId" << *_id;
 }

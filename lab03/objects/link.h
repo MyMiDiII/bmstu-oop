@@ -23,15 +23,4 @@ private:
     std::size_t _second;
 };
 
-
-
-
-
-
-
-
-
-
-
-
 #endif //LINK_H

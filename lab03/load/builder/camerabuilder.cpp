@@ -15,7 +15,7 @@ bool CameraBuilder::isBuild() const
     return nullptr != _camera;
 }
 
-std::shared_ptr<Object> CameraBuilder::get()
+std::shared_ptr<Camera> CameraBuilder::get()
 {
     return _camera;
 }

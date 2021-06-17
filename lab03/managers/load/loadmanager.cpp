@@ -1,11 +1,8 @@
 #include "loadmanager.h"
-#include "sceneloadmoderatorcreator.h"
+#include "cameraloadmoderatorcreator.h"
 #include "modelloadmoderator.h"
 
-LoadManager::LoadManager()
-{
-    _loader = SceneLoadModeratorCreator().createModerator();
-}
+#include <QDebug>
 
 std::shared_ptr<Object> LoadManager::load(std::string &name)
 {

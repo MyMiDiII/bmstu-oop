@@ -3,34 +3,24 @@
 
 #include <vector>
 
-#include "object.h"
 #include "composite.h"
 #include "drawvisitor.h"
 
-class Scene : public Object
+class Scene
 {
-    friend void DrawVisitor::visit(const Scene &scene);
 public:
     Scene();
-    ~Scene() override = default;
+    ~Scene() = default;
 
-    std::shared_ptr<Composite> getModels();
-    std::shared_ptr<Composite> getCameras();
+    void addObject(const std::shared_ptr<Object> &object);
+    void deleteObject(Iterator &iter);
+    Iterator getObject(const std::size_t id);
 
-    void addModel(const std::shared_ptr<Object> &model);
-    void deleteModel(const std::size_t index);
-
-    void addCamera(const std::shared_ptr<Object> &camera);
-    void deleteCamera(const std::size_t index);
-
-    void accept(std::shared_ptr<Visitor> visitor) override;
-    void transform(const Vertex &move, const Vertex &scale,
-                   const Vertex &rotate) override {};
+    Iterator begin();
+    Iterator end();
 
 protected:
-    std::shared_ptr<Composite> _models;
-    std::shared_ptr<Composite> _cameras;
-
+    std::shared_ptr<Composite> _objects;
 };
 
 #endif //SCENE_H

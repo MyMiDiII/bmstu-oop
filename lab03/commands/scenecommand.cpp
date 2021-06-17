@@ -3,7 +3,7 @@
 #include "loadmanagercreator.h"
 #include "scenemanagercreator.h"
 #include "transformmanagercreator.h"
-#include "sceneloadmoderatorcreator.h"
+#include "cameraloadmoderatorcreator.h"
 #include "drawvisitorcreator.h"
 
 
@@ -29,9 +29,11 @@ LoadScene::LoadScene(std::string fileName) : _fileName(fileName) { }
 
 void LoadScene::execute()
 {
+    /*
     auto moderator = SceneLoadModeratorCreator().createModerator();
     auto manager = LoadManagerCreator().createManager(moderator);
     auto scene = std::dynamic_pointer_cast<Scene>(manager->load(_fileName));
 
     SceneManagerCreator().createManager()->setScene(scene);
+    */
 }

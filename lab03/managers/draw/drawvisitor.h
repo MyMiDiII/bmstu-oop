@@ -16,7 +16,6 @@ public:
     void visit(const Model &model) override;
     void visit(const Camera &camera) override {};
     void visit(const Composite &composite) override;
-    void visit(const Scene &scene) override;
 
     Vertex getProjection(const Vertex &vertex);
 

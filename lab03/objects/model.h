@@ -16,10 +16,9 @@ class Model : public VisibleObject
     friend void DrawVisitor::visit(const Model &model);
 
 public:
-
     Model() : _modelStructure(new ModelStructure) { }
     explicit Model(const std::shared_ptr<ModelStructure> &modelStructure) :
-        _modelStructure(modelStructure) {};
+        _modelStructure(modelStructure) {}
     Model(const Model &model);
 
     ~Model() override = default;

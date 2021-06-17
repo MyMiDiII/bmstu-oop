@@ -7,6 +7,8 @@
 #include "visitor.h"
 #include "vertex.h"
 
+#include <QDebug>
+
 class Object;
 
 using Iterator = std::vector<std::shared_ptr<Object>>::iterator;
@@ -14,7 +16,7 @@ using Iterator = std::vector<std::shared_ptr<Object>>::iterator;
 class Object
 {
 public:
-    Object() = default;
+    Object() { qDebug() << _id << _nextId; _id = _nextId++; qDebug() << _id << _nextId;};
     virtual ~Object() = default;
 
     virtual bool add(const std::shared_ptr<Object> &) { return false; };
@@ -28,6 +30,12 @@ public:
 
     virtual Iterator begin() { return Iterator(); };
     virtual Iterator end() { return Iterator(); };
+
+    virtual std::size_t getId() { return _id; }
+
+protected:
+    std::size_t _id;
+    static std::size_t _nextId;
 };
 
 

@@ -3,53 +3,47 @@
 #include "scene.h"
 #include "composite.h"
 
-Scene::Scene() : _models(new Composite), _cameras(new Composite)
-{
+#include <QDebug>
 
+Scene::Scene() : _objects(new Composite)
+{
+    qDebug() << "composit is build";
 }
 
-std::shared_ptr<Composite> Scene::getModels()
+void Scene::addObject(const std::shared_ptr<Object> &object)
 {
-    return _models;
-}
-
-std::shared_ptr<Composite> Scene::getCameras()
-{
-    return _cameras;
+    _objects->add(object);
 }
 
 
-void Scene::addModel(const std::shared_ptr<Object> &model)
+void Scene::deleteObject(Iterator &iter)
 {
-    _models->add(model);
+    _objects->remove(iter);
 }
 
-
-void Scene::deleteModel(const std::size_t index)
+Iterator Scene::getObject(const std::size_t id)
 {
-    auto iter = _models->begin();
-    std::advance(iter, index);
-    _models->remove(iter);
+    qDebug() << id;
+
+    auto iter = begin();
+
+    for (; iter != end() && (*iter)->getId() != id; ++iter)
+    {
+        qDebug() << (*iter)->getId();
+    }
+
+    if (iter == end())
+        qDebug() << "no";
+
+    return iter;
 }
 
-
-void Scene::addCamera(const std::shared_ptr<Object> &camera)
+Iterator Scene::begin()
 {
-    _cameras->add(camera);
+    return _objects->begin();
 }
 
-void Scene::deleteCamera(const std::size_t index)
+Iterator Scene::end()
 {
-    auto iter = _cameras->begin();
-    std::advance(iter, index);
-    _cameras->remove(iter);
+    return _objects->end();
 }
-
-void Scene::accept(std::shared_ptr<Visitor> visitor)
-{
-    visitor->visit(*this);
-}
-
-
-
-

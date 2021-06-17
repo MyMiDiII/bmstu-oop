@@ -45,7 +45,7 @@ void FileModelLoader::close()
 }
 
 
-std::shared_ptr<Object> FileModelLoader::load(std::shared_ptr<ModelBuilder> builder)
+std::shared_ptr<Model> FileModelLoader::load(std::shared_ptr<ModelBuilder> builder)
 {
     builder->build();
 
