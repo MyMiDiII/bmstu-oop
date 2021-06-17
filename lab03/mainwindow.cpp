@@ -70,7 +70,6 @@ void MainWindow::on_addCameraBtn_clicked()
     auto cont = ui->graphicsView->contentsRect();
     auto id = std::make_shared<size_t>(0);
     AddCamera addCMD(id, cont.width() / 2.0, cont.height() / 2.0, 0.0);
-    qDebug() << *id;
     _facade->execute(addCMD);
     _cameras.push_back(*id);
 

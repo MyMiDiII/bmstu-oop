@@ -16,7 +16,7 @@ using Iterator = std::vector<std::shared_ptr<Object>>::iterator;
 class Object
 {
 public:
-    Object() { qDebug() << _id << _nextId; _id = _nextId++; qDebug() << _id << _nextId;};
+    Object() { _id = _nextId++; };
     virtual ~Object() = default;
 
     virtual bool add(const std::shared_ptr<Object> &) { return false; };

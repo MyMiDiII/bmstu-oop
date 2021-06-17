@@ -7,7 +7,7 @@
 
 Scene::Scene() : _objects(new Composite)
 {
-    qDebug() << "composit is build";
+
 }
 
 void Scene::addObject(const std::shared_ptr<Object> &object)
@@ -23,17 +23,9 @@ void Scene::deleteObject(Iterator &iter)
 
 Iterator Scene::getObject(const std::size_t id)
 {
-    qDebug() << id;
-
     auto iter = begin();
 
-    for (; iter != end() && (*iter)->getId() != id; ++iter)
-    {
-        qDebug() << (*iter)->getId();
-    }
-
-    if (iter == end())
-        qDebug() << "no";
+    for (; iter != end() && (*iter)->getId() != id; ++iter);
 
     return iter;
 }

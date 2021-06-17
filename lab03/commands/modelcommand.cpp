@@ -83,5 +83,4 @@ void LoadModel::execute()
     SceneManagerCreator().createManager()->getScene()->addObject(model);
 
     (*_id) = model->getId();
-    qDebug() << "modId" << *_id;
 }

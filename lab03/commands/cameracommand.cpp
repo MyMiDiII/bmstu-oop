@@ -18,7 +18,6 @@ void AddCamera::execute()
     sceneManager->getScene()->addObject(camera);
 
     (*_id) = camera->getId();
-    qDebug() << "camId" << *_id;
 };
 
 
