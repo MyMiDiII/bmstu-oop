@@ -18,6 +18,7 @@ public:
     ~LoadManager() = default;
 
     std::shared_ptr<Object> load(std::string &name);
+    std::shared_ptr<Scene> loadScene(std::string &name);
     void setLoader(std::shared_ptr<BaseLoadModerator> loader);
     void setSceneLoader(std::shared_ptr<SceneLoadModerator> loader);
 
