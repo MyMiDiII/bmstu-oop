@@ -27,6 +27,7 @@ void MainWindow::setupScene()
 
     auto cont = ui->graphicsView->contentsRect();
     _scene->setSceneRect(0, 0, cont.width(), cont.height());
+    _camInd = 1;
 
     std::shared_ptr<DrawerFactory> factory(new QtFactory(_scene));
     _drawer = factory->createDrawer();
@@ -77,7 +78,7 @@ void MainWindow::on_addCameraBtn_clicked()
 
     auto cam = ui->cameraCB;
 
-    std::string camName = std::string("cam") + std::to_string(_cameras.size());
+    std::string camName = std::string("cam") + std::to_string(_camInd++);
     cam->addItem(QString(camName.data()));
 
     ui->cameraCB->setCurrentIndex(ui->cameraCB->count() - 1);
@@ -95,7 +96,7 @@ void MainWindow::on_loadModelBtn_clicked()
         return;
     }
 
-    auto file = QFileDialog::getOpenFileName(nullptr, "Загрузка модели", "/home/mymidi/01_BMSTU/bmstu-oop/lab03/data");
+    auto file = QFileDialog::getOpenFileName(nullptr, "Загрузка модели", "../lab_03/data");
 
     if (file.isNull())
         return;

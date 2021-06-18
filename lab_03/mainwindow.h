@@ -69,5 +69,6 @@ private:
     std::shared_ptr<BaseDrawer> _drawer;
     std::vector<std::size_t> _models;
     std::vector<std::size_t> _cameras;
+    std::size_t _camInd;
 };
 #endif // MAINWINDOW_H
